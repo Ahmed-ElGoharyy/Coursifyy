@@ -64,6 +64,15 @@
     <ClCompile Include="grade.cpp">
       <Filter>UML %28Classes%29</Filter>
     </ClCompile>
+    <ClCompile Include="student.cpp">
+      <Filter>UML %28Classes%29</Filter>
+    </ClCompile>
+    <ClCompile Include="courseSystem.cpp">
+      <Filter>UML %28Classes%29</Filter>
+    </ClCompile>
+    <ClCompile Include="course.cpp">
+      <Filter>UML %28Classes%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="user.h">
@@ -73,6 +82,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="grade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="student.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="courseSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="course.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
