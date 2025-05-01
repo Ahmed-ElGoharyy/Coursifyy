@@ -103,8 +103,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="admin.cpp" />
+    <ClCompile Include="grade.cpp" />
     <ClCompile Include="user.cpp" />
     <ClInclude Include="admin.h" />
+    <ClInclude Include="grade.h" />
     <ClInclude Include="user.h" />
     <QtRcc Include="Coursify.qrc" />
     <QtUic Include="Coursify.ui" />
