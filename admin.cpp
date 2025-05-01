@@ -100,5 +100,5 @@ bool admin::manageGrades( grade& grade, string courseID) {
 
 
 bool admin::uploadGradesCSV(vector< student*> students, map<string, class grade*> grades) {
-    
+    return true;
 }
