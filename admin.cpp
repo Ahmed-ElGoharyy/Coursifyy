@@ -33,7 +33,7 @@ bool admin::uploadCourseDescription(course& course, string courseID) {
         
         string newDescription;
         cout << "Enter new course description: ";
-        getline(cin, newDescription); //getline 3l4ane ya5od elinput kolo m4 awl klma
+        cin >> newDescription;
         
         // Update course description
         //course.setDescription(newDescription);
@@ -46,10 +46,10 @@ bool admin::uploadCourseDescription(course& course, string courseID) {
     }
 }
 
-// Set prerequisites for a course
-bool admin::setPrerequisites( course& course, list< course*> prerequisites) {
+
+bool admin::setPrerequisites( course& course, list<class course*> prerequisites) {
     try {
-        
+       
         if (prerequisites.empty()) {
             cout << "No prerequisites to set" << endl;
             return true;
@@ -74,15 +74,19 @@ bool admin::setPrerequisites( course& course, list< course*> prerequisites) {
 }
 
 
-bool admin::manageGrades( grade& grade, string courseID) {
+bool admin::manageGrades(class student& student, class grade& grade, string courseID) {
     try {
-        
+        // Check if course ID is valid
         if (courseID.empty()) {
             cout << "Error: Invalid course ID" << endl;
             return false;
         }
         
+        // Get student ID
+       // long studentID = student.getStudentID();
+        //cout << "Managing grades for student ID: " << studentID << endl;
         
+        // Get new grade value
         string newGrade;
         cout << "Enter new grade (A, B, C, D, F): ";
         getline(cin, newGrade);
@@ -90,7 +94,10 @@ bool admin::manageGrades( grade& grade, string courseID) {
         // Update grade value
         //grade.setGrade(newGrade);
         
-        cout << "Grade updated successfully for course ID: " << courseID << endl;
+        // Update student's course grades
+        //student.updateGrade(courseID, newGrade);
+        
+       // cout << "Grade updated successfully for student ID: " << studentID << " in course ID: " << courseID << endl;
         return true;
     } catch (exception& e) {
         cout << "Error managing grades: " << e.what() << endl;
@@ -99,6 +106,7 @@ bool admin::manageGrades( grade& grade, string courseID) {
 }
 
 
-bool admin::uploadGradesCSV(vector< student*> students, map<string, class grade*> grades) {
+// Upload grades from CSV for multiple students
+bool admin::uploadGradesCSV(map<string,student>students, map<string,  grade*> grades) {
     return true;
 }

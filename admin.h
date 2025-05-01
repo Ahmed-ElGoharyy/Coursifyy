@@ -23,12 +23,10 @@ class admin
     
        bool uploadCourseDescription(course& course ,string courseID);
 
-       bool setPrerequisites(course& course, list<course*> prerequisites);
+       bool setPrerequisites(class course& course, list<class course*> prerequisites);
 
-       bool manageGrades(grade& grade, string courseID);
+    bool manageGrades(student &student,grade& grade, string courseID);
        
-       bool uploadGradesCSV(vector<student*> students, map<string, grade*> grades);
+       bool uploadGradesCSV(map<string,student>students, map<string, grade*> grades);
 
 };
-
-
