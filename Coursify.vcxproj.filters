@@ -35,9 +35,6 @@
     <QtRcc Include="Coursify.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="Coursify.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="Coursify.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -93,5 +90,15 @@
     <ClInclude Include="course.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Coursify.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\online-learning.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
