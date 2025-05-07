@@ -30,6 +30,9 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{388cfe1f-b025-4f78-8cc9-5530a2fed896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{80b849da-7c09-4b05-a115-14c44637f6db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Coursify.qrc">
@@ -69,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="course.cpp">
       <Filter>UML %28Classes%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

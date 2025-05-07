@@ -108,6 +108,7 @@
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="student.cpp" />
     <ClCompile Include="user.cpp" />
+    <ClCompile Include="Utilities.cpp" />
     <ClInclude Include="admin.h" />
     <ClInclude Include="course.h" />
     <ClInclude Include="courseSystem.h" />
