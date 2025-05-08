@@ -76,6 +76,9 @@
     <ClCompile Include="Utilities.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="FileUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="user.h">
@@ -99,6 +102,9 @@
     <ClInclude Include="Utilities.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="FileUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Coursify.ui">
@@ -109,5 +115,10 @@
     <Image Include="..\..\..\Downloads\online-learning.png">
       <Filter>Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\admins.json" />
+    <None Include="D:\courses.json" />
+    <None Include="D:\students.json" />
   </ItemGroup>
 </Project>
