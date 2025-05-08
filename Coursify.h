@@ -13,4 +13,5 @@ public:
 
 private:
     Ui::CoursifyClass ui;
+
 };

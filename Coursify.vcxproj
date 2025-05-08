@@ -115,6 +115,7 @@
     <ClInclude Include="grade.h" />
     <ClInclude Include="student.h" />
     <ClInclude Include="user.h" />
+    <ClInclude Include="Utilities.h" />
     <QtRcc Include="Coursify.qrc" />
     <QtMoc Include="Coursify.h" />
     <ClCompile Include="Coursify.cpp" />
