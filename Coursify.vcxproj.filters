@@ -109,5 +109,8 @@
     <Image Include="..\..\..\Downloads\Icon.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="asu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
