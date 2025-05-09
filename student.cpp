@@ -1,33 +1,33 @@
-#include "student.h"
+
+
+// Implementation
 #include "stdafx.h"
+#include "student.h"
+#include <iostream>
+
+using namespace std;
+
 // Initialize the static counter
 long student::counter = 0;
 
 // Default constructor
 student::student() : user(), StudentID(++counter), gpa(0.0f) {
+    // The role needs to be explicitly set to 'S' for Student
+    setRole('S');
 }
 
 // Parameterized constructor
 student::student(string username, string password, string name, string email) noexcept(false)
-    : user() {
+    : user(username, password, name, email, 'S'), StudentID(++counter), gpa(0.0f) {
     // Validate input parameters
     if (username.empty() || password.empty() || name.empty() || email.empty()) {
         throw student_exception("All student fields must be provided");
     }
-
-    // Set user properties
-    setUsername(username);
-    setPassword(password);
-    setName(name);
-    setEmail(email);
-
-    // Initialize student-specific properties
-    StudentID = ++counter;
-    gpa = 0.0f;
+    // Note: the user constructor already validates and sets these properties
 }
 
 // Search for a course by name
-course student::searchCourse(string courseName) noexcept(false) {
+course student::searchCourse(string courseName) const noexcept(false) {
     for (const auto& pair : courses) {
         if (pair.second.getTitle() == courseName) {
             return pair.second;
@@ -107,7 +107,7 @@ float student::calculateGPA() noexcept(false) {
 }
 
 // Generate a report of all courses and grades
-bool student::generateReport() noexcept(false) {
+bool student::generateReport() const noexcept(false) {
     try {
         string filename = "report_" + to_string(StudentID) + ".txt";
         ofstream report(filename);
@@ -122,7 +122,35 @@ bool student::generateReport() noexcept(false) {
         report << "Name: " << getName() << "\n";
         report << "ID: " << StudentID << "\n";
         report << "Email: " << getEmail() << "\n";
-        report << "GPA: " << fixed << setprecision(2) << calculateGPA() << "\n\n";
+
+        // Calculate GPA dynamically since this is a const method
+        float currentGPA = 0.0f;
+        float totalPoints = 0.0f;
+        int totalCredits = 0;
+
+        for (const auto& pair : grades) {
+            long courseID = pair.first;
+            const grade& g = pair.second;
+
+            // Skip courses with no grade assigned yet
+            if (g.getGrade() == 'N') {
+                continue;
+            }
+
+            // Find the course to get its credit hours
+            auto courseIter = courses.find(courseID);
+            if (courseIter != courses.end()) {
+                int credits = courseIter->second.getCreditHours();
+                totalPoints += g.getGPA() * credits;
+                totalCredits += credits;
+            }
+        }
+
+        if (totalCredits > 0) {
+            currentGPA = totalPoints / totalCredits;
+        }
+
+        report << "GPA: " << fixed << setprecision(2) << currentGPA << "\n\n";
 
         // Course details
         report << "Courses:\n";
