@@ -2,6 +2,7 @@
 #include "user.h"
 #include <algorithm>
 #include <stdexcept>
+#include <cctype>
 
 using namespace std;
 
@@ -40,19 +41,32 @@ bool user::isValidEmail(const string& email) {
     return regex_match(email, pattern);
 }
 
+// Validate role (only 'A' or 'S' allowed)
+bool user::isValidRole(char role) {
+    role = toupper(role);
+    return role == 'A' || role == 'S';
+}
+
 // Initialize user with validated fields
-user::user(const string& username, const string& password,
-    const string& name, const string& email,
-    const vector<string>& roles) {
+user::user(string username, string password, string name, string email, char role) {
     setUsername(username);
     setName(name);
     setEmail(email);
+    setRole(role);
 
     if (!isValidPassword(password)) {
         throw invalid_argument("Password does not meet requirements");
     }
     passwordHash = hashPassword(password);
-    this->roles = roles;
+}
+
+// Returns role as string ("Admin" or "Student")
+string user::getRoleString() const {
+    switch (role) {
+    case 'A': return "Admin";
+    case 'S': return "Student";
+    default: return "Unknown";
+    }
 }
 
 // Verify if provided password matches stored hash
@@ -82,6 +96,14 @@ void user::setEmail(const string& email) {
     this->email = email;
 }
 
+void user::setRole(char role) {
+    role = toupper(role);
+    if (!isValidRole(role)) {
+        throw invalid_argument("Role must be 'A' (Admin) or 'S' (Student)");
+    }
+    this->role = role;
+}
+
 // Change password after verifying old password
 bool user::changePassword(const string& oldPassword, const string& newPassword) {
     if (hashPassword(oldPassword) != passwordHash) return false;
@@ -91,15 +113,7 @@ bool user::changePassword(const string& oldPassword, const string& newPassword) 
     passwordHash = hashPassword(newPassword);
     return true;
 }
-
-// Role management
-void user::addRole(const string& role) {
-    if (role.empty()) throw invalid_argument("Role cannot be empty");
-    if (find(roles.begin(), roles.end(), role) == roles.end()) {
-        roles.push_back(role);
-    }
-}
-
-void user::removeRole(const string& role) {
-    roles.erase(remove(roles.begin(), roles.end(), role), roles.end());
+bool user::setPassword(const string& pass) {
+    passwordHash = hashPassword(pass);
+    return true;
 }
