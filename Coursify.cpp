@@ -11,11 +11,11 @@ Coursify::Coursify(QWidget* parent)
     ui.stackedWidget->setCurrentWidget(ui.Login);   //to start at login page "Awl haga"
 
 
-    connect(ui.signup_button, &QPushButton::clicked, this, [=]() {         //Register transition
+    connect(ui.signup_button, &QPushButton::clicked, this, [=]() {         //  Register transition
         ui.stackedWidget->setCurrentWidget(ui.Register);
         });
 
-    connect(ui.back_button, &QPushButton::clicked, this, [=]() {           //Back transition in Register
+    connect(ui.back_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
 
@@ -24,6 +24,10 @@ Coursify::Coursify(QWidget* parent)
         ui.Register_S3, ui.Register_S4,
         ui.Register_A1, ui.Register_A2,
         ui.Register_A3, ui.Register_A4);
+
+
+
+
     m_system = new courseSystem();
     if (!m_system->loadData()) {
         QMessageBox::warning(this, "Data Loading Error",
