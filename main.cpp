@@ -13,7 +13,10 @@ int main(int argc, char *argv[])
     else {
         std::cout << "Error loading data" << std::endl;
     }
+
+   
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon("Icon.png"));
     Coursify w;
     w.show();
     return a.exec();

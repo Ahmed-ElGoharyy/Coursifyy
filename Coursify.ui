@@ -1928,7 +1928,7 @@ background-color: #007074</string>
        <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>720</x>
+          <x>690</x>
           <y>30</y>
           <width>221</width>
           <height>161</height>
@@ -1938,7 +1938,7 @@ background-color: #007074</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../../../Downloads/online-learning.png</pixmap>
+         <pixmap>Icon.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -1947,7 +1947,7 @@ background-color: #007074</string>
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>320</x>
+          <x>290</x>
           <y>90</y>
           <width>381</width>
           <height>101</height>
@@ -1978,7 +1978,7 @@ border-radius: 40px;
        <widget class="QLabel" name="label_10">
         <property name="geometry">
          <rect>
-          <x>380</x>
+          <x>350</x>
           <y>230</y>
           <width>521</width>
           <height>31</height>
@@ -3205,7 +3205,7 @@ color:#872341;
        <widget class="QPushButton" name="Register_signup">
         <property name="geometry">
          <rect>
-          <x>550</x>
+          <x>530</x>
           <y>570</y>
           <width>191</width>
           <height>91</height>

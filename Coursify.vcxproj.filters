@@ -24,12 +24,6 @@
     <Filter Include="UML %28Classes%29">
       <UniqueIdentifier>{e1b45c5a-2eef-43f0-84df-468400b3d81d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structures">
-      <UniqueIdentifier>{ffd09d5b-4711-4fd6-9647-70e4e1299992}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{388cfe1f-b025-4f78-8cc9-5530a2fed896}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utilities">
       <UniqueIdentifier>{80b849da-7c09-4b05-a115-14c44637f6db}</UniqueIdentifier>
     </Filter>
@@ -112,8 +106,8 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\online-learning.png">
-      <Filter>Resources</Filter>
+    <Image Include="..\..\..\Downloads\Icon.png">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>
