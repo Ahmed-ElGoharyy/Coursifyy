@@ -15,8 +15,9 @@ Coursify::Coursify(QWidget* parent)
         ui.stackedWidget->setCurrentWidget(ui.Register);
         });
 
-    connect(ui.back_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register
+    connect(ui.back_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register    
         ui.stackedWidget->setCurrentWidget(ui.Login);
+     
         });
 
     setupRadioButtonLogic(ui.radioButtonA, ui.radioButtonS,

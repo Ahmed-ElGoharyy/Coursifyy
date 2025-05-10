@@ -14,6 +14,7 @@ private:
     std::unordered_map<long, admin> admins;
     user* currentUser;
 
+
     bool authenticateUser(const std::string& username, const std::string& password, user*& loggedUser);
 
 public:

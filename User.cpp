@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 user::user(string username, string password, string name, string email, char role) {
     setUsername(username);
     setName(name);
@@ -13,6 +14,7 @@ user::user(string username, string password, string name, string email, char rol
     setPassword(password);
     setRole(role);
 }
+
 
 user::user(string username, string password, string name, string email) {
     setUsername(username);
@@ -22,6 +24,7 @@ user::user(string username, string password, string name, string email) {
     setRole('S'); // Default to Student
 }
 
+
 string user::hashPassword(const string& password)
 {
     hash<string> hasher;
@@ -29,6 +32,7 @@ string user::hashPassword(const string& password)
     size_t h2 = hasher(to_string(h1) + "salt"); // Basic salt
     return to_string(h1 ^ h2); // Combine hashes
 }
+
 
 // Username must be 3-20 alphanumeric chars (underscore allowed)
 bool user::isValidUsername(const string& username) {

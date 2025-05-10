@@ -88,6 +88,7 @@ bool courseSystem::authenticateUser(const std::string& username, const std::stri
         }
     }
 
+
     for (auto& pair : admins) {
         if (pair.second.getUsername() == username) {
             if (pair.second.authenticate(password)) {
@@ -100,6 +101,8 @@ bool courseSystem::authenticateUser(const std::string& username, const std::stri
 
     return false;
 }
+
+
 
 bool courseSystem::login(const std::string& username, const std::string& password, user*& loggedUser) {
     return authenticateUser(username, password, loggedUser);
@@ -286,9 +289,12 @@ bool courseSystem::enrollStudentInCourse(long studentID, long courseID) {
     return false;
 }
 
+
 bool courseSystem::loadData() {
     return FileUtils::loadAllData(*this);
 }
+
+
 
 bool courseSystem::saveData() {
     return FileUtils::saveAllData(*this);
