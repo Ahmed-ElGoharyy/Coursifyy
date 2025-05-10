@@ -11,7 +11,7 @@ courseSystem::courseSystem() {
     if (!loadData()) {
         if (admins.empty()) {
             admin defaultAdmin("admin", "admin123", "Administrator", "admin@school.edu");
-            admins[defaultAdmin.getAdminID()] = defaultAdmin;
+            admins[defaultAdmin.getUsername()] = defaultAdmin;
             saveData();
         }
     }
@@ -26,10 +26,8 @@ courseSystem::~courseSystem() {
 bool courseSystem::registerStudent(const std::string& username, const std::string& password,
     const std::string& name, const std::string& email) {
     try {
-        for (const auto& pair : students) {
-            if (pair.second.getUsername() == username) {
-                return false;
-            }
+        if (students.find(username) != students.end()) {
+            return false;
         }
 
         student newStudent(username, password, name, email);
@@ -37,7 +35,7 @@ bool courseSystem::registerStudent(const std::string& username, const std::strin
             newStudent.isValidPassword(password) &&
             newStudent.isValidEmail(email)) {
 
-            students[newStudent.getStudentID()] = newStudent;
+            students[username] = newStudent;
             saveData();
             return true;
         }
@@ -53,10 +51,8 @@ bool courseSystem::registerStudent(const std::string& username, const std::strin
 bool courseSystem::registerAdmin(const std::string& username, const std::string& password,
     const std::string& name, const std::string& email) {
     try {
-        for (const auto& pair : admins) {
-            if (pair.second.getUsername() == username) {
-                return false;
-            }
+        if (admins.find(username) != admins.end()) {
+            return false;
         }
 
         admin newAdmin(username, password, name, email);
@@ -64,7 +60,7 @@ bool courseSystem::registerAdmin(const std::string& username, const std::string&
             newAdmin.isValidPassword(password) &&
             newAdmin.isValidEmail(email)) {
 
-            admins[newAdmin.getAdminID()] = newAdmin;
+            admins[username] = newAdmin;
             saveData();
             return true;
         }
@@ -78,25 +74,22 @@ bool courseSystem::registerAdmin(const std::string& username, const std::string&
 }
 
 bool courseSystem::authenticateUser(const std::string& username, const std::string& password, user*& loggedUser) {
-    for (auto& pair : students) {
-        if (pair.second.getUsername() == username) {
-            if (pair.second.authenticate(password)) {
-                loggedUser = &pair.second;
-                return true;
-            }
-            return false;
+    auto studentIt = students.find(username);
+    if (studentIt != students.end()) {
+        if (studentIt->second.authenticate(password)) {
+            loggedUser = &studentIt->second;
+            return true;
         }
+        return false;
     }
 
-
-    for (auto& pair : admins) {
-        if (pair.second.getUsername() == username) {
-            if (pair.second.authenticate(password)) {
-                loggedUser = &pair.second;
-                return true;
-            }
-            return false;
+    auto adminIt = admins.find(username);
+    if (adminIt != admins.end()) {
+        if (adminIt->second.authenticate(password)) {
+            loggedUser = &adminIt->second;
+            return true;
         }
+        return false;
     }
 
     return false;
@@ -178,79 +171,73 @@ std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) c
 }
 
 bool courseSystem::addStudent(const student& newStudent) {
-    long studentID = newStudent.getStudentID();
-    if (students.find(studentID) != students.end()) {
+    std::string username = newStudent.getUsername();
+    if (students.find(username) != students.end()) {
         return false;
     }
 
-    students[studentID] = newStudent;
+    students[username] = newStudent;
     saveData();
     return true;
 }
 
-bool courseSystem::updateStudent(long studentID, const student& updatedStudent) {
-    if (students.find(studentID) == students.end()) {
+bool courseSystem::updateStudent(const std::string& username, const student& updatedStudent) {
+    if (students.find(username) == students.end()) {
         return false;
     }
 
-    students[studentID] = updatedStudent;
+    students[username] = updatedStudent;
     saveData();
     return true;
 }
 
 student* courseSystem::getStudent(long studentID) {
-    auto it = students.find(studentID);
+    for (auto& pair : students) {
+        if (pair.second.getStudentID() == studentID) {
+            return &pair.second;
+        }
+    }
+    return nullptr;
+}
+
+student* courseSystem::getStudentByUsername(const std::string& username) {
+    auto it = students.find(username);
     if (it != students.end()) {
         return &it->second;
     }
     return nullptr;
 }
 
-student* courseSystem::getStudentByUsername(const std::string& username) {
-    for (auto& pair : students) {
-        if (pair.second.getUsername() == username) {
-            return &pair.second;
-        }
-    }
-    return nullptr;
-}
-
 bool courseSystem::addAdmin(const admin& newAdmin) {
-    long adminID = newAdmin.getAdminID();
-    if (admins.find(adminID) != admins.end()) {
+    std::string username = newAdmin.getUsername();
+    if (admins.find(username) != admins.end()) {
         return false;
     }
 
-    for (const auto& pair : admins) {
-        if (pair.second.getUsername() == newAdmin.getUsername()) {
-            return false;
-        }
-    }
-
-    admins[adminID] = newAdmin;
+    admins[username] = newAdmin;
     saveData();
     return true;
 }
 
 admin* courseSystem::getAdminByUsername(const std::string& username) {
-    for (auto& pair : admins) {
-        if (pair.second.getUsername() == username) {
-            return &pair.second;
-        }
-    }
-    return nullptr;
-}
-
-admin* courseSystem::getAdmin(long adminID) {
-    auto it = admins.find(adminID);
+    auto it = admins.find(username);
     if (it != admins.end()) {
         return &it->second;
     }
     return nullptr;
 }
 
-bool courseSystem::updateStudentGrade(long studentID, long courseID, const grade& newGrade) {
-    student* s = getStudent(studentID);
+admin* courseSystem::getAdmin(long adminID) {
+    for (auto& pair : admins) {
+        if (pair.second.getAdminID() == adminID) {
+            return &pair.second;
+        }
+    }
+    return nullptr;
+}
+
+bool courseSystem::updateStudentGrade(const std::string& username, long courseID, const grade& newGrade) {
+    student* s = getStudentByUsername(username);
     if (!s) {
         return false;
     }
@@ -267,8 +254,8 @@ bool courseSystem::updateStudentGrade(long studentID, long courseID, const grade
     return result;
 }
 
-bool courseSystem::enrollStudentInCourse(long studentID, long courseID) {
-    student* s = getStudent(studentID);
+bool courseSystem::enrollStudentInCourse(const std::string& username, long courseID) {
+    student* s = getStudentByUsername(username);
     course* c = getCourse(courseID);
 
     if (!s || !c) return false;

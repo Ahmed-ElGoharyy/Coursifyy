@@ -1,1 +1,106 @@
-[]
+[
+    {
+        "courses": [
+            {
+                "course": {
+                    "course_id": 101,
+                    "credit_hours": 3,
+                    "description": "Basic concepts of computer systems",
+                    "enrolled": true,
+                    "instructor": "Prof. Smith",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Introduction to algorithms and data structures",
+                    "title": "Introduction to Computer Science"
+                },
+                "grade": {
+                    "gpa": 4.0,
+                    "grade": "A",
+                    "semester": 1,
+                    "year": 2024
+                }
+            },
+            {
+                "course": {
+                    "course_id": 102,
+                    "credit_hours": 4,
+                    "description": "Fundamental data structures and algorithms",
+                    "enrolled": true,
+                    "instructor": "Prof. Johnson",
+                    "prerequisites": [
+                        101
+                    ],
+                    "semester": "Spring",
+                    "syllabus": "Arrays, linked lists, trees, graphs, and algorithms",
+                    "title": "Data Structures"
+                },
+                "grade": {
+                    "gpa": 3.0,
+                    "grade": "B",
+                    "semester": 2,
+                    "year": 2024
+                }
+            }
+        ],
+        "email": "john.doe@student.edu",
+        "gpa": 3.4285714626312256,
+        "max_credit_hours": 18,
+        "name": "John Doe",
+        "password": "1a2b3c4d5e6f7890",
+        "role": "S",
+        "student_id": 1001,
+        "username": "student1"
+    },
+    {
+        "courses": [
+            {
+                "course": {
+                    "course_id": 101,
+                    "credit_hours": 3,
+                    "description": "Basic concepts of computer systems",
+                    "enrolled": true,
+                    "instructor": "Prof. Smith",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Introduction to algorithms and data structures",
+                    "title": "Introduction to Computer Science"
+                },
+                "grade": {
+                    "gpa": 4.0,
+                    "grade": "A",
+                    "semester": 1,
+                    "year": 2024
+                }
+            },
+            {
+                "course": {
+                    "course_id": 103,
+                    "credit_hours": 3,
+                    "description": "Database design and implementation",
+                    "enrolled": true,
+                    "instructor": "Prof. Williams",
+                    "prerequisites": [
+                        101
+                    ],
+                    "semester": "Fall",
+                    "syllabus": "Relational databases, SQL, and NoSQL",
+                    "title": "Database Systems"
+                },
+                "grade": {
+                    "gpa": 4.0,
+                    "grade": "A",
+                    "semester": 1,
+                    "year": 2024
+                }
+            }
+        ],
+        "email": "jane.smith@student.edu",
+        "gpa": 4.0,
+        "max_credit_hours": 21,
+        "name": "Jane Smith",
+        "password": "1a2b3c4d5e6f7890",
+        "role": "S",
+        "student_id": 1002,
+        "username": "student2"
+    }
+]
