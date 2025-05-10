@@ -3,7 +3,7 @@
         "admin_id": 1,
         "email": "admin@school.edu",
         "name": "Administrator",
-        "password": "admin123",
+        "password": "13927433014252240923", //Password123
         "role": "A",
         "username": "admin"
     },
@@ -11,7 +11,7 @@
         "admin_id": 2,
         "email": "dean.johnson@school.edu",
         "name": "Dean Johnson",
-        "password": "Dean456",
+        "password": "13927433014252240923", //Password123
         "role": "A",
         "username": "dean"
     }

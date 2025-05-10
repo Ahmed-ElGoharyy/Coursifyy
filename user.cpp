@@ -6,8 +6,24 @@
 
 using namespace std;
 
-// Create password hash with simple salting
-string user::hashPassword(const string& password) {
+user::user(string username, string password, string name, string email, char role) {
+    setUsername(username);
+    setName(name);
+    setEmail(email);
+    setPassword(password);
+    setRole(role);
+}
+
+user::user(string username, string password, string name, string email) {
+    setUsername(username);
+    setName(name);
+    setEmail(email);
+    setPassword(password);
+    setRole('S'); // Default to Student
+}
+
+string user::hashPassword(const string& password)
+{
     hash<string> hasher;
     size_t h1 = hasher(password);
     size_t h2 = hasher(to_string(h1) + "salt"); // Basic salt
@@ -47,31 +63,9 @@ bool user::isValidRole(char role) {
     return role == 'A' || role == 'S';
 }
 
-// Initialize user with validated fields
-user::user(string username, string password, string name, string email, char role) {
-    setUsername(username);
-    setName(name);
-    setEmail(email);
-    setRole(role);
-
-    if (!isValidPassword(password)) {
-        throw invalid_argument("Password does not meet requirements");
-    }
-    passwordHash = hashPassword(password);
-}
-
-// Returns role as string ("Admin" or "Student")
-string user::getRoleString() const {
-    switch (role) {
-    case 'A': return "Admin";
-    case 'S': return "Student";
-    default: return "Unknown";
-    }
-}
-
-// Verify if provided password matches stored hash
-bool user::authenticate(const string& password) const {
-    return hashPassword(password) == passwordHash;
+// Verify if provided password matches stored password
+bool user::authenticate(const string& pass) const {
+    return hashPassword(pass) == this->password;
 }
 
 // Setter methods with validation
@@ -99,21 +93,23 @@ void user::setEmail(const string& email) {
 void user::setRole(char role) {
     role = toupper(role);
     if (!isValidRole(role)) {
-        throw invalid_argument("Role must be 'A' (Admin) or 'S' (Student)");
+        throw invalid_argument("Invalid role (must be 'A' or 'S')");
     }
     this->role = role;
 }
 
+// Set password after validation
+bool user::setPassword(const string& pass) {
+    password = pass;
+    return true;
+}
+
 // Change password after verifying old password
 bool user::changePassword(const string& oldPassword, const string& newPassword) {
-    if (hashPassword(oldPassword) != passwordHash) return false;
+    if (oldPassword != password) return false;
     if (!isValidPassword(newPassword)) {
         throw invalid_argument("New password doesn't meet requirements");
     }
-    passwordHash = hashPassword(newPassword);
-    return true;
-}
-bool user::setPassword(const string& pass) {
-    passwordHash = hashPassword(pass);
+    password = newPassword;
     return true;
 }

@@ -46,7 +46,7 @@
         "gpa": 3.4285714626312256,
         "max_credit_hours": 15,
         "name": "John Doe",
-        "password": "Student123",
+        "password": "13927433014252240923", //Password123
         "role": "S",
         "student_id": 1000,
         "username": "student1"
@@ -98,7 +98,7 @@
         "gpa": 4.0,
         "max_credit_hours": 12,
         "name": "Jane Smith",
-        "password": "Student456",
+        "password": "13927433014252240923", //Password123
         "role": "S",
         "student_id": 1001,
         "username": "student2"
