@@ -1,1 +1,52 @@
-[]
+[
+    {
+        "course_id": 1000,
+        "credit_hours": 3,
+        "description": "Basic concepts of programming and algorithms",
+        "enrolled": true,
+        "instructor": "Dr. Smith",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "CS101 syllabus content",
+        "title": "Introduction to Computer Science"
+    },
+    {
+        "course_id": 1001,
+        "credit_hours": 4,
+        "description": "Fundamental data structures and algorithms",
+        "enrolled": true,
+        "instructor": "Dr. Johnson",
+        "prerequisites": [
+            1000
+        ],
+        "semester": "Spring",
+        "syllabus": "CS201 syllabus content",
+        "title": "Data Structures"
+    },
+    {
+        "course_id": 1002,
+        "credit_hours": 3,
+        "description": "Introduction to database design and implementation",
+        "enrolled": true,
+        "instructor": "Dr. Williams",
+        "prerequisites": [
+            1000
+        ],
+        "semester": "Spring",
+        "syllabus": "CS301 syllabus content",
+        "title": "Database Systems"
+    },
+    {
+        "course_id": 1003,
+        "credit_hours": 4,
+        "description": "Advanced algorithm design and analysis",
+        "enrolled": false,
+        "instructor": "Dr. Brown",
+        "prerequisites": [
+            1001
+        ],
+        "semester": "Fall",
+        "syllabus": "CS401 syllabus content",
+        "title": "Advanced Algorithms"
+    }
+]

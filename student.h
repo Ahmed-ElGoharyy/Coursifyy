@@ -1,8 +1,10 @@
 #pragma once
 #ifndef STUDENT_H
 #define STUDENT_H
+
 #include <iostream>
 #include <string>
+#include <list>
 #include <map>
 #include <fstream>
 #include <iomanip>
@@ -11,21 +13,17 @@
 #include "grade.h"
 #include "user.h"
 
-class FileUtils; // Added for file access
-
 using namespace std;
 
 class student : public user {
 private:
-    // Student-specific attributes that aren't exposed directly
-    long StudentID;   // courseID -> grade
+    long StudentID;
     float gpa;
 
 public:
     static long counter; // Static counter for auto-incrementing IDs
-    map<long, course> courses;  // courseID -> course
-    map<long, grade> grades;
-    friend class FileUtils; // Give FileUtils direct access
+    list<pair<course, grade>> courses;
+    int max_credit_hours;
 
     // Constructors
     student();
@@ -33,18 +31,21 @@ public:
 
     // Course and grade management
     course searchCourse(string courseName) const noexcept(false);
+    pair<course, grade> getonegrade(string courseName) const noexcept(false);
     bool registerCourse(course newCourse) noexcept(false);
-    map<course, grade> getGrades() const noexcept(false);
+    list<pair<course, grade>> getGrades() const noexcept(false);
     float calculateGPA() noexcept(false);
     bool generateReport() const noexcept(false);
     bool updateGrade(long courseID, const grade& newGrade);
     bool hasCourse(long courseID) const;
+    bool hasCompletedCourse(long courseID) const;
 
     // Getters
     long getStudentID() const { return StudentID; }
     float getGPA() const { return gpa; }
-    const map<long, course>& getCourses() const { return courses; }
-    const map<long, grade>& getGradeMap() const { return grades; }
+    void setGPA(float x) { gpa = x; }
+    void setID(long id) { StudentID = id; }
+    list<pair<course, grade>> getCourses() const { return courses; }
 
     // Exception class
     class student_exception : public runtime_error {
@@ -53,7 +54,6 @@ public:
     };
 };
 
-// Need to specify how to compare course objects for map usage
 namespace std {
     template<>
     struct less<course> {

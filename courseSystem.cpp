@@ -1,39 +1,48 @@
-// Implementation file
-#include "stdafx.h"
 #include "courseSystem.h"
+#include "stdafx.h"
+#include "course.h"
+#include "user.h"
+#include "admin.h"
+#include "student.h"
 #include "FileUtils.h"
-#include <algorithm>
-#include <iostream>
 
-// Constructor
 courseSystem::courseSystem() {
-    // Initialize with empty collections
+    FileUtils::initializePaths();
+    if (!loadData()) {
+        if (admins.empty()) {
+            admin defaultAdmin("admin", "admin123", "Administrator", "admin@school.edu");
+            admins[defaultAdmin.getAdminID()] = defaultAdmin;
+            saveData();
+        }
+    }
 }
 
-// Destructor
 courseSystem::~courseSystem() {
-    // Save data upon destruction
-    saveData();
+    if (!students.empty() || !courses.empty() || !admins.empty()) {
+        saveData();
+    }
 }
 
-// Register a new student
 bool courseSystem::registerStudent(const std::string& username, const std::string& password,
     const std::string& name, const std::string& email) {
     try {
-        // Check if username is already in use
         for (const auto& pair : students) {
             if (pair.second.getUsername() == username) {
-                return false; // Username already exists
+                return false;
             }
         }
 
-        // Create new student
         student newStudent(username, password, name, email);
+        if (newStudent.isValidUsername(username) &&
+            newStudent.isValidPassword(password) &&
+            newStudent.isValidEmail(email)) {
 
-        // Add to the collection
-        students[newStudent.getStudentID()] = newStudent;
-
-        return true;
+            students[newStudent.getStudentID()] = newStudent;
+            saveData();
+            return true;
+        }
+        else
+            return false;
     }
     catch (const std::exception& e) {
         std::cerr << "Error registering student: " << e.what() << std::endl;
@@ -41,24 +50,26 @@ bool courseSystem::registerStudent(const std::string& username, const std::strin
     }
 }
 
-// Register a new admin
 bool courseSystem::registerAdmin(const std::string& username, const std::string& password,
     const std::string& name, const std::string& email) {
     try {
-        // Check if username is already in use
-        for (const auto& a : admins) {
-            if (a.getUsername() == username) {
-                return false; // Username already exists
+        for (const auto& pair : admins) {
+            if (pair.second.getUsername() == username) {
+                return false;
             }
         }
 
-        // Create new admin
         admin newAdmin(username, password, name, email);
+        if (newAdmin.isValidUsername(username) &&
+            newAdmin.isValidPassword(password) &&
+            newAdmin.isValidEmail(email)) {
 
-        // Add to the collection
-        admins.push_back(newAdmin);
-
-        return true;
+            admins[newAdmin.getAdminID()] = newAdmin;
+            saveData();
+            return true;
+        }
+        else
+            return false;
     }
     catch (const std::exception& e) {
         std::cerr << "Error registering admin: " << e.what() << std::endl;
@@ -66,163 +77,219 @@ bool courseSystem::registerAdmin(const std::string& username, const std::string&
     }
 }
 
-// Authenticate a user by username and password
 bool courseSystem::authenticateUser(const std::string& username, const std::string& password, user*& loggedUser) {
-    // First check students
     for (auto& pair : students) {
         if (pair.second.getUsername() == username) {
             if (pair.second.authenticate(password)) {
                 loggedUser = &pair.second;
                 return true;
             }
-            return false; // Password incorrect
+            return false;
         }
     }
 
-    // Then check admins
-    for (auto& a : admins) {
-        if (a.getUsername() == username) {
-            if (a.authenticate(password)) {
-                loggedUser = &a;
+    for (auto& pair : admins) {
+        if (pair.second.getUsername() == username) {
+            if (pair.second.authenticate(password)) {
+                loggedUser = &pair.second;
                 return true;
             }
-            return false; // Password incorrect
+            return false;
         }
     }
 
-    return false; // User not found
+    return false;
 }
 
-// Login with username and password
 bool courseSystem::login(const std::string& username, const std::string& password, user*& loggedUser) {
     return authenticateUser(username, password, loggedUser);
 }
 
-// Add a new course
 bool courseSystem::addCourse(const course& newCourse) {
     long courseID = newCourse.getCourseID();
-
-    // Check if course already exists
     if (courses.find(courseID) != courses.end()) {
-        return false; // Course ID already exists
+        return false;
     }
 
-    // Add the course
     courses[courseID] = newCourse;
+    saveData();
     return true;
 }
 
-// Update an existing course
 bool courseSystem::updateCourse(long courseID, const course& updatedCourse) {
-    // Check if course exists
     if (courses.find(courseID) == courses.end()) {
-        return false; // Course not found
+        return false;
     }
 
-    // Update the course (preserving the original ID)
     courses[courseID] = updatedCourse;
-
+    saveData();
     return true;
 }
 
-// Remove a course
 bool courseSystem::removeCourse(long courseID) {
-    // Check if course exists
     auto it = courses.find(courseID);
     if (it == courses.end()) {
-        return false; // Course not found
+        return false;
     }
 
-    // Remove the course
     courses.erase(it);
+    saveData();
     return true;
 }
 
-// Get a course by ID
 course* courseSystem::getCourse(long courseID) {
     auto it = courses.find(courseID);
     if (it != courses.end()) {
         return &it->second;
     }
-    return nullptr; // Course not found
+    return nullptr;
 }
 
-// Add a new student
+std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) const {
+    std::vector<course> results;
+    std::string lowerSearchTerm = searchTerm;
+    std::transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+
+    for (const auto& pair : courses) {
+        const course& c = pair.second;
+        std::string lowerTitle = c.getTitle();
+        std::string lowerDesc = c.getDescription();
+        std::string lowerInstructor = c.getInstructor();
+
+        std::transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+        std::transform(lowerDesc.begin(), lowerDesc.end(), lowerDesc.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+        std::transform(lowerInstructor.begin(), lowerInstructor.end(), lowerInstructor.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+
+        if (lowerTitle.find(lowerSearchTerm) != std::string::npos ||
+            lowerDesc.find(lowerSearchTerm) != std::string::npos ||
+            lowerInstructor.find(lowerSearchTerm) != std::string::npos) {
+            results.push_back(c);
+        }
+    }
+
+    return results;
+}
+
 bool courseSystem::addStudent(const student& newStudent) {
     long studentID = newStudent.getStudentID();
-
-    // Check if student already exists
     if (students.find(studentID) != students.end()) {
-        return false; // Student ID already exists
+        return false;
     }
 
-    // Add the student
     students[studentID] = newStudent;
+    saveData();
     return true;
 }
 
-// Update an existing student
 bool courseSystem::updateStudent(long studentID, const student& updatedStudent) {
-    // Check if student exists
     if (students.find(studentID) == students.end()) {
-        return false; // Student not found
+        return false;
     }
 
-    // Update the student
     students[studentID] = updatedStudent;
+    saveData();
     return true;
 }
 
-// Get a student by ID
 student* courseSystem::getStudent(long studentID) {
     auto it = students.find(studentID);
     if (it != students.end()) {
         return &it->second;
     }
-    return nullptr; // Student not found
+    return nullptr;
 }
 
-// Get a student by username
 student* courseSystem::getStudentByUsername(const std::string& username) {
     for (auto& pair : students) {
         if (pair.second.getUsername() == username) {
             return &pair.second;
         }
     }
-    return nullptr; // Student not found
+    return nullptr;
 }
 
-// Add a new admin
 bool courseSystem::addAdmin(const admin& newAdmin) {
-    // Check if username is already used
-    for (const auto& a : admins) {
-        if (a.getUsername() == newAdmin.getUsername()) {
-            return false; // Username already exists
+    long adminID = newAdmin.getAdminID();
+    if (admins.find(adminID) != admins.end()) {
+        return false;
+    }
+
+    for (const auto& pair : admins) {
+        if (pair.second.getUsername() == newAdmin.getUsername()) {
+            return false;
         }
     }
 
-    // Add the admin
-    admins.push_back(newAdmin);
+    admins[adminID] = newAdmin;
+    saveData();
     return true;
 }
 
-// Get an admin by username
 admin* courseSystem::getAdminByUsername(const std::string& username) {
-    for (auto& a : admins) {
-        if (a.getUsername() == username) {
-            return &a;
+    for (auto& pair : admins) {
+        if (pair.second.getUsername() == username) {
+            return &pair.second;
         }
     }
-    return nullptr; // Admin not found
+    return nullptr;
 }
 
-// Load data from files
+admin* courseSystem::getAdmin(long adminID) {
+    auto it = admins.find(adminID);
+    if (it != admins.end()) {
+        return &it->second;
+    }
+    return nullptr;
+}
+
+bool courseSystem::updateStudentGrade(long studentID, long courseID, const grade& newGrade) {
+    student* s = getStudent(studentID);
+    if (!s) {
+        return false;
+    }
+
+    course* c = getCourse(courseID);
+    if (!c) {
+        return false;
+    }
+
+    bool result = s->updateGrade(courseID, newGrade);
+    if (result) {
+        saveData();
+    }
+    return result;
+}
+
+bool courseSystem::enrollStudentInCourse(long studentID, long courseID) {
+    student* s = getStudent(studentID);
+    course* c = getCourse(courseID);
+
+    if (!s || !c) return false;
+    if (!c->checkPrerequisites(*s)) {
+        return false;
+    }
+
+    try {
+        if (s->registerCourse(*c)) {
+            c->setEnrolled(true);
+            saveData();
+            return true;
+        }
+    }
+    catch (...) {
+        return false;
+    }
+    return false;
+}
+
 bool courseSystem::loadData() {
-    FileUtils::initializePaths();
     return FileUtils::loadAllData(*this);
 }
 
-// Save data to files
 bool courseSystem::saveData() {
     return FileUtils::saveAllData(*this);
 }

@@ -7,19 +7,14 @@
 #include "grade.h"
 #include "user.h"
 
-class FileUtils; // Added for file access
-
 using namespace std;
 
-class admin : public user
-{
+class admin : public user {
 private:
     long adminID;
 
-    friend class FileUtils; // Give FileUtils direct access
-
 public:
-    static long counter; // Added static counter for consistency
+    static long counter;
 
     admin();
     admin(long adminID);
@@ -34,4 +29,3 @@ public:
     bool manageGrades(student& student, grade& grade, string courseID);
     bool uploadGradesCSV(map<string, student> students, map<string, grade*> grades);
 };
-

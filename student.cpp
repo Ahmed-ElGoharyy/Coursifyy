@@ -1,215 +1,167 @@
-
-
-// Implementation
 #include "stdafx.h"
 #include "student.h"
-#include <iostream>
+#include "course.h"
+#include "user.h"   
 
-using namespace std;
-
-// Initialize the static counter
-long student::counter = 0;
+// Initialize static counter
+long student::counter = 1000;
 
 // Default constructor
-student::student() : user(), StudentID(++counter), gpa(0.0f) {
-    // The role needs to be explicitly set to 'S' for Student
+student::student() : user(), StudentID(0), gpa(0.0), max_credit_hours(21) {
     setRole('S');
 }
 
 // Parameterized constructor
-student::student(string username, string password, string name, string email) noexcept(false)
-    : user(username, password, name, email, 'S'), StudentID(++counter), gpa(0.0f) {
-    // Validate input parameters
-    if (username.empty() || password.empty() || name.empty() || email.empty()) {
-        throw student_exception("All student fields must be provided");
-    }
-    // Note: the user constructor already validates and sets these properties
+student::student(string username, string password, string name, string email)
+    : user(username, password, name, email, 'S'), gpa(0.0), max_credit_hours(21) {
+    StudentID = counter++;
 }
 
-// Search for a course by name
 course student::searchCourse(string courseName) const noexcept(false) {
     for (const auto& pair : courses) {
-        if (pair.second.getTitle() == courseName) {
-            return pair.second;
+        if (pair.first.getTitle() == courseName) {
+            return pair.first;
         }
     }
     throw student_exception("Course not found: " + courseName);
 }
 
-// Register for a new course
-bool student::registerCourse(course newCourse) noexcept(false) {
-    long courseID = newCourse.getCourseID();
+pair<course, grade> student::getonegrade(string courseName) const noexcept(false) {
+    for (const auto& pair : courses) {
+        if (pair.first.getTitle() == courseName) {
+            return pair;
+        }
+    }
+    throw student_exception("Course not found: " + courseName);
+}
 
-    // Check if already registered
-    if (courses.find(courseID) != courses.end()) {
-        throw student_exception("Already registered for this course");
+bool student::registerCourse(course newCourse) noexcept(false) {
+    for (const auto& pair : courses) {
+        if (pair.first.getCourseID() == newCourse.getCourseID()) {
+            throw student_exception("Course already registered: " + newCourse.getTitle());
+        }
     }
 
-    // Add the course to the student's course list
-    courses[courseID] = newCourse;
+    int courseHours = newCourse.getCreditHours();
+    if (courseHours <= 0) {
+        throw student_exception("Invalid credit hours: Course has " +
+            to_string(courseHours) + " credit hours");
+    }
 
-    // Initialize grade for this course (can be updated later)
-    grades[courseID] = grade(); // Default grade
+    if (courseHours > max_credit_hours) {
+        throw student_exception("Cannot register for course: Exceeds maximum credit hours (" +
+            to_string(max_credit_hours) + " remaining)");
+    }
 
+    grade newGrade;
+    courses.push_back(make_pair(newCourse, newGrade));
+    max_credit_hours -= courseHours;
     return true;
 }
 
-// Get all grades - returns a map of course to grade pairs
-map<course, grade> student::getGrades() const noexcept(false) {
-    map<course, grade> result;
-
-    for (const auto& pair : grades) {
-        long courseID = pair.first;
-        // Find the corresponding course object
-        auto courseIter = courses.find(courseID);
-        if (courseIter != courses.end()) {
-            result[courseIter->second] = pair.second;
-        }
-    }
-
-    return result;
+list<pair<course, grade>> student::getGrades() const noexcept(false) {
+    return courses;
 }
 
-// Calculate the student's GPA based on all grades
 float student::calculateGPA() noexcept(false) {
-    if (grades.empty()) {
-        return 0.0f;
+    if (courses.empty()) {
+        gpa = 0.0;
+        return gpa;
     }
 
-    float totalPoints = 0.0f;
-    int totalCredits = 0;
+    float totalPoints = 0.0;
+    int totalHours = 0;
 
-    for (const auto& pair : grades) {
-        long courseID = pair.first;
-        const grade& g = pair.second;
-
-        // Skip courses with no grade assigned yet
-        if (g.getGrade() == 'N') {
-            continue;
-        }
-
-        // Find the course to get its credit hours
-        auto courseIter = courses.find(courseID);
-        if (courseIter != courses.end()) {
-            int credits = courseIter->second.getCreditHours();
-            totalPoints += g.getGPA() * credits;
-            totalCredits += credits;
+    for (const auto& pair : courses) {
+        if (pair.second.getGrade() != 'N') {
+            int hours = pair.first.getCreditHours();
+            float gradePoints = pair.second.getGPA();
+            totalPoints += hours * gradePoints;
+            totalHours += hours;
         }
     }
 
-    if (totalCredits == 0) {
-        return 0.0f;
+    if (totalHours > 0) {
+        gpa = totalPoints / totalHours;
+    }
+    else {
+        gpa = 0.0;
     }
 
-    // Update and return the calculated GPA
-    this->gpa = totalPoints / totalCredits;
-    return this->gpa;
+    return gpa;
 }
 
-// Generate a report of all courses and grades
+bool student::updateGrade(long courseID, const grade& newGrade) {
+    for (auto& pair : courses) {
+        if (pair.first.getCourseID() == courseID) {
+            pair.second = newGrade;
+            calculateGPA();
+            return true;
+        }
+    }
+    return false;
+}
+
+bool student::hasCourse(long courseID) const {
+    for (const auto& pair : courses) {
+        if (pair.first.getCourseID() == courseID) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool student::hasCompletedCourse(long courseID) const {
+    for (const auto& pair : courses) {
+        if (pair.first.getCourseID() == courseID && pair.second.getGrade() != 'N') {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool student::generateReport() const noexcept(false) {
     try {
-        string filename = "report_" + to_string(StudentID) + ".txt";
+        string filename = "student_" + to_string(StudentID) + "_report.txt";
         ofstream report(filename);
 
         if (!report.is_open()) {
-            throw student_exception("Unable to create report file");
+            throw student_exception("Failed to create report file: " + filename);
         }
 
-        // Header
-        report << "Student Report\n";
-        report << "==============\n";
-        report << "Name: " << getName() << "\n";
-        report << "ID: " << StudentID << "\n";
-        report << "Email: " << getEmail() << "\n";
+        report << "Student Report" << endl;
+        report << "==============" << endl;
+        report << "ID: " << StudentID << endl;
+        report << "Name: " << getName() << endl;
+        report << "Email: " << getEmail() << endl;
+        report << "GPA: " << fixed << setprecision(2) << gpa << endl;
+        report << "Remaining Credit Hours: " << max_credit_hours << endl;
+        report << endl;
 
-        // Calculate GPA dynamically since this is a const method
-        float currentGPA = 0.0f;
-        float totalPoints = 0.0f;
-        int totalCredits = 0;
-
-        for (const auto& pair : grades) {
-            long courseID = pair.first;
-            const grade& g = pair.second;
-
-            // Skip courses with no grade assigned yet
-            if (g.getGrade() == 'N') {
-                continue;
-            }
-
-            // Find the course to get its credit hours
-            auto courseIter = courses.find(courseID);
-            if (courseIter != courses.end()) {
-                int credits = courseIter->second.getCreditHours();
-                totalPoints += g.getGPA() * credits;
-                totalCredits += credits;
-            }
-        }
-
-        if (totalCredits > 0) {
-            currentGPA = totalPoints / totalCredits;
-        }
-
-        report << "GPA: " << fixed << setprecision(2) << currentGPA << "\n\n";
-
-        // Course details
-        report << "Courses:\n";
-        report << setw(30) << left << "Course Title"
-            << setw(10) << left << "Credits"
-            << setw(10) << left << "Grade"
-            << setw(10) << left << "Semester"
-            << setw(10) << left << "Year" << "\n";
-        report << string(70, '-') << "\n";
+        report << "Courses:" << endl;
+        report << "--------" << endl;
+        report << left << setw(40) << "Course Title"
+            << setw(10) << "ID"
+            << setw(10) << "Credits"
+            << setw(10) << "Grade"
+            << setw(10) << "Points" << endl;
 
         for (const auto& pair : courses) {
-            const course& c = pair.second;
-            long courseID = c.getCourseID();
+            const course& c = pair.first;
+            const grade& g = pair.second;
 
-            // Get grade information if available
-            char gradeChar = 'N';  // Default to 'N' for no grade
-            int semester = 0;
-            int year = 0;
-
-            auto gradeIter = grades.find(courseID);
-            if (gradeIter != grades.end()) {
-                gradeChar = gradeIter->second.getGrade();
-                semester = gradeIter->second.getSemester();
-                year = gradeIter->second.getYear();
-            }
-
-            report << setw(30) << left << c.getTitle()
-                << setw(10) << left << c.getCreditHours()
-                << setw(10) << left << gradeChar
-                << setw(10) << left << semester
-                << setw(10) << left << year << "\n";
+            report << left << setw(40) << c.getTitle()
+                << setw(10) << c.getCourseID()
+                << setw(10) << c.getCreditHours()
+                << setw(10) << g.getGrade()
+                << setw(10) << g.getGPA() << endl;
         }
 
         report.close();
         return true;
     }
     catch (const exception& e) {
-        cout << "Error generating report: " << e.what() << endl;
+        cerr << "Error generating report: " << e.what() << endl;
         return false;
     }
-}
-
-// Update a grade for a specific course
-bool student::updateGrade(long courseID, const grade& newGrade) {
-    // Check if the student is registered for this course
-    if (courses.find(courseID) == courses.end()) {
-        return false;
-    }
-
-    // Update the grade
-    grades[courseID] = newGrade;
-
-    // Recalculate GPA
-    calculateGPA();
-
-    return true;
-}
-
-// Check if student has a specific course
-bool student::hasCourse(long courseID) const {
-    return courses.find(courseID) != courses.end();
 }

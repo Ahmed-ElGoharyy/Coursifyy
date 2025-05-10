@@ -1,20 +1,18 @@
 #pragma once
 #include <string>
 #include <regex>
-#include <functional> // For std::hash
 
 using namespace std;
 
 class user {
 private:
-
     string username;
-    string passwordHash;
+    string password; // Changed from passwordHash to plain password
     string name;
     string email;
     char role;  // 'A' for Admin or 'S' for Student
+
 public:
-    static string hashPassword(const string& password);
     static bool isValidUsername(const string& username);
     static bool isValidPassword(const string& password);
     static bool isValidEmail(const string& email);
@@ -24,15 +22,19 @@ public:
     user() = default;
     user(string username, string password,
         string name, string email, char role);
+    user(string username, string password,
+        string name, string email);
 
     bool authenticate(const string& password) const;
 
     string getUsername() const { return username; }
+    string getPassword() const { return password; } // Changed from getPasswordHash
     string getName() const { return name; }
     string getEmail() const { return email; }
     char getRole() const { return role; }
-    string getRoleString() const;  // Returns "Admin" or "Student"
-    string getPasswordHash() const { return passwordHash; }
+    string getRoleString() const {
+        return (role == 'A') ? "admin" : "student";
+    }
 
     void setUsername(const string& username);
     void setName(const string& name);

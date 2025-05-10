@@ -1,97 +1,39 @@
 #pragma once
-
 #include <string>
-#include <map>
-#include <vector>
+#include <fstream>
+#include <filesystem>
+#include "courseSystem.h"
+#include "json.hpp"
 
-class courseSystem;
-class student;
-class course;
-class admin;
-
-/**
- * FileUtils class for handling file operations in the course system
- */
 class FileUtils {
+private:
+    static std::string studentsFilePath;
+    static std::string coursesFilePath;
+    static std::string adminsFilePath;
+
+    static nlohmann::json studentToJson(const student& student);
+    static nlohmann::json courseToJson(const course& course);
+    static nlohmann::json adminToJson(const admin& admin);
+    static nlohmann::json gradeToJson(const grade& grade);
+    static nlohmann::json courseGradePairToJson(const std::pair<course, grade>& pair);
+
+    static student jsonToStudent(const nlohmann::json& j);
+    static course jsonToCourse(const nlohmann::json& j);
+    static admin jsonToAdmin(const nlohmann::json& j);
+    static grade jsonToGrade(const nlohmann::json& j);
+    static std::pair<course, grade> jsonToCourseGradePair(const nlohmann::json& j);
+
+    static bool saveJsonToFile(const nlohmann::json& j, const std::string& filePath);
+    static nlohmann::json loadJsonFromFile(const std::string& filePath);
+
 public:
-    // Static file paths - will be initialized with absolute paths
-    static std::string DATA_DIRECTORY;
-    static std::string STUDENTS_FILE;
-    static std::string COURSES_FILE;
-    static std::string ADMINS_FILE;
-
-    /**
-     * Initialize file paths based on current working directory
-     */
     static void initializePaths();
-
-    /**
-     * Check if a file exists
-     * @param filename The path to the file
-     * @return True if file exists, false otherwise
-     */
-    static bool fileExists(const std::string& filename);
-
-    /**
-     * Create an empty file with empty JSON structure
-     * @param filename The path to the file
-     * @return True if successful, false otherwise
-     */
-    static bool createEmptyFile(const std::string& filename);
-
-    /**
-     * Load all data from files into the course system
-     * @param system The course system to load data into
-     * @return True if successful, false otherwise
-     */
-    static bool loadAllData(courseSystem& system);
-
-    /**
-     * Load students from JSON file
-     * @param system The course system to load students into
-     * @return True if successful, false otherwise
-     */
-    static bool loadStudents(courseSystem& system);
-
-    /**
-     * Load courses from JSON file
-     * @param system The course system to load courses into
-     * @return True if successful, false otherwise
-     */
-    static bool loadCourses(courseSystem& system);
-
-    /**
-     * Load admins from JSON file
-     * @param system The course system to load admins into
-     * @return True if successful, false otherwise
-     */
-    static bool loadAdmins(courseSystem& system);
-
-    /**
-     * Save all data to files
-     * @param system The course system to save data from
-     * @return True if successful, false otherwise
-     */
-    static bool saveAllData(const courseSystem& system);
-
-    /**
-     * Save students to JSON file
-     * @param students The map of students to save
-     * @return True if successful, false otherwise
-     */
-    static bool saveStudents(const std::map<long, student>& students);
-
-    /**
-     * Save courses to JSON file
-     * @param courses The map of courses to save
-     * @return True if successful, false otherwise
-     */
+    static bool saveStudents(const std::unordered_map<long, student>& students);
     static bool saveCourses(const std::map<long, course>& courses);
-
-    /**
-     * Save admins to JSON file
-     * @param admins The vector of admins to save
-     * @return True if successful, false otherwise
-     */
-    static bool saveAdmins(const std::vector<admin>& admins);
+    static bool saveAdmins(const std::unordered_map<long, admin>& admins);
+    static bool saveAllData(const courseSystem& system);
+    static bool loadStudents(std::unordered_map<long, student>& students);
+    static bool loadCourses(std::map<long, course>& courses);
+    static bool loadAdmins(std::unordered_map<long, admin>& admins);
+    static bool loadAllData(courseSystem& system);
 };
