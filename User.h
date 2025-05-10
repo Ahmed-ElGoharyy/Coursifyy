@@ -13,6 +13,7 @@ private:
     char role;  // 'A' for Admin or 'S' for Student
 
 public:
+    static string hashPassword(const string& password);
     static bool isValidUsername(const string& username);
     static bool isValidPassword(const string& password);
     static bool isValidEmail(const string& email);

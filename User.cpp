@@ -22,6 +22,14 @@ user::user(string username, string password, string name, string email) {
     setRole('S'); // Default to Student
 }
 
+string user::hashPassword(const string& password)
+{
+    hash<string> hasher;
+    size_t h1 = hasher(password);
+    size_t h2 = hasher(to_string(h1) + "salt"); // Basic salt
+    return to_string(h1 ^ h2); // Combine hashes
+}
+
 // Username must be 3-20 alphanumeric chars (underscore allowed)
 bool user::isValidUsername(const string& username) {
     if (username.length() < 3 || username.length() > 20) return false;
@@ -56,8 +64,8 @@ bool user::isValidRole(char role) {
 }
 
 // Verify if provided password matches stored password
-bool user::authenticate(const string& password) const {
-    return this->password == password;
+bool user::authenticate(const string& pass) const {
+    return hashPassword(pass) == this->password;
 }
 
 // Setter methods with validation
