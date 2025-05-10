@@ -3,35 +3,35 @@
         "courses": [
             {
                 "course": {
-                    "course_id": 1000,
+                    "course_id": 101,
                     "credit_hours": 3,
-                    "description": "Basic concepts of programming and algorithms",
+                    "description": "Basic concepts of computer systems",
                     "enrolled": true,
-                    "instructor": "Dr. Smith",
+                    "instructor": "Prof. Smith",
                     "prerequisites": [],
                     "semester": "Fall",
-                    "syllabus": "CS101 syllabus content",
+                    "syllabus": "Introduction to algorithms and data structures",
                     "title": "Introduction to Computer Science"
                 },
                 "grade": {
                     "gpa": 4.0,
                     "grade": "A",
                     "semester": 1,
-                    "year": 2023
+                    "year": 2024
                 }
             },
             {
                 "course": {
-                    "course_id": 1001,
+                    "course_id": 102,
                     "credit_hours": 4,
                     "description": "Fundamental data structures and algorithms",
                     "enrolled": true,
-                    "instructor": "Dr. Johnson",
+                    "instructor": "Prof. Johnson",
                     "prerequisites": [
-                        1000
+                        101
                     ],
                     "semester": "Spring",
-                    "syllabus": "CS201 syllabus content",
+                    "syllabus": "Arrays, linked lists, trees, graphs, and algorithms",
                     "title": "Data Structures"
                 },
                 "grade": {
@@ -42,65 +42,65 @@
                 }
             }
         ],
-        "email": "john.doe@school.edu",
+        "email": "john.doe@student.edu",
         "gpa": 3.4285714626312256,
-        "max_credit_hours": 15,
+        "max_credit_hours": 18,
         "name": "John Doe",
-        "password": "13927433014252240923", //Password123
+        "password": "1a2b3c4d5e6f7890",
         "role": "S",
-        "student_id": 1000,
+        "student_id": 1001,
         "username": "student1"
     },
     {
         "courses": [
             {
                 "course": {
-                    "course_id": 1000,
+                    "course_id": 101,
                     "credit_hours": 3,
-                    "description": "Basic concepts of programming and algorithms",
+                    "description": "Basic concepts of computer systems",
                     "enrolled": true,
-                    "instructor": "Dr. Smith",
+                    "instructor": "Prof. Smith",
                     "prerequisites": [],
                     "semester": "Fall",
-                    "syllabus": "CS101 syllabus content",
+                    "syllabus": "Introduction to algorithms and data structures",
                     "title": "Introduction to Computer Science"
                 },
                 "grade": {
                     "gpa": 4.0,
                     "grade": "A",
                     "semester": 1,
-                    "year": 2023
+                    "year": 2024
                 }
             },
             {
                 "course": {
-                    "course_id": 1002,
+                    "course_id": 103,
                     "credit_hours": 3,
-                    "description": "Introduction to database design and implementation",
+                    "description": "Database design and implementation",
                     "enrolled": true,
-                    "instructor": "Dr. Williams",
+                    "instructor": "Prof. Williams",
                     "prerequisites": [
-                        1000
+                        101
                     ],
-                    "semester": "Spring",
-                    "syllabus": "CS301 syllabus content",
+                    "semester": "Fall",
+                    "syllabus": "Relational databases, SQL, and NoSQL",
                     "title": "Database Systems"
                 },
                 "grade": {
                     "gpa": 4.0,
                     "grade": "A",
-                    "semester": 2,
+                    "semester": 1,
                     "year": 2024
                 }
             }
         ],
-        "email": "jane.smith@school.edu",
+        "email": "jane.smith@student.edu",
         "gpa": 4.0,
-        "max_credit_hours": 12,
+        "max_credit_hours": 21,
         "name": "Jane Smith",
-        "password": "13927433014252240923", //Password123
+        "password": "1a2b3c4d5e6f7890",
         "role": "S",
-        "student_id": 1001,
+        "student_id": 1002,
         "username": "student2"
     }
 ]

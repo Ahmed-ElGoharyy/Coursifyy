@@ -207,7 +207,7 @@ nlohmann::json FileUtils::loadJsonFromFile(const std::string& filePath) {
     }
 }
 
-bool FileUtils::saveStudents(const std::unordered_map<long, student>& students) {
+bool FileUtils::saveStudents(const std::unordered_map<std::string, student>& students) {
     try {
         nlohmann::json studentsArray = nlohmann::json::array();
         for (const auto& pair : students) {
@@ -235,7 +235,7 @@ bool FileUtils::saveCourses(const std::map<long, course>& courses) {
     }
 }
 
-bool FileUtils::saveAdmins(const std::unordered_map<long, admin>& admins) {
+bool FileUtils::saveAdmins(const std::unordered_map<std::string, admin>& admins) {
     try {
         nlohmann::json adminsArray = nlohmann::json::array();
         for (const auto& pair : admins) {
@@ -267,7 +267,7 @@ bool FileUtils::saveAllData(const courseSystem& system) {
     return studentsSuccess && coursesSuccess && adminsSuccess;
 }
 
-bool FileUtils::loadStudents(std::unordered_map<long, student>& students) {
+bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students) {
     try {
         nlohmann::json studentsArray = loadJsonFromFile(studentsFilePath);
         if (studentsArray.empty()) {
@@ -278,12 +278,13 @@ bool FileUtils::loadStudents(std::unordered_map<long, student>& students) {
         students.clear();
         for (const auto& studentJson : studentsArray) {
             student s = jsonToStudent(studentJson);
-            students[s.getStudentID()] = s;
+            students[s.getUsername()] = s;
         }
 
+        // Update the student counter if needed to avoid ID collisions
         long maxId = 0;
         for (const auto& pair : students) {
-            maxId = std::max(maxId, pair.first);
+            maxId = std::max(maxId, pair.second.getStudentID());
         }
         if (maxId >= student::counter) {
             student::counter = maxId + 1;
@@ -311,6 +312,7 @@ bool FileUtils::loadCourses(std::map<long, course>& courses) {
             courses[c.getCourseID()] = c;
         }
 
+        // Update the course counter if needed to avoid ID collisions
         long maxId = 0;
         for (const auto& pair : courses) {
             maxId = std::max(maxId, pair.first);
@@ -327,7 +329,7 @@ bool FileUtils::loadCourses(std::map<long, course>& courses) {
     }
 }
 
-bool FileUtils::loadAdmins(std::unordered_map<long, admin>& admins) {
+bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
     try {
         nlohmann::json adminsArray = loadJsonFromFile(adminsFilePath);
         if (adminsArray.empty()) {
@@ -338,12 +340,13 @@ bool FileUtils::loadAdmins(std::unordered_map<long, admin>& admins) {
         admins.clear();
         for (const auto& adminJson : adminsArray) {
             admin a = jsonToAdmin(adminJson);
-            admins[a.getAdminID()] = a;
+            admins[a.getUsername()] = a;
         }
 
+        // Update the admin counter if needed to avoid ID collisions
         long maxId = 0;
         for (const auto& pair : admins) {
-            maxId = std::max(maxId, pair.first);
+            maxId = std::max(maxId, pair.second.getAdminID());
         }
         if (maxId >= admin::counter) {
             admin::counter = maxId + 1;
@@ -358,9 +361,9 @@ bool FileUtils::loadAdmins(std::unordered_map<long, admin>& admins) {
 }
 
 bool FileUtils::loadAllData(courseSystem& system) {
-    std::unordered_map<long, student> students;
     std::map<long, course> courses;
-    std::unordered_map<long, admin> admins;
+    std::unordered_map<std::string, student> students;
+    std::unordered_map<std::string, admin> admins;
 
     bool coursesSuccess = loadCourses(courses);
     if (!coursesSuccess) {
@@ -385,6 +388,7 @@ bool FileUtils::loadAllData(courseSystem& system) {
         system.students = students;
         system.admins = admins;
 
+        // Set up prerequisites
         nlohmann::json coursesArray = loadJsonFromFile(coursesFilePath);
         if (!coursesArray.empty()) {
             for (const auto& courseJson : coursesArray) {
@@ -406,11 +410,12 @@ bool FileUtils::loadAllData(courseSystem& system) {
             }
         }
 
+        // Load student courses
         nlohmann::json studentsArray = loadJsonFromFile(studentsFilePath);
         if (!studentsArray.empty()) {
             for (const auto& studentJson : studentsArray) {
-                long studentId = studentJson["student_id"].get<long>();
-                auto studentIt = system.students.find(studentId);
+                std::string username = studentJson["username"].get<std::string>();
+                auto studentIt = system.students.find(username);
                 if (studentIt != system.students.end()) {
                     auto& s = studentIt->second;
                     s.courses.clear();

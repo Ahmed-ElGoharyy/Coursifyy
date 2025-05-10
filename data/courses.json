@@ -1,52 +1,67 @@
 [
     {
-        "course_id": 1000,
+        "course_id": 101,
         "credit_hours": 3,
-        "description": "Basic concepts of programming and algorithms",
+        "description": "Basic concepts of computer systems",
         "enrolled": true,
-        "instructor": "Dr. Smith",
+        "instructor": "Prof. Smith",
         "prerequisites": [],
         "semester": "Fall",
-        "syllabus": "CS101 syllabus content",
+        "syllabus": "Introduction to algorithms and data structures",
         "title": "Introduction to Computer Science"
     },
     {
-        "course_id": 1001,
+        "course_id": 102,
         "credit_hours": 4,
         "description": "Fundamental data structures and algorithms",
         "enrolled": true,
-        "instructor": "Dr. Johnson",
+        "instructor": "Prof. Johnson",
         "prerequisites": [
-            1000
+            101
         ],
         "semester": "Spring",
-        "syllabus": "CS201 syllabus content",
+        "syllabus": "Arrays, linked lists, trees, graphs, and algorithms",
         "title": "Data Structures"
     },
     {
-        "course_id": 1002,
+        "course_id": 103,
         "credit_hours": 3,
-        "description": "Introduction to database design and implementation",
+        "description": "Database design and implementation",
         "enrolled": true,
-        "instructor": "Dr. Williams",
+        "instructor": "Prof. Williams",
         "prerequisites": [
-            1000
+            101
         ],
-        "semester": "Spring",
-        "syllabus": "CS301 syllabus content",
+        "semester": "Fall",
+        "syllabus": "Relational databases, SQL, and NoSQL",
         "title": "Database Systems"
     },
     {
-        "course_id": 1003,
+        "course_id": 104,
         "credit_hours": 4,
-        "description": "Advanced algorithm design and analysis",
+        "description": "Principles of operating system design",
         "enrolled": false,
-        "instructor": "Dr. Brown",
+        "instructor": "Prof. Davis",
         "prerequisites": [
-            1001
+            101,
+            102
+        ],
+        "semester": "Spring",
+        "syllabus": "Process management, memory management, file systems",
+        "title": "Operating Systems"
+    },
+    {
+        "course_id": 105,
+        "credit_hours": 3,
+        "description": "Software development process and methodologies",
+        "enrolled": false,
+        "instructor": "Prof. Brown",
+        "prerequisites": [
+            102,
+            103
         ],
         "semester": "Fall",
-        "syllabus": "CS401 syllabus content",
-        "title": "Advanced Algorithms"
+        "syllabus": "Requirements, design, testing, and project management",
+        "title": "Software Engineering"
     }
 ]
