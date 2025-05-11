@@ -20,6 +20,26 @@ Coursify::Coursify(QWidget* parent)
      
         });
 
+    connect(ui.login_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register    
+
+        courseSystem Sys;             //lazem yeb2o global
+        user* currentUser = nullptr;       //lazem yeb2o global
+
+        char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
+
+        if (choice == 'S') {
+            ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
+        }
+        else if (choice == 'A') {
+            ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
+        }
+        else if (choice =='F'){
+            QMessageBox::critical(this, "Error", " Username or Password is incorrect! ");
+        }
+
+        });
+
+
     setupRadioButtonLogic(ui.radioButtonA, ui.radioButtonS,
         ui.Register_S1, ui.Register_S2,
         ui.Register_S3, ui.Register_S4,

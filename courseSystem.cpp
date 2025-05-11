@@ -73,33 +73,49 @@ bool courseSystem::registerAdmin(const std::string& username, const std::string&
     }
 }
 
-bool courseSystem::authenticateUser(const std::string& username, const std::string& password, user*& loggedUser) {
-    auto studentIt = students.find(username);
+char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser)
+{
+    QString username = usernameEdit->text().trimmed();
+    string uname = username.toStdString();
+    QString password = passwordEdit->text();
+    string pword = password.toStdString();
+
+
+    if (username.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(nullptr, "Login Failed", "Username and password must not be empty.");
+        usernameEdit->clear();
+        passwordEdit->clear();
+
+        return 'E';  //error
+       
+    }
+
+    auto studentIt = students.find(uname);
     if (studentIt != students.end()) {
-        if (studentIt->second.authenticate(password)) {
+        if (studentIt->second.authenticate(pword)) {
             loggedUser = &studentIt->second;
-            return true;
+            return 'S';
         }
-        return false;
+        
     }
 
-    auto adminIt = admins.find(username);
+    auto adminIt = admins.find(uname);
     if (adminIt != admins.end()) {
-        if (adminIt->second.authenticate(password)) {
+        if (adminIt->second.authenticate(pword)) {
             loggedUser = &adminIt->second;
-            return true;
+            return 'A';
         }
-        return false;
+        
     }
 
-    return false;
+    return 'F';
+
+
 }
 
 
 
-bool courseSystem::login(const std::string& username, const std::string& password, user*& loggedUser) {
-    return authenticateUser(username, password, loggedUser);
-}
+
 
 bool courseSystem::addCourse(const course& newCourse) {
     long courseID = newCourse.getCourseID();

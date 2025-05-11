@@ -3,8 +3,11 @@
 #include <algorithm>
 #include <stdexcept>
 #include <cctype>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
+
 
 user::user(string username, string password, string name, string email, char role) {
     setUsername(username);
@@ -14,6 +17,7 @@ user::user(string username, string password, string name, string email, char rol
     setRole(role);
 }
 
+
 user::user(string username, string password, string name, string email) {
     setUsername(username);
     setName(name);
@@ -22,13 +26,18 @@ user::user(string username, string password, string name, string email) {
     setRole('S'); // Default to Student
 }
 
-string user::hashPassword(const string& password)
-{
+string user::hashPassword(const string& password) {
     hash<string> hasher;
     size_t h1 = hasher(password);
-    size_t h2 = hasher(to_string(h1) + "salt"); // Basic salt
-    return to_string(h1 ^ h2); // Combine hashes
+    size_t h2 = hasher(to_string(h1) + "salt");
+    size_t combined = h1 ^ h2;
+
+    // Convert to 16-character hex string
+    stringstream ss;
+    ss << hex << setw(16) << setfill('0') << combined;
+    return ss.str();
 }
+
 
 // Username must be 3-20 alphanumeric chars (underscore allowed)
 bool user::isValidUsername(const string& username) {

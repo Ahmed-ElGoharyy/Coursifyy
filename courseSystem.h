@@ -11,10 +11,13 @@ private:
     std::map<long, course> courses;
     std::unordered_map<std::string, admin> admins;
     user* currentUser;
-    bool authenticateUser(const std::string& username, const std::string& password, user*& loggedUser);
+   
 public:
     courseSystem();
     ~courseSystem();
+
+    char authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser);
+
     bool registerStudent(const std::string& username, const std::string& password,
         const std::string& name, const std::string& email);
     bool registerAdmin(const std::string& username, const std::string& password,

@@ -7,6 +7,7 @@
 #include <Coursify.h>
 #include <QtWidgets/QMainWindow>
 #include "ui_Coursify.h"
+#include "courseSystem.h"
 
 using namespace std;
 
@@ -61,6 +62,19 @@ void setupRadioButtonLogic(QRadioButton* choice1Radio, QRadioButton* choice2Radi
 }
 
 
+bool validateCredentials(QLineEdit* usernameEdit, QLineEdit* passwordEdit, QString& username, QString& password, user*& loggedUser)
+{
+    username = usernameEdit->text().trimmed();
+    password = passwordEdit->text();
 
+    if (username.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(nullptr, "Login Failed", "Username and password must not be empty.");
+        return false;
+    }
+
+    // Optionally: add more validation here (length, special chars, etc.)
+
+    return true;
+}
 
 
