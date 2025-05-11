@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include <map>
+#include <unordered_map>
+#include <vector>
 #include "course.h"
 #include "student.h"
 #include "grade.h"
@@ -25,7 +26,7 @@ public:
     void setAdminID(long id) { adminID = id; }
 
     bool uploadCourseDescription(course& course, string courseID);
-    bool setPrerequisites(class course& course, list<class course*> prerequisites);
+    bool setPrerequisites(class course& course, vector <class course*> prerequisites);
     bool manageGrades(student& student, grade& grade, string courseID);
-    bool uploadGradesCSV(map<string, student> students, map<string, grade*> grades);
+    bool uploadGradesCSV(unordered_map <string, student> students, list <pair<course, grade>> courses);
 };
