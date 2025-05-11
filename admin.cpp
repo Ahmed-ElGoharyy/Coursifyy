@@ -48,7 +48,7 @@ bool admin::uploadCourseDescription(course& course, string courseID) {
     }
 }
 
-bool admin::setPrerequisites(course& course, list<class course*> prerequisites) {
+bool admin::setPrerequisites(course& course, vector<class course*> prerequisites) {
     try {
         if (prerequisites.empty()) {
             cout << "No prerequisites to set" << endl;
@@ -56,7 +56,7 @@ bool admin::setPrerequisites(course& course, list<class course*> prerequisites) 
         }
 
         course.clearPrerequisites();
-        for (auto prereq : prerequisites) {
+         for (auto prereq : prerequisites) {
             if (prereq != nullptr) {
                 course.addPrerequisite(*prereq);
             }
@@ -106,6 +106,6 @@ bool admin::manageGrades(student& student, grade& newGrade, string courseID) {
     }
 }
 
-bool admin::uploadGradesCSV(map<string, student> students, map<string, grade*> grades) {
+bool admin::uploadGradesCSV(unordered_map <string, student> students, list <pair<course, grade>> courses) {
     return true;
 }
