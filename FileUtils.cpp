@@ -117,14 +117,19 @@ course FileUtils::jsonToCourse(const nlohmann::json& j) {
 }
 
 admin FileUtils::jsonToAdmin(const nlohmann::json& j) {
-    admin a(
-        j["username"].get<std::string>(),
-        j["password"].get<std::string>(), // Changed from password_hash to password
-        j["name"].get<std::string>(),
-        j["email"].get<std::string>()
-    );
+    // Create admin with specific ID to avoid counter incrementing
+    long adminId = j["admin_id"].get<long>();
+    std::cout << "Creating admin from JSON with fixed ID: " << adminId << std::endl;
 
-    a.setAdminID(j["admin_id"].get<long>());
+    admin a(adminId);
+
+    // Set properties manually
+    a.setUsername(j["username"].get<std::string>());
+    a.setPassword(j["password"].get<std::string>());
+    a.setName(j["name"].get<std::string>());
+    a.setEmail(j["email"].get<std::string>());
+    a.setRole('A');
+
     return a;
 }
 
@@ -337,20 +342,54 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
             return true;
         }
 
+        // Reset counter before loading anything
+        admin::counter = 1;
+        std::cout << "Admin counter reset to 1 before loading" << std::endl;
+
         admins.clear();
+
+        // Find max ID first before creating any admins
+        long maxId = 0;
         for (const auto& adminJson : adminsArray) {
-            admin a = jsonToAdmin(adminJson);
-            admins[a.getUsername()] = a;
+            long adminId = adminJson["admin_id"].get<long>();
+            maxId = std::max(maxId, adminId);
         }
 
-        // Update the admin counter if needed to avoid ID collisions
-        long maxId = 0;
-        for (const auto& pair : admins) {
-            maxId = std::max(maxId, pair.second.getAdminID());
+        // Make sure the static counter starts from the highest existing ID + 1
+        admin::counter = maxId + 1;
+        std::cout << "Admin counter initialized to: " << admin::counter << " (max ID found: " << maxId << ")" << std::endl;
+
+        // Temporarily store a copy of the counter
+        long counterBeforeCreation = admin::counter;
+
+        // Now create the admin objects using direct construction with ID
+        for (const auto& adminJson : adminsArray) {
+            long adminId = adminJson["admin_id"].get<long>();
+            std::string username = adminJson["username"].get<std::string>();
+            std::string password = adminJson["password"].get<std::string>();
+            std::string name = adminJson["name"].get<std::string>();
+            std::string email = adminJson["email"].get<std::string>();
+
+            // Create admin directly with fixed ID without incrementing counter
+            admin a(adminId);
+            a.setUsername(username);
+            a.setPassword(password);
+            a.setName(name);
+            a.setEmail(email);
+            a.setRole('A');
+
+            admins[username] = a;
         }
-        if (maxId >= admin::counter) {
-            admin::counter = maxId + 1;
+
+        // Verify counter didn't change unexpectedly
+        if (admin::counter != counterBeforeCreation) {
+            std::cout << "WARNING: Admin counter changed during creation from "
+                << counterBeforeCreation << " to " << admin::counter
+                << " - fixing it back!" << std::endl;
+            admin::counter = counterBeforeCreation;
         }
+
+        std::cout << "Admin loading complete. Final counter value: " << admin::counter << std::endl;
 
         return true;
     }

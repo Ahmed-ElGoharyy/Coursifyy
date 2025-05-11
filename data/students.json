@@ -124,5 +124,16 @@
         "role": "S",
         "student_id": 1003,
         "username": "mostafa"
+    },
+    {
+        "courses": [],
+        "email": "null",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "Tonyy",
+        "password": "4038629738051122432",
+        "role": "S",
+        "student_id": 1004,
+        "username": "Tonyy22"
     }
 ]

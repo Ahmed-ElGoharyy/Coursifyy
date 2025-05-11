@@ -80,7 +80,6 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
 bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
     QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit) {
     try {
-
         QString uname = usernamee->text().trimmed();
         string username = uname.toStdString();
         QString pword = passwordd->text();
@@ -91,7 +90,6 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
         string confirmpassword = cpassword.toStdString();
         QString keyy = keyedit->text().trimmed();
         string key = keyy.toStdString();
-
 
         if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
             QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
@@ -107,16 +105,24 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
             QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
             return false;
         }
-        if ( key != "1234") { 
+
+        if (key != "1234") {
             QMessageBox::warning(nullptr, "Wrong Administrator Key.", " \n You can't register as admin without knowing the secret key \n \n PS : All Admins know that the key is '1234' :) \n");
             return false;
         }
 
         if (user::isValidUsername(username) && user::isValidPassword(password)) {
-
             string hashedpass = user::hashPassword(password);
 
+            // Debug output before creating admin
+            cout << "About to create new admin. Current admin counter: " << admin::counter << endl;
+
             admin newadmin(username, hashedpass, name);
+
+            // Debug output after creating admin
+            cout << "New admin created with ID: " << newadmin.getAdminID() << endl;
+            cout << "Admin counter after creation: " << admin::counter << endl;
+
             admins[username] = newadmin;
             saveData();
 
@@ -129,7 +135,7 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
         }
     }
     catch (exception& e) {
-        cout << "Error registering student: " << e.what() << endl;
+        cout << "Error registering admin: " << e.what() << endl;
         return false;
     }
 }

@@ -16,6 +16,14 @@
         "username": "registrar"
     },
     {
+        "admin_id": 5,
+        "email": " null",
+        "name": "hady",
+        "password": "16080098921530639044",
+        "role": "A",
+        "username": "hadyy"
+    },
+    {
         "admin_id": 2,
         "email": "dept.head@school.edu",
         "name": "Robert Johnson",
@@ -24,11 +32,27 @@
         "username": "depthead"
     },
     {
-        "admin_id": 30,
+        "admin_id": 3,
         "email": " null",
         "name": "a",
         "password": "4b69a20f1e47979d",
         "role": "A",
         "username": "test"
+    },
+    {
+        "admin_id": 6,
+        "email": " null",
+        "name": "wagdyy",
+        "password": "776284006529606074",
+        "role": "A",
+        "username": "Wagdyy2"
+    },
+    {
+        "admin_id": 4,
+        "email": " null",
+        "name": "ahmedd",
+        "password": "9a357af708c92b90",
+        "role": "A",
+        "username": "ahmedd"
     }
 ]
