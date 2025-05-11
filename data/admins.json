@@ -3,7 +3,7 @@
         "admin_id": 5001,
         "email": "admin@school.edu",
         "name": "Administrator",
-        "password": "9e8d7c6b5a4f3e2d",
+        "password": "116455c0dc671160",
         "role": "A",
         "username": "admin"
     },
@@ -11,7 +11,7 @@
         "admin_id": 5002,
         "email": "registrar@school.edu",
         "name": "Jane Wilson",
-        "password": "9e8d7c6b5a4f3e2d",
+        "password": "116455c0dc671160",
         "role": "A",
         "username": "registrar"
     },
@@ -19,7 +19,7 @@
         "admin_id": 5003,
         "email": "dept.head@school.edu",
         "name": "Robert Johnson",
-        "password": "9e8d7c6b5a4f3e2d",
+        "password": "116455c0dc671160",
         "role": "A",
         "username": "depthead"
     }
