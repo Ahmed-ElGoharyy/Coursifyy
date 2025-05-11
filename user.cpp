@@ -42,14 +42,13 @@ string user::hashPassword(const string& password) {
 // Username must be 3-20 alphanumeric chars (underscore allowed)
 bool user::isValidUsername(const string& username) {
     if (username.length() < 3 || username.length() > 20) return false;
-    return all_of(username.begin(), username.end(), [](char c) {
-        return isalnum(c) || c == '_';
-        });
+    else { return true; }
+        
 }
 
 // Password must be 8+ chars with upper, lower, and digit
 bool user::isValidPassword(const string& password) {
-    if (password.length() < 8) return false;
+    if (password.length() < 6) return false;
 
     bool hasUpper = false, hasLower = false, hasDigit = false;
     for (char c : password) {
@@ -78,7 +77,7 @@ bool user::authenticate( string& pass) {
 }
 
 // Setter methods with validation
-void user::setUsername(const string& username) {
+void user::setUsername( string& username) {
     if (!isValidUsername(username)) {
         throw invalid_argument("Invalid username format");
     }
@@ -93,9 +92,7 @@ void user::setName(const string& name) {
 }
 
 void user::setEmail(const string& email) {
-    if (!isValidEmail(email)) {
-        throw invalid_argument("Invalid email format");
-    }
+   
     this->email = email;
 }
 
@@ -114,7 +111,7 @@ bool user::setPassword(const string& pass) {
 }
 
 // Change password after verifying old password
-bool user::changePassword(const string& oldPassword, const string& newPassword) {
+bool user::changePassword( string& oldPassword,  string& newPassword) {
     if (oldPassword != password) return false;
     if (!isValidPassword(newPassword)) {
         throw invalid_argument("New password doesn't meet requirements");

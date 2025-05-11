@@ -50,6 +50,7 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
             QMessageBox::warning(nullptr, "Password don't match ", " \n Confirm your password again. \n");
             return false;
         }
+       
         
         if (students.find(username) != students.end()) {
             QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
@@ -65,6 +66,7 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
              saveData();
             return true;
         }
+
         else {
             QMessageBox::warning(nullptr, "Bad Username and Password format",
                 " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");

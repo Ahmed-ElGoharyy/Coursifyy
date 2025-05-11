@@ -108,11 +108,33 @@
         "email": " null ",
         "gpa": 0.0,
         "max_credit_hours": 21,
+        "name": "ahmed",
+        "password": "02e62e2bcabc1b12",
+        "role": "S",
+        "student_id": 1087,
+        "username": "ahmed"
+    },
+    {
+        "courses": [],
+        "email": " null ",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
         "name": "a",
         "password": "Ahmed1",
         "role": "S",
         "student_id": 1011,
         "username": "aaa"
+    },
+    {
+        "courses": [],
+        "email": " null ",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "dahy",
+        "password": "50b56017d3294f7e",
+        "role": "S",
+        "student_id": 1116,
+        "username": "dahy2"
     },
     {
         "courses": [],
@@ -135,5 +157,16 @@
         "role": "S",
         "student_id": 1041,
         "username": "aaaaa"
+    },
+    {
+        "courses": [],
+        "email": " null ",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "a",
+        "password": "d5b2ff1ef8537c0e",
+        "role": "S",
+        "student_id": 1062,
+        "username": "bbb"
     }
 ]
