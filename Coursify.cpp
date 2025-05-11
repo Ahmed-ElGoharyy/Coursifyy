@@ -50,7 +50,7 @@ Coursify::Coursify(QWidget* parent)
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
         }
         else if (choice =='F'){
-            QMessageBox::critical(this, "Error", " Username or Password is incorrect! ");
+            QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
         }
 
         });

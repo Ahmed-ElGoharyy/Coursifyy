@@ -82,7 +82,7 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
 
 
     if (username.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(nullptr, "Login Failed", "Username and password must not be empty.");
+        QMessageBox::warning(nullptr, " Error  ", " \n Username and password must not be empty. \n");
         usernameEdit->clear();
         passwordEdit->clear();
 
