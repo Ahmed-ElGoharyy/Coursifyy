@@ -37,10 +37,10 @@ public:
         return (role == 'A') ? "admin" : "student";
     }
 
-    void setUsername(const string& username);
+    void setUsername( string& username);
     void setName(const string& name);
     void setEmail(const string& email);
     void setRole(char role);
     bool setPassword(const string& pass);
-    bool changePassword(const string& oldPassword, const string& newPassword);
+    bool changePassword( string& oldPassword,  string& newPassword);
 };

@@ -35,11 +35,30 @@ Coursify::Coursify(QWidget* parent)
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
 
+    connect(ui.Register_signup, &QPushButton::clicked, this, [=]() {          // Register function for Admin and Student  
+
+        if (ui.radioButtonS->isChecked()) {
+            if (Sys.registerStudent(ui.Register_S1, ui.Register_S2, ui.Register_S3, ui.Register_S4)) {
+                QMessageBox::information(this, " Success", "\n Student registered successfully \n ");
+            }
+          
+         
+        }
+
+        else if (ui.radioButtonA->isChecked()){
+            QMessageBox::information(this, " Error", "\n Not implemented yet !!!! elsabr \n ");
+        }
+
+        else {
+            QMessageBox::critical(this, " Error", "\n Must choose to register as Student or admin \n ");
+        }
+
+
+        });
+
 
 
     connect(ui.login_button, &QPushButton::clicked, this, [=]() {          //  Login Function    
-
-       
 
         char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
 
@@ -60,7 +79,7 @@ Coursify::Coursify(QWidget* parent)
         ui.Register_S1, ui.Register_S2,
         ui.Register_S3, ui.Register_S4,
         ui.Register_A1, ui.Register_A2,
-        ui.Register_A3, ui.Register_A4);
+        ui.Register_A3, ui.Register_A4, ui.Register_A5);
 
 
 

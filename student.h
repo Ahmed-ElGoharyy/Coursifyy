@@ -28,6 +28,7 @@ public:
     // Constructors
     student();
     student(string username, string password, string name, string email) noexcept(false);
+    student(string username, string password, string name) noexcept(false);
 
     // Course and grade management
     course searchCourse(string courseName) const noexcept(false);

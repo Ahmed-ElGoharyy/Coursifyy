@@ -18,8 +18,8 @@ public:
 
     char authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser);
 
-    bool registerStudent(const std::string& username, const std::string& password,
-        const std::string& name, const std::string& email);
+    bool registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd);
+
     bool registerAdmin(const std::string& username, const std::string& password,
         const std::string& name, const std::string& email);
     bool login(const std::string& username, const std::string& password, user*& loggedUser);

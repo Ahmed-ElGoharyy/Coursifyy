@@ -2,6 +2,9 @@
 #include "Coursify.h"
 #include <QtWidgets/QApplication>
 #include "courseSystem.h"
+
+
+
 int main(int argc, char *argv[])
 {
     courseSystem system;

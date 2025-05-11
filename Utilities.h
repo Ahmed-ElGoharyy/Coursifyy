@@ -20,6 +20,6 @@ void setupRadioButtonLogic(QRadioButton* choice1Radio, QRadioButton* choice2Radi
     QLineEdit* lineEditA, QLineEdit* lineEditB,
     QLineEdit* lineEditC, QLineEdit* lineEditD,
     QLineEdit* lineEditE, QLineEdit* lineEditF,
-    QLineEdit* lineEditG, QLineEdit* lineEditH);
+    QLineEdit* lineEditG, QLineEdit* lineEditH, QLineEdit* lineEditI);
 
 bool validateCredentials(QLineEdit* usernameEdit, QLineEdit* passwordEdit, QString& username, QString& password, user*& loggedUser);

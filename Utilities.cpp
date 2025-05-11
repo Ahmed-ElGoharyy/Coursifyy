@@ -36,7 +36,7 @@ void setupRadioButtonLogic(QRadioButton* choice1Radio, QRadioButton* choice2Radi
     QLineEdit* lineEditA, QLineEdit* lineEditB,
     QLineEdit* lineEditC, QLineEdit* lineEditD,
     QLineEdit* lineEditE, QLineEdit* lineEditF,
-    QLineEdit* lineEditG, QLineEdit* lineEditH)               // Register display functions
+    QLineEdit* lineEditG, QLineEdit* lineEditH, QLineEdit* lineEditI)               // Register display functions
 {
     auto updateVisibility = [=]() {
 
@@ -52,6 +52,8 @@ void setupRadioButtonLogic(QRadioButton* choice1Radio, QRadioButton* choice2Radi
         lineEditF->setVisible(admin_Selected);
         lineEditG->setVisible(admin_Selected);
         lineEditH->setVisible(admin_Selected);
+        lineEditI->setVisible(admin_Selected);
+
 
         };
 

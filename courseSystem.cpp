@@ -23,57 +23,99 @@ courseSystem::~courseSystem() {
     }
 }
 
-bool courseSystem::registerStudent(const std::string& username, const std::string& password,
-    const std::string& name, const std::string& email) {
+
+
+bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd) {
     try {
+
+        
+        QString uname = usernamee->text().trimmed();   //   UI Elements
+        string username = uname.toStdString();
+        QString pword = passwordd->text();
+        string password = pword.toStdString();
+        QString nam = namee->text().trimmed();
+        string name = nam.toStdString();
+        QString cpassword = confirmpasswordd->text();
+        string confirmpassword = cpassword.toStdString();
+
+
+        if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
+            QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
+            
+            return false;
+
+        }
+
+        if (password != confirmpassword) {
+            QMessageBox::warning(nullptr, "Password don't match ", " \n Confirm your password again. \n");
+            return false;
+        }
+        
         if (students.find(username) != students.end()) {
+            QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
             return false;
         }
 
-        student newStudent(username, password, name, email);
-        if (newStudent.isValidUsername(username) &&
-            newStudent.isValidPassword(password) &&
-            newStudent.isValidEmail(email)) {
+        
+        if (user::isValidUsername(username) && user::isValidPassword(password) ) {
 
+            string hashedpass = user::hashPassword(password);
+            student newStudent(username, hashedpass, name);
             students[username] = newStudent;
-            saveData();
+             saveData();
             return true;
         }
-        else
+        else {
+            QMessageBox::warning(nullptr, "Bad Username and Password format",
+                " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");
             return false;
+        }
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error registering student: " << e.what() << std::endl;
+    catch (exception& e) {
+        cout << "Error registering student: " << e.what() << endl;
         return false;
     }
 }
+
+
+
+
 
 bool courseSystem::registerAdmin(const std::string& username, const std::string& password,
     const std::string& name, const std::string& email) {
     try {
         if (admins.find(username) != admins.end()) {
+            QMessageBox::warning(nullptr, "Username already exists ", " \n Choose another username. \n");
             return false;
         }
 
         admin newAdmin(username, password, name, email);
         if (newAdmin.isValidUsername(username) &&
-            newAdmin.isValidPassword(password) &&
-            newAdmin.isValidEmail(email)) {
+            newAdmin.isValidPassword(password) ) {
 
             admins[username] = newAdmin;
             saveData();
             return true;
         }
-        else
+        else{
+            QMessageBox::warning(nullptr, "Check Username and Password", 
+                " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");
+            return false;
+        }
             return false;
     }
     catch (const std::exception& e) {
-        std::cerr << "Error registering admin: " << e.what() << std::endl;
+
+        QMessageBox::warning(nullptr, "Error registering admin: ", " \n Couldn't register this student \n");
+        cout << "Error registering admin: " << e.what() << std::endl;
         return false;
     }
 }
 
-char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser)
+
+
+
+char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser)   // USED
 {
     QString username = usernameEdit->text().trimmed();
     string uname = username.toStdString();

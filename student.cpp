@@ -17,6 +17,12 @@ student::student(string username, string password, string name, string email)
     StudentID = counter++;
 }
 
+// Parameterized constructor #2 by gohary
+student::student(string username, string password, string name)
+    : user(username, password, name," null ", 'S'), gpa(0.0), max_credit_hours(21) {
+    StudentID = counter++;
+}
+
 course student::searchCourse(string courseName) const noexcept(false) {
     for (const auto& pair : courses) {
         if (pair.first.getTitle() == courseName) {
