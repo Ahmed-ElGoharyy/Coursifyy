@@ -94,24 +94,28 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
     if (studentIt != students.end()) {
         if (studentIt->second.authenticate(pword)) {
             loggedUser = &studentIt->second;
+            usernameEdit->clear();
+            passwordEdit->clear();
             return 'S';
         }
         
     }
-    else {
-        QMessageBox::warning(nullptr, "Login Failed", "Didnt find the user");
-
-    }
+    
 
     auto adminIt = admins.find(uname);
     if (adminIt != admins.end()) {
         if (adminIt->second.authenticate(pword)) {
             loggedUser = &adminIt->second;
+            usernameEdit->clear();
+            passwordEdit->clear();
             return 'A';
         }
         
     }
 
+
+    usernameEdit->clear();
+    passwordEdit->clear();
     return 'F';
 
 
