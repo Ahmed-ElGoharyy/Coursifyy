@@ -4,6 +4,12 @@
 #include "courseSystem.h"
 
 
+courseSystem Sys;             //lazem yeb2o global
+user* currentUser = nullptr;       //lazem yeb2o global
+
+
+
+
 Coursify::Coursify(QWidget* parent)
     : QMainWindow(parent)
 {
@@ -15,15 +21,25 @@ Coursify::Coursify(QWidget* parent)
         ui.stackedWidget->setCurrentWidget(ui.Register);
         });
 
-    connect(ui.back_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register    
+
+    connect(ui.back_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register panel  
         ui.stackedWidget->setCurrentWidget(ui.Login);
-     
         });
 
-    connect(ui.login_button, &QPushButton::clicked, this, [=]() {          //  Back transition in Register    
 
-        courseSystem Sys;             //lazem yeb2o global
-        user* currentUser = nullptr;       //lazem yeb2o global
+    connect(ui.back_button_2, &QPushButton::clicked, this, [=]() {          //  Back transition in admin panel
+        ui.stackedWidget->setCurrentWidget(ui.Login);
+        });
+
+    connect(ui.back_button_3, &QPushButton::clicked, this, [=]() {          //  Back transition in Student panel    
+        ui.stackedWidget->setCurrentWidget(ui.Login);
+        });
+
+
+
+    connect(ui.login_button, &QPushButton::clicked, this, [=]() {          //  Login Function    
+
+       
 
         char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
 
@@ -54,7 +70,7 @@ Coursify::Coursify(QWidget* parent)
         QMessageBox::warning(this, "Data Loading Error",
             "Could not load existing data. Starting with empty data.");
     }
-    else { cout << "Sucess"; }
+    else { cout << "Success"; }
 }
 
     Coursify::~Coursify()

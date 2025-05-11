@@ -98,6 +98,10 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
         }
         
     }
+    else {
+        QMessageBox::warning(nullptr, "Login Failed", "Didnt find the user");
+
+    }
 
     auto adminIt = admins.find(uname);
     if (adminIt != admins.end()) {

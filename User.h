@@ -26,7 +26,7 @@ public:
     user(string username, string password,
         string name, string email);
 
-    bool authenticate(const string& password) const;
+    bool authenticate( string& password) ;
 
     string getUsername() const { return username; }
     string getPassword() const { return password; } // Changed from getPasswordHash
