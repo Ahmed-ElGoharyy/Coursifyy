@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1242</width>
     <height>720</height>
    </rect>
   </property>
@@ -499,7 +499,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3027,8 +3027,8 @@ border-radius: 50px;
        <widget class="QLabel" name="label_14">
         <property name="geometry">
          <rect>
-          <x>430</x>
-          <y>120</y>
+          <x>460</x>
+          <y>70</y>
           <width>391</width>
           <height>31</height>
          </rect>
@@ -3178,6 +3178,262 @@ background-color: #183B4E</string>
           <height>20</height>
          </size>
         </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>140</y>
+          <width>881</width>
+          <height>431</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Upload Course</string>
+         </attribute>
+         <widget class="QLineEdit" name="lineEdit_courseID">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>60</y>
+            <width>491</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_courseTitle">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>150</y>
+            <width>491</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit_description">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>230</y>
+            <width>491</width>
+            <height>70</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_uploadDescription">
+          <property name="geometry">
+           <rect>
+            <x>410</x>
+            <y>330</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Upload</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>60</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Course ID</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>150</y>
+            <width>81</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Course Title</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>250</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Description</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Set Prerequisites</string>
+         </attribute>
+         <widget class="QComboBox" name="combo_course">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>90</y>
+            <width>451</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="list_prereq">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>171</y>
+            <width>451</width>
+            <height>151</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_setPrerequisites">
+          <property name="geometry">
+           <rect>
+            <x>520</x>
+            <y>350</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Set</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>90</y>
+            <width>49</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Course</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>230</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Prerequisites</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>Mange Grades</string>
+         </attribute>
+         <widget class="QLineEdit" name="lineEdit_studentID">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>80</y>
+            <width>361</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_courseID_2">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>150</y>
+            <width>351</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_grade">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>220</y>
+            <width>361</width>
+            <height>24</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_submitGrade">
+          <property name="geometry">
+           <rect>
+            <x>480</x>
+            <y>300</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Submit</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_16">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>80</y>
+            <width>81</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Student ID</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_17">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>150</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Course ID</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_18">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>220</y>
+            <width>49</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Grade</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>Upload CSV</string>
+         </attribute>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="Student_Panel">
@@ -5158,7 +5414,7 @@ background-color: #007074</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>1242</width>
      <height>21</height>
     </rect>
    </property>
