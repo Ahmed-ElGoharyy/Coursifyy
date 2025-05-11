@@ -24,6 +24,11 @@ admin::admin(string username, string password, string name, string email)
     adminID = counter++;
 }
 
+admin::admin(string username, string password, string name)  //made by gohary
+    : user(username, password, name, " null", 'A') {
+    adminID = counter++;
+}
+
 admin::~admin() {
 }
 

@@ -22,5 +22,13 @@
         "password": "116455c0dc671160",
         "role": "A",
         "username": "depthead"
+    },
+    {
+        "admin_id": 30,
+        "email": " null",
+        "name": "a",
+        "password": "4b69a20f1e47979d",
+        "role": "A",
+        "username": "test"
     }
 ]

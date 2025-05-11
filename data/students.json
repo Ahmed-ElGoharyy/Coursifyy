@@ -113,5 +113,16 @@
         "role": "S",
         "student_id": 1002,
         "username": "ahmedd1"
+    },
+    {
+        "courses": [],
+        "email": "null",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "motafa",
+        "password": "b9ac40150d0594b8",
+        "role": "S",
+        "student_id": 1003,
+        "username": "mostafa"
     }
 ]

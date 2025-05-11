@@ -46,7 +46,10 @@ Coursify::Coursify(QWidget* parent)
         }
 
         else if (ui.radioButtonA->isChecked()){
-            QMessageBox::information(this, " Error", "\n Not implemented yet !!!! elsabr \n ");
+            if (Sys.registerAdmin(ui.Register_A1, ui.Register_A2, ui.Register_A3, ui.Register_A4, ui.Register_A5)) {
+                QMessageBox::information(this, " Success", "\n Student registered successfully \n ");
+            }
+            
         }
 
         else {

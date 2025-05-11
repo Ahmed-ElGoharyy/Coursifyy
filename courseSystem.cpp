@@ -52,21 +52,12 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         }
 
         if (user::isValidUsername(username) && user::isValidPassword(password)) {
+
             string hashedpass = user::hashPassword(password);
 
-            // Debug the current counter value before creating the student
-            std::cout << "Before creating student, counter value: " << student::counter << std::endl;
-
             student newStudent(username, hashedpass, name);
-
-            // Debug the ID that was assigned
-            std::cout << "New student created with ID: " << newStudent.getStudentID() << std::endl;
-
             students[username] = newStudent;
             saveData();
-
-            // Debug the counter value after registration
-            std::cout << "After registration, counter value: " << student::counter << std::endl;
 
             return true;
         }
@@ -86,33 +77,59 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
 
 
 
-bool courseSystem::registerAdmin(const std::string& username, const std::string& password,
-    const std::string& name, const std::string& email) {
+bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
+    QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit) {
     try {
-        if (admins.find(username) != admins.end()) {
-            QMessageBox::warning(nullptr, "Username already exists ", " \n Choose another username. \n");
+
+        QString uname = usernamee->text().trimmed();
+        string username = uname.toStdString();
+        QString pword = passwordd->text();
+        string password = pword.toStdString();
+        QString nam = namee->text().trimmed();
+        string name = nam.toStdString();
+        QString cpassword = confirmpasswordd->text();
+        string confirmpassword = cpassword.toStdString();
+        QString keyy = keyedit->text().trimmed();
+        string key = keyy.toStdString();
+
+
+        if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
+            QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
             return false;
         }
 
-        admin newAdmin(username, password, name, email);
-        if (newAdmin.isValidUsername(username) &&
-            newAdmin.isValidPassword(password) ) {
+        if (password != confirmpassword) {
+            QMessageBox::warning(nullptr, "Passwords don't match ", " \n Confirm your password again. \n");
+            return false;
+        }
 
-            admins[username] = newAdmin;
+        if (admins.find(username) != admins.end()) {
+            QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
+            return false;
+        }
+        if ( key != "1234") { 
+            QMessageBox::warning(nullptr, "Wrong Administrator Key.", " \n You can't register as admin without knowing the secret key \n \n PS : All Admins know that the key is '1234' :) \n");
+            return false;
+        }
+
+        if (user::isValidUsername(username) && user::isValidPassword(password)) {
+
+            string hashedpass = user::hashPassword(password);
+
+            admin newadmin(username, hashedpass, name);
+            admins[username] = newadmin;
             saveData();
+
             return true;
         }
-        else{
-            QMessageBox::warning(nullptr, "Check Username and Password", 
+        else {
+            QMessageBox::warning(nullptr, "Bad Username and Password format",
                 " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");
             return false;
         }
-            return false;
     }
-    catch (const std::exception& e) {
-
-        QMessageBox::warning(nullptr, "Error registering admin: ", " \n Couldn't register this student \n");
-        cout << "Error registering admin: " << e.what() << std::endl;
+    catch (exception& e) {
+        cout << "Error registering student: " << e.what() << endl;
         return false;
     }
 }

@@ -20,8 +20,9 @@ public:
 
     bool registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd);
 
-    bool registerAdmin(const std::string& username, const std::string& password,
-        const std::string& name, const std::string& email);
+    bool registerAdmin(QLineEdit* namee, QLineEdit* usernamee,QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit);
+
+
     bool login(const std::string& username, const std::string& password, user*& loggedUser);
     bool addCourse(const course& newCourse);
     bool updateCourse(long courseID, const course& updatedCourse);

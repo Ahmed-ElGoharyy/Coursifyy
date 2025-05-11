@@ -20,6 +20,7 @@ public:
     admin();
     admin(long adminID);
     admin(string username, string password, string name, string email);
+    admin(string username, string password, string name);
     ~admin();
 
     long getAdminID() const { return adminID; }
