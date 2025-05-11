@@ -73,7 +73,7 @@ bool user::isValidRole(char role) {
 }
 
 // Verify if provided password matches stored password
-bool user::authenticate(const string& pass) const {
+bool user::authenticate( string& pass) {
     return hashPassword(pass) == this->password;
 }
 
