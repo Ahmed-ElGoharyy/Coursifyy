@@ -1,4 +1,4 @@
-#include "stdafx.h"
+  #include "stdafx.h"
 #include "user.h"
 #include <algorithm>
 #include <stdexcept>
@@ -74,7 +74,7 @@ bool user::isValidRole(char role) {
 
 // Verify if provided password matches stored password
 bool user::authenticate( string& pass) {
-    return true; // hashPassword(pass) == this->password;
+    return hashPassword(pass) == this->password;
 }
 
 // Setter methods with validation
