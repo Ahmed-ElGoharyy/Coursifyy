@@ -48,7 +48,7 @@
         "name": "John Doe",
         "password": "ed07f8f337f77ac5",
         "role": "S",
-        "student_id": 1001,
+        "student_id": 1000,
         "username": "student1"
     },
     {
@@ -100,73 +100,18 @@
         "name": "Jane Smith",
         "password": "ed07f8f337f77ac5",
         "role": "S",
-        "student_id": 1002,
+        "student_id": 1001,
         "username": "student2"
     },
     {
         "courses": [],
-        "email": " null ",
+        "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
-        "name": "ahmed",
-        "password": "02e62e2bcabc1b12",
+        "name": "ahmedd",
+        "password": "c93b811a76d7004c",
         "role": "S",
-        "student_id": 1087,
-        "username": "ahmed"
-    },
-    {
-        "courses": [],
-        "email": " null ",
-        "gpa": 0.0,
-        "max_credit_hours": 21,
-        "name": "a",
-        "password": "Ahmed1",
-        "role": "S",
-        "student_id": 1011,
-        "username": "aaa"
-    },
-    {
-        "courses": [],
-        "email": " null ",
-        "gpa": 0.0,
-        "max_credit_hours": 21,
-        "name": "dahy",
-        "password": "50b56017d3294f7e",
-        "role": "S",
-        "student_id": 1116,
-        "username": "dahy2"
-    },
-    {
-        "courses": [],
-        "email": " null ",
-        "gpa": 0.0,
-        "max_credit_hours": 21,
-        "name": "aaa",
-        "password": "Ahmed1",
-        "role": "S",
-        "student_id": 1024,
-        "username": "aaaa"
-    },
-    {
-        "courses": [],
-        "email": " null ",
-        "gpa": 0.0,
-        "max_credit_hours": 21,
-        "name": "Test",
-        "password": "02e62e2bcabc1b12",
-        "role": "S",
-        "student_id": 1041,
-        "username": "aaaaa"
-    },
-    {
-        "courses": [],
-        "email": " null ",
-        "gpa": 0.0,
-        "max_credit_hours": 21,
-        "name": "a",
-        "password": "d5b2ff1ef8537c0e",
-        "role": "S",
-        "student_id": 1062,
-        "username": "bbb"
+        "student_id": 1002,
+        "username": "ahmedd1"
     }
 ]

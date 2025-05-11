@@ -27,9 +27,7 @@ courseSystem::~courseSystem() {
 
 bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd) {
     try {
-
-        
-        QString uname = usernamee->text().trimmed();   //   UI Elements
+        QString uname = usernamee->text().trimmed();
         string username = uname.toStdString();
         QString pword = passwordd->text();
         string password = pword.toStdString();
@@ -38,35 +36,40 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         QString cpassword = confirmpasswordd->text();
         string confirmpassword = cpassword.toStdString();
 
-
         if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
             QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
-            
             return false;
-
         }
 
         if (password != confirmpassword) {
             QMessageBox::warning(nullptr, "Password don't match ", " \n Confirm your password again. \n");
             return false;
         }
-       
-        
+
         if (students.find(username) != students.end()) {
             QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
             return false;
         }
 
-        
-        if (user::isValidUsername(username) && user::isValidPassword(password) ) {
-
+        if (user::isValidUsername(username) && user::isValidPassword(password)) {
             string hashedpass = user::hashPassword(password);
+
+            // Debug the current counter value before creating the student
+            std::cout << "Before creating student, counter value: " << student::counter << std::endl;
+
             student newStudent(username, hashedpass, name);
+
+            // Debug the ID that was assigned
+            std::cout << "New student created with ID: " << newStudent.getStudentID() << std::endl;
+
             students[username] = newStudent;
-             saveData();
+            saveData();
+
+            // Debug the counter value after registration
+            std::cout << "After registration, counter value: " << student::counter << std::endl;
+
             return true;
         }
-
         else {
             QMessageBox::warning(nullptr, "Bad Username and Password format",
                 " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");

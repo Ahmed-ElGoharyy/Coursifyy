@@ -281,15 +281,15 @@ bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students)
             students[s.getUsername()] = s;
         }
 
-        // Update the student counter if needed to avoid ID collisions
+        // Update the student counter to the highest ID + 1
         long maxId = 0;
         for (const auto& pair : students) {
             maxId = std::max(maxId, pair.second.getStudentID());
         }
-        if (maxId >= student::counter) {
-            student::counter = maxId + 1;
-        }
+        // Make sure the static counter starts from the highest existing ID + 1
+        student::counter = maxId + 1;
 
+        std::cout << "Student counter initialized to: " << student::counter << std::endl;
         return true;
     }
     catch (const std::exception& e) {

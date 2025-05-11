@@ -1,6 +1,6 @@
 [
     {
-        "admin_id": 5001,
+        "admin_id": 0,
         "email": "admin@school.edu",
         "name": "Administrator",
         "password": "116455c0dc671160",
@@ -8,7 +8,7 @@
         "username": "admin"
     },
     {
-        "admin_id": 5002,
+        "admin_id": 1,
         "email": "registrar@school.edu",
         "name": "Jane Wilson",
         "password": "116455c0dc671160",
@@ -16,7 +16,7 @@
         "username": "registrar"
     },
     {
-        "admin_id": 5003,
+        "admin_id": 2,
         "email": "dept.head@school.edu",
         "name": "Robert Johnson",
         "password": "116455c0dc671160",

@@ -4,23 +4,23 @@
 #include "user.h"   
 
 // Initialize static counter
-long student::counter = 1000;
+long student::counter = 0;
 
-// Default constructor
-student::student() : user(), StudentID(0), gpa(0.0), max_credit_hours(21) {
+student::student() : user(), StudentID(counter++), gpa(0.0), max_credit_hours(21) {
     setRole('S');
+    std::cout << "Created new student with ID: " << StudentID << std::endl;
 }
 
-// Parameterized constructor
 student::student(string username, string password, string name, string email)
     : user(username, password, name, email, 'S'), gpa(0.0), max_credit_hours(21) {
     StudentID = counter++;
+    std::cout << "Created new student with ID: " << StudentID << std::endl;
 }
 
-// Parameterized constructor #2 by gohary
 student::student(string username, string password, string name)
-    : user(username, password, name," null ", 'S'), gpa(0.0), max_credit_hours(21) {
+    : user(username, password, name, "null", 'S'), gpa(0.0), max_credit_hours(21) {
     StudentID = counter++;
+    std::cout << "Created new student with ID: " << StudentID << std::endl;
 }
 
 course student::searchCourse(string courseName) const noexcept(false) {
