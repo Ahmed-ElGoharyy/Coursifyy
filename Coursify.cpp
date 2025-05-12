@@ -5,8 +5,9 @@
 
 
 courseSystem Sys;             //lazem yeb2o global
-user* currentUser = nullptr;       //lazem yeb2o global
-
+user* currentUser = nullptr;     //lazem yeb2o global
+student* s = nullptr;            // Student in student panel
+admin* a = nullptr;          // Admin in admin's panel
 
 
 
@@ -70,10 +71,10 @@ Coursify::Coursify(QWidget* parent)
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
 
-            student* s = dynamic_cast<student*>(currentUser);                   //Downcasting to student
+             s = dynamic_cast<student*>(currentUser);                   //Downcasting to student
             if (s) {
-                QString welcomeText = "Welcome," + QString::fromStdString(s->getName()) +
-                    " ID : " + QString::number(s->getStudentID());
+                QString welcomeText = "Welcome, " + QString::fromStdString(s->getName()) +".  "
+                    +"   Your Student ID : " + QString::number(s->getStudentID());
                 ui.label_15->setText(welcomeText);
             }
 
@@ -83,9 +84,9 @@ Coursify::Coursify(QWidget* parent)
 
             admin* a = dynamic_cast<admin*>(currentUser);                      //Downcasting to Admin
             if (a) {
-                QString welcomeText = "Welcome," + QString::fromStdString(a->getName()) +
-                    " ID : " + QString::number(a->getAdminID());
-                ui.label_15->setText(welcomeText);
+                QString welcomeText = "Welcome, " + QString::fromStdString(a->getName()) +".  "
+                    +"  Your Admin ID : " + QString::number(a->getAdminID());
+                ui.label_14->setText(welcomeText);
             }
 
         }

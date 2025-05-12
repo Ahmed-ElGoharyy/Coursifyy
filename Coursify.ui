@@ -3039,15 +3039,15 @@ border-radius: 50px;
        <widget class="QLabel" name="label_14">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>70</y>
-          <width>391</width>
+          <x>440</x>
+          <y>50</y>
+          <width>661</width>
           <height>31</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>26</pointsize>
+          <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
         </property>
@@ -3793,15 +3793,15 @@ font-weight: bold;
        <widget class="QLabel" name="label_15">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>440</x>
           <y>40</y>
-          <width>231</width>
+          <width>721</width>
           <height>31</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>26</pointsize>
+          <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
         </property>
@@ -3810,6 +3810,9 @@ font-weight: bold;
         </property>
         <property name="text">
          <string>Student Panel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
        <widget class="QPushButton" name="back_button_3">
