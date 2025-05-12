@@ -69,9 +69,11 @@ Coursify::Coursify(QWidget* parent)
 
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
+
         }
         else if (choice == 'A') {
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
+
         }
         else if (choice =='F'){
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
