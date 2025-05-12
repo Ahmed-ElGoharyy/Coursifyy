@@ -17,21 +17,29 @@ private:
     std::vector<course> prerequisites;
     std::string syllabus;
     bool enrolled;
-    static long counter;
 
 public:
+    static long counter;
     long CourseID;
+
     friend class FileUtils;
 
-    course();
-    course(std::string title, std::string description, std::string instructor, std::string semester,
-        int credithours, std::vector<course> prerequisites, std::string syllabus);
+    // Counter management - simplified to avoid double incrementation
+    static void resetCounter(long value = 100) { counter = value; }
 
+    // Constructors
+    course();
+    course(std::string title, std::string description, std::string instructor,
+        std::string semester, int credithours, std::vector<course> prerequisites,
+        std::string syllabus);
+
+    // Prerequisite management
     void addPrerequisite(const course& prereq);
     void removePrerequisite(long courseId);
     void clearPrerequisites();
     bool checkPrerequisites(const student& s) const;
 
+    // Getters
     long getCourseID() const { return CourseID; }
     std::string getTitle() const { return title; }
     std::string getDescription() const { return description; }
@@ -42,6 +50,7 @@ public:
     bool isEnrolled() const { return enrolled; }
     std::vector<course> getPrerequisites() const { return prerequisites; }
 
+    // Setters
     void setTitle(const std::string& t) { title = t; }
     void setDescription(const std::string& desc) { description = desc; }
     void setInstructor(const std::string& inst) { instructor = inst; }
@@ -50,6 +59,7 @@ public:
     void setSyllabus(const std::string& syll) { syllabus = syll; }
     void setEnrolled(bool status) { enrolled = status; }
 
+    // Operators
     bool operator==(const course& other) const {
         return CourseID == other.CourseID;
     }

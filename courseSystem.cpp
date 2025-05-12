@@ -201,10 +201,18 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
 
 bool courseSystem::addCourse(const course& newCourse) {
     long courseID = newCourse.getCourseID();
+
+    // Check if this course ID already exists
     if (courses.find(courseID) != courses.end()) {
         return false;
     }
+
+    // Add the course with the same ID it already has
     courses[courseID] = newCourse;
+
+    // Debug output
+    std::cout << "Added course with ID: " << courseID << ", counter value: " << course::counter << std::endl;
+
     return true;
 }
 
@@ -422,6 +430,12 @@ bool courseSystem::saveData() {
     // Print expected file paths
     std::cout << "Expected courses file: " << absDataPath.string() + "/courses.json" << std::endl;
 
+    // Make sure data directory exists
+    if (!std::filesystem::exists(dataDir)) {
+        std::cout << "Creating data directory: " << dataDir << std::endl;
+        std::filesystem::create_directory(dataDir);
+    }
+
     // Print course count before saving
     std::cout << "Number of courses to save: " << courses.size() << std::endl;
     for (const auto& pair : courses) {
@@ -429,14 +443,47 @@ bool courseSystem::saveData() {
             << ", Title: " << pair.second.getTitle() << std::endl;
     }
 
+    // Explicitly check if courses.json exists and try to remove it if it does
+    std::string coursesFilePath = (absDataPath / "courses.json").string();
+    if (std::filesystem::exists(coursesFilePath)) {
+        std::cout << "Found existing courses file. Size: "
+            << std::filesystem::file_size(coursesFilePath) << " bytes. Removing..." << std::endl;
+        try {
+            std::filesystem::remove(coursesFilePath);
+            std::cout << "Successfully removed old courses file." << std::endl;
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Error removing old courses file: " << e.what() << std::endl;
+        }
+    }
+
     // Call the original save function
     bool result = FileUtils::saveAllData(*this);
 
     // Verify file existence after save
-    std::string coursesFilePath = (absDataPath / "courses.json").string();
     if (std::filesystem::exists(coursesFilePath)) {
         std::cout << "Courses file exists after save at: " << coursesFilePath << std::endl;
         std::cout << "File size: " << std::filesystem::file_size(coursesFilePath) << " bytes" << std::endl;
+
+        // Try to read file contents to verify it's a valid JSON
+        try {
+            std::ifstream file(coursesFilePath);
+            if (file.is_open()) {
+                std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+                file.close();
+                if (content.empty()) {
+                    std::cout << "WARNING: Courses file is empty!" << std::endl;
+                }
+                else {
+                    std::cout << "Courses file contains data (first 100 chars): "
+                        << content.substr(0, std::min(content.size(), static_cast<size_t>(100)))
+                        << (content.size() > 100 ? "..." : "") << std::endl;
+                }
+            }
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Error reading back courses file: " << e.what() << std::endl;
+        }
     }
     else {
         std::cout << "WARNING: Courses file does not exist after save!" << std::endl;
@@ -455,12 +502,29 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
     int lineNumber = 0;
     int successCount = 0;
 
+    // First, find the maximum existing course ID
+    long maxExistingId = 0;
+    for (const auto& pair : courses) {
+        maxExistingId = std::max(maxExistingId, pair.first);
+    }
+
+    // Reset counter to max ID + 1
+    course::resetCounter(maxExistingId + 1);
+    qDebug() << "Course counter reset to:" << course::counter;
+
     // Structure to store course ID and its prerequisite IDs
     struct CoursePrereqData {
         long courseId;
         std::vector<long> prerequisiteIds;
     };
     std::vector<CoursePrereqData> coursePrereqs;
+
+    // Make sure course counter starts from max ID + 1
+    qDebug() << "Before import - Course counter:" << course::counter << ", Max existing ID:" << maxExistingId;
+    if (maxExistingId >= course::counter) {
+        course::counter = maxExistingId + 1;
+        qDebug() << "Updated course counter to:" << course::counter;
+    }
 
     // Skip header if present
     if (!in.atEnd()) in.readLine();
@@ -496,7 +560,7 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
         }
 
         try {
-            // Parse course data
+            // Create the course with empty prerequisites initially
             course newCourse(
                 tokens[0].toStdString(), // title
                 tokens[1].toStdString(), // description
@@ -507,8 +571,9 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
                 tokens.size() > 5 ? tokens[5].toStdString() : "" // syllabus
             );
 
-            // Store the new course ID
+            // Log the course ID assignment
             long newCourseId = newCourse.getCourseID();
+            qDebug() << "Created new course with ID:" << newCourseId << "from CSV";
 
             // Parse prerequisite IDs
             std::vector<long> prereqIds;
@@ -521,7 +586,8 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
             }
 
             // Add course to the system
-            if (addCourse(newCourse)) {
+            if (courses.find(newCourseId) == courses.end()) {
+                courses.insert({ newCourseId,newCourse });
                 coursePrereqs.push_back({ newCourseId, prereqIds });
                 successCount++;
                 qDebug() << "Added course:" << newCourse.getTitle().c_str() << "with ID:" << newCourseId;
@@ -565,6 +631,9 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
             }
         }
     }
+
+    // Log final counter state
+    qDebug() << "After import - Course counter:" << course::counter;
 
     // Save the data to persist the changes
     qDebug() << "Attempting to save data with" << successCount << "new courses";

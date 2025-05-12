@@ -10,7 +10,7 @@ class Coursify : public QMainWindow
     Q_OBJECT
 
 public:
-    Coursify(QWidget *parent = nullptr);
+    Coursify(QWidget* parent = nullptr);
     ~Coursify();
 
 private:

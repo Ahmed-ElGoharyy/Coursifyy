@@ -114,18 +114,26 @@ student FileUtils::jsonToStudent(const nlohmann::json& j) {
 }
 
 course FileUtils::jsonToCourse(const nlohmann::json& j) {
-    course c(
-        j["title"].get<std::string>(),
-        j["description"].get<std::string>(),
-        j["instructor"].get<std::string>(),
-        j["semester"].get<std::string>(),
-        j["credit_hours"].get<int>(),
-        {},
-        j["syllabus"].get<std::string>()
-    );
+    course c;
 
+    // Temporarily save the counter value
+    long oldCounter = course::counter;
+
+    // Set ID directly (this will be used instead of assigning a new one)
     c.CourseID = j["course_id"].get<long>();
+
+    // Restore counter if needed (in case the constructor changed it)
+    course::counter = oldCounter;
+
+    // Set other properties
+    c.setTitle(j["title"].get<std::string>());
+    c.setDescription(j["description"].get<std::string>());
+    c.setInstructor(j["instructor"].get<std::string>());
+    c.setSemester(j["semester"].get<std::string>());
+    c.setCreditHours(j["credit_hours"].get<int>());
+    c.setSyllabus(j["syllabus"].get<std::string>());
     c.setEnrolled(j["enrolled"].get<bool>());
+
     return c;
 }
 
@@ -218,10 +226,23 @@ bool FileUtils::saveStudents(const std::unordered_map<std::string, student>& stu
 
 bool FileUtils::saveCourses(const std::map<long, course>& courses) {
     try {
+        // Explicitly clear the file first
+        std::ofstream clearFile(coursesFilePath, std::ios::trunc);
+        if (!clearFile.is_open()) {
+            std::cerr << "Error: Could not open courses file for clearing: " << coursesFilePath << std::endl;
+            return false;
+        }
+        clearFile.close();
+        std::cout << "Courses file cleared successfully: " << coursesFilePath << std::endl;
+
+        // Now create the JSON array and save it
         nlohmann::json coursesArray = nlohmann::json::array();
         for (const auto& pair : courses) {
             coursesArray.push_back(courseToJson(pair.second));
         }
+
+        std::cout << "Saving " << courses.size() << " courses to JSON array" << std::endl;
+
         return saveJsonToFile(coursesArray, coursesFilePath);
     }
     catch (const std::exception& e) {
@@ -310,7 +331,8 @@ bool FileUtils::saveJsonToFile(const nlohmann::json& j, const std::string& fileP
         std::filesystem::path absPath = std::filesystem::absolute(path);
         std::cout << "Absolute file path: " << absPath.string() << std::endl;
 
-        std::ofstream file(filePath);
+        // Open file with truncation flag to explicitly clear contents before writing
+        std::ofstream file(filePath, std::ios::trunc);
         if (!file.is_open()) {
             std::cerr << "Could not open file for writing: " << filePath << std::endl;
 
@@ -353,7 +375,6 @@ bool FileUtils::saveJsonToFile(const nlohmann::json& j, const std::string& fileP
         return false;
     }
 }
-
 bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students) {
     try {
         nlohmann::json studentsArray = loadJsonFromFile(studentsFilePath);
@@ -394,18 +415,22 @@ bool FileUtils::loadCourses(std::map<long, course>& courses) {
         }
 
         courses.clear();
+
+        // First pass: Find the maximum course ID
+        long maxId = 0;
+        for (const auto& courseJson : coursesArray) {
+            long courseId = courseJson["course_id"].get<long>();
+            maxId = std::max(maxId, courseId);
+        }
+
+        // Reset counter to max ID + 1
+        course::resetCounter(maxId + 1);
+        std::cout << "Course counter reset to: " << course::counter << std::endl;
+
+        // Second pass: Load all courses
         for (const auto& courseJson : coursesArray) {
             course c = jsonToCourse(courseJson);
             courses[c.getCourseID()] = c;
-        }
-
-        // Update the course counter if needed to avoid ID collisions
-        long maxId = 0;
-        for (const auto& pair : courses) {
-            maxId = std::max(maxId, pair.first);
-        }
-        if (maxId >= course::counter) {
-            course::counter = maxId + 1;
         }
 
         return true;
