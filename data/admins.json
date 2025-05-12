@@ -54,5 +54,13 @@
         "password": "17197393981645110028",
         "role": "A",
         "username": "ahmedd"
+    },
+    {
+        "admin_id": 7,
+        "email": " null",
+        "name": "karim",
+        "password": "10525212012597145524",
+        "role": "A",
+        "username": "Kimo"
     }
 ]
