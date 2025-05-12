@@ -3198,8 +3198,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>140</y>
+          <x>170</x>
+          <y>130</y>
           <width>911</width>
           <height>491</height>
          </rect>
