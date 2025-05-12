@@ -1,46 +1,38 @@
 #pragma once
 #include <string>
-#include <regex>
-
-using namespace std;
 
 class user {
 private:
-    string username;
-    string password; // Changed from passwordHash to plain password
-    string name;
-    string email;
-    char role;  // 'A' for Admin or 'S' for Student
+    std::string username;
+    std::string password; // Hashed password
+    std::string name;
+    std::string email;
+    char role; // 'S' for student, 'A' for admin, etc.
 
 public:
-    static string hashPassword(const string& password);
-    static bool isValidUsername(const string& username);
-    static bool isValidPassword(const string& password);
-    static bool isValidEmail(const string& email);
-    static bool isValidRole(char role);
+    user();
+    user(std::string username, std::string password, std::string name, std::string email = "", char role = 'U');
+    virtual ~user();
 
-public:
-    user() = default;
-    user(string username, string password,
-        string name, string email, char role);
-    user(string username, string password,
-        string name, string email);
+    // Getters
+    std::string getUsername() const;
+    std::string getPassword() const;
+    std::string getName() const;
+    std::string getEmail() const;
+    char getRole() const;
 
-    bool authenticate( string& password) ;
-
-    string getUsername() const { return username; }
-    string getPassword() const { return password; } // Changed from getPasswordHash
-    string getName() const { return name; }
-    string getEmail() const { return email; }
-    char getRole() const { return role; }
-    string getRoleString() const {
-        return (role == 'A') ? "admin" : "student";
-    }
-
-    void setUsername( string& username);
-    void setName(const string& name);
-    void setEmail(const string& email);
+    // Setters - Changed to const reference parameters
+    void setUsername(const std::string& username);
+    void setPassword(const std::string& password);
+    void setName(const std::string& name);
+    void setEmail(const std::string& email);
     void setRole(char role);
-    bool setPassword(const string& pass);
-    bool changePassword( string& oldPassword,  string& newPassword);
+
+    // Authentication
+    bool authenticate(const std::string& password) const;
+
+    // Password utilities
+    static std::string hashPassword(const std::string& password);
+    static bool isValidUsername(const std::string& username);
+    static bool isValidPassword(const std::string& password);
 };

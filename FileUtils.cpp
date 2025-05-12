@@ -397,7 +397,7 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
         std::cerr << "Error loading admins: " << e.what() << std::endl;
         return false;
     }
-}
+} 
 
 bool FileUtils::loadAllData(courseSystem& system) {
     std::map<long, course> courses;

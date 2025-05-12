@@ -1,121 +1,104 @@
-  #include "stdafx.h"
+#include "stdafx.h"
 #include "user.h"
-#include <algorithm>
-#include <stdexcept>
-#include <cctype>
-#include <iomanip>
-#include <sstream>
+#include <iostream>
+#include <regex>
+#include <functional> // for std::hash
 
-using namespace std;
-
-
-user::user(string username, string password, string name, string email, char role) {
-    setUsername(username);
-    setName(name);
-    setEmail(email);
-    setPassword(password);
-    setRole(role);
+user::user() : username(""), password(""), name(""), email(""), role('U') {
 }
 
-
-user::user(string username, string password, string name, string email) {
-    setUsername(username);
-    setName(name);
-    setEmail(email);
-    setPassword(password);
-    setRole('S'); // Default to Student
+user::user(std::string username, std::string password, std::string name, std::string email, char role)
+    : username(username), password(password), name(name), email(email), role(role) {
 }
 
-string user::hashPassword(const string& password) {
-    hash<string> hasher;
-    size_t h1 = hasher(password);
-    size_t h2 = hasher(to_string(h1) + "salt");
-    size_t combined = h1 ^ h2;
-
-    // Convert to 16-character hex string
-    stringstream ss;
-    ss << hex << setw(16) << setfill('0') << combined;
-    return ss.str();
+user::~user() {
 }
 
-
-// Username must be 3-20 alphanumeric chars (underscore allowed)
-bool user::isValidUsername(const string& username) {
-    if (username.length() < 3 || username.length() > 20) return false;
-    else { return true; }
-        
+// Getters
+std::string user::getUsername() const {
+    return username;
 }
 
-// Password must be 8+ chars with upper, lower, and digit
-bool user::isValidPassword(const string& password) {
-    if (password.length() < 6) return false;
-
-    bool hasUpper = false, hasLower = false, hasDigit = false;
-    for (char c : password) {
-        if (isupper(c)) hasUpper = true;
-        else if (islower(c)) hasLower = true;
-        else if (isdigit(c)) hasDigit = true;
-    }
-    return hasUpper && hasLower && hasDigit;
+std::string user::getPassword() const {
+    return password;
 }
 
-// Validate email format using regex
-bool user::isValidEmail(const string& email) {
-    static const regex pattern(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
-    return regex_match(email, pattern);
+std::string user::getName() const {
+    return name;
 }
 
-// Validate role (only 'A' or 'S' allowed)
-bool user::isValidRole(char role) {
-    role = toupper(role);
-    return role == 'A' || role == 'S';
+std::string user::getEmail() const {
+    return email;
 }
 
-// Verify if provided password matches stored password
-bool user::authenticate( string& pass) {
-    return hashPassword(pass) == this->password;
+char user::getRole() const {
+    return role;
 }
 
-// Setter methods with validation
-void user::setUsername( string& username) {
-    if (!isValidUsername(username)) {
-        throw invalid_argument("Invalid username format");
-    }
+// Setters - Updated to use const reference parameters
+void user::setUsername(const std::string& username) {
     this->username = username;
 }
 
-void user::setName(const string& name) {
-    if (name.empty()) {
-        throw invalid_argument("Name cannot be empty");
-    }
+void user::setPassword(const std::string& password) {
+    this->password = password;
+}
+
+void user::setName(const std::string& name) {
     this->name = name;
 }
 
-void user::setEmail(const string& email) {
-   
+void user::setEmail(const std::string& email) {
     this->email = email;
 }
 
 void user::setRole(char role) {
-    role = toupper(role);
-    if (!isValidRole(role)) {
-        throw invalid_argument("Invalid role (must be 'A' or 'S')");
-    }
     this->role = role;
 }
 
-// Set password after validation
-bool user::setPassword(const string& pass) {
-    password = pass;
-    return true;
+bool user::authenticate(const std::string& inputPassword) const {
+    // Compare hashed input password with stored password hash
+    std::string hashedInput = hashPassword(inputPassword);
+    return hashedInput == password;
 }
 
-// Change password after verifying old password
-bool user::changePassword( string& oldPassword,  string& newPassword) {
-    if (oldPassword != password) return false;
-    if (!isValidPassword(newPassword)) {
-        throw invalid_argument("New password doesn't meet requirements");
+std::string user::hashPassword(const std::string& password) {
+    // Simple hash function for demonstration
+    // In a real system, use a proper cryptographic hash function
+    std::hash<std::string> hasher;
+    size_t hashValue = hasher(password);
+    return std::to_string(hashValue);
+}
+
+bool user::isValidUsername(const std::string& username) {
+    // Username must be 3-20 characters
+    if (username.length() < 3 || username.length() > 20) {
+        return false;
     }
-    password = newPassword;
-    return true;
+
+    // Only allow alphanumeric and underscores
+    std::regex usernamePattern("^[a-zA-Z0-9_]+$");
+    return std::regex_match(username, usernamePattern);
+}
+
+bool user::isValidPassword(const std::string& password) {
+    // Password must be at least 6 characters
+    if (password.length() < 6) {
+        return false;
+    }
+
+    // Must contain at least one uppercase letter
+    bool hasUppercase = false;
+    // Must contain at least one lowercase letter
+    bool hasLowercase = false;
+    // Must contain at least one digit
+    bool hasDigit = false;
+
+    for (char c : password) {
+        if (isupper(c)) hasUppercase = true;
+        if (islower(c)) hasLowercase = true;
+        if (isdigit(c)) hasDigit = true;
+    }
+
+    return hasUppercase && hasLowercase && hasDigit;
 }
