@@ -13,6 +13,7 @@ user* currentUser = nullptr;       //lazem yeb2o global
 Coursify::Coursify(QWidget* parent)
     : QMainWindow(parent)
 {
+
     ui.setupUi(this);
     ui.stackedWidget->setCurrentWidget(ui.Login);   //to start at login page "Awl haga"
 
@@ -40,22 +41,23 @@ Coursify::Coursify(QWidget* parent)
         if (ui.radioButtonS->isChecked()) {
             if (Sys.registerStudent(ui.Register_S1, ui.Register_S2, ui.Register_S3, ui.Register_S4)) {
                 QMessageBox::information(this, " Success", "\n Student registered successfully \n ");
-            }
-          
+                ui.stackedWidget->setCurrentWidget(ui.Login);
+
+            }  
          
         }
 
         else if (ui.radioButtonA->isChecked()){
             if (Sys.registerAdmin(ui.Register_A1, ui.Register_A2, ui.Register_A3, ui.Register_A4, ui.Register_A5)) {
-                QMessageBox::information(this, " Success", "\n Student registered successfully \n ");
+                QMessageBox::information(this, " Success", "\n Administrator registered successfully \n\n You knew the admin secret key :) \n ");
+                ui.stackedWidget->setCurrentWidget(ui.Login);
+
             }
             
         }
-
         else {
             QMessageBox::critical(this, " Error", "\n Must choose to register as Student or admin \n ");
         }
-
 
         });
 
@@ -83,6 +85,12 @@ Coursify::Coursify(QWidget* parent)
         ui.Register_S3, ui.Register_S4,
         ui.Register_A1, ui.Register_A2,
         ui.Register_A3, ui.Register_A4, ui.Register_A5);
+
+
+
+
+
+
 
 
 

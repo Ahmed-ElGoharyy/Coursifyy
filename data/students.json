@@ -130,6 +130,17 @@
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
+        "name": "hussein",
+        "password": "18303040818981502519",
+        "role": "S",
+        "student_id": 1006,
+        "username": "huss"
+    },
+    {
+        "courses": [],
+        "email": "null",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
         "name": "motafa",
         "password": "b9ac40150d0594b8",
         "role": "S",
