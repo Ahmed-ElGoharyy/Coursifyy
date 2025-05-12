@@ -5,6 +5,10 @@
 #include "admin.h"
 #include "student.h"
 #include "FileUtils.h"
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QTranslator>
+
 
 courseSystem::courseSystem() {
     FileUtils::initializePaths();
@@ -157,7 +161,7 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
         passwordEdit->clear();
 
         return 'E';  //error
-       
+
     }
 
     auto studentIt = students.find(uname);
@@ -168,9 +172,9 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
             passwordEdit->clear();
             return 'S';
         }
-        
+
     }
-    
+
 
     auto adminIt = admins.find(uname);
     if (adminIt != admins.end()) {
@@ -180,7 +184,7 @@ char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* password
             passwordEdit->clear();
             return 'A';
         }
-        
+
     }
 
 
@@ -200,9 +204,7 @@ bool courseSystem::addCourse(const course& newCourse) {
     if (courses.find(courseID) != courses.end()) {
         return false;
     }
-
     courses[courseID] = newCourse;
-    saveData();
     return true;
 }
 
@@ -372,11 +374,233 @@ bool courseSystem::enrollStudentInCourse(const std::string& username, long cours
 
 
 bool courseSystem::loadData() {
-    return FileUtils::loadAllData(*this);
+    bool result = FileUtils::loadAllData(*this);
+
+    // Add debugging output to see what was loaded
+    std::cout << "=== DATA LOADING RESULTS ===" << std::endl;
+    std::cout << "Loading result: " << (result ? "SUCCESS" : "FAILURE") << std::endl;
+    std::cout << "Students loaded: " << students.size() << std::endl;
+    std::cout << "Courses loaded: " << courses.size() << std::endl;
+    std::cout << "Admins loaded: " << admins.size() << std::endl;
+
+    // Print course details if any were loaded
+    if (!courses.empty()) {
+        std::cout << "LOADED COURSES:" << std::endl;
+        for (const auto& pair : courses) {
+            std::cout << "  Course ID: " << pair.first
+                << ", Title: " << pair.second.getTitle()
+                << ", Instructor: " << pair.second.getInstructor() << std::endl;
+        }
+    }
+    else {
+        std::cout << "No courses were loaded from file." << std::endl;
+        // Check if the courses file exists
+        if (std::filesystem::exists(FileUtils::coursesFilePath)) {
+            std::cout << "Courses file exists at: " << FileUtils::coursesFilePath << std::endl;
+            std::cout << "File size: " << std::filesystem::file_size(FileUtils::coursesFilePath) << " bytes" << std::endl;
+        }
+        else {
+            std::cout << "Courses file does not exist at: " << FileUtils::coursesFilePath << std::endl;
+        }
+    }
+
+    return result;
 }
 
 
 
 bool courseSystem::saveData() {
-    return FileUtils::saveAllData(*this);
+    // Print current working directory
+    std::cout << "Current working directory: "
+        << std::filesystem::current_path().string() << std::endl;
+
+    // Print the expected data directory path
+    std::string dataDir = "./data/";
+    std::filesystem::path absDataPath = std::filesystem::absolute(dataDir);
+    std::cout << "Absolute data directory path: " << absDataPath.string() << std::endl;
+
+    // Print expected file paths
+    std::cout << "Expected courses file: " << absDataPath.string() + "/courses.json" << std::endl;
+
+    // Print course count before saving
+    std::cout << "Number of courses to save: " << courses.size() << std::endl;
+    for (const auto& pair : courses) {
+        std::cout << "Course ID: " << pair.first
+            << ", Title: " << pair.second.getTitle() << std::endl;
+    }
+
+    // Call the original save function
+    bool result = FileUtils::saveAllData(*this);
+
+    // Verify file existence after save
+    std::string coursesFilePath = (absDataPath / "courses.json").string();
+    if (std::filesystem::exists(coursesFilePath)) {
+        std::cout << "Courses file exists after save at: " << coursesFilePath << std::endl;
+        std::cout << "File size: " << std::filesystem::file_size(coursesFilePath) << " bytes" << std::endl;
+    }
+    else {
+        std::cout << "WARNING: Courses file does not exist after save!" << std::endl;
+    }
+
+    return result;
+}
+bool courseSystem::importCoursesFromCSV(const QString& filePath) {
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open file:" << file.errorString();
+        return false;
+    }
+
+    QTextStream in(&file);
+    int lineNumber = 0;
+    int successCount = 0;
+
+    // Structure to store course ID and its prerequisite IDs
+    struct CoursePrereqData {
+        long courseId;
+        std::vector<long> prerequisiteIds;
+    };
+    std::vector<CoursePrereqData> coursePrereqs;
+
+    // Skip header if present
+    if (!in.atEnd()) in.readLine();
+
+    // First pass: Create all courses without prerequisites
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        lineNumber++;
+        if (line.isEmpty()) continue;
+
+        QStringList tokens;
+        bool inQuotes = false;
+        QString currentField;
+
+        // Parse CSV line correctly handling quoted fields
+        for (QChar c : line) {
+            if (c == '"') {
+                inQuotes = !inQuotes;
+            }
+            else if (c == ',' && !inQuotes) {
+                tokens.append(currentField.trimmed());
+                currentField.clear();
+            }
+            else {
+                currentField += c;
+            }
+        }
+        tokens.append(currentField.trimmed());
+
+        if (tokens.size() < 6) {
+            qDebug() << "Skipping line" << lineNumber << ": insufficient fields";
+            continue;
+        }
+
+        try {
+            // Parse course data
+            course newCourse(
+                tokens[0].toStdString(), // title
+                tokens[1].toStdString(), // description
+                tokens[2].toStdString(), // instructor
+                tokens[3].toStdString(), // semester
+                tokens[4].toInt(),       // credit hours
+                {},                      // prerequisites (empty for now)
+                tokens.size() > 5 ? tokens[5].toStdString() : "" // syllabus
+            );
+
+            // Store the new course ID
+            long newCourseId = newCourse.getCourseID();
+
+            // Parse prerequisite IDs
+            std::vector<long> prereqIds;
+            if (tokens.size() > 6 && !tokens[6].isEmpty()) {
+                for (const QString& idStr : tokens[6].split(';', Qt::SkipEmptyParts)) {
+                    bool ok;
+                    long id = idStr.toLong(&ok);
+                    if (ok) prereqIds.push_back(id);
+                }
+            }
+
+            // Add course to the system
+            if (addCourse(newCourse)) {
+                coursePrereqs.push_back({ newCourseId, prereqIds });
+                successCount++;
+                qDebug() << "Added course:" << newCourse.getTitle().c_str() << "with ID:" << newCourseId;
+            }
+            else {
+                qDebug() << "Failed to add course:" << newCourse.getTitle().c_str() << "with ID:" << newCourseId;
+            }
+        }
+        catch (const std::exception& e) {
+            qDebug() << "Error processing line" << lineNumber << ":" << e.what();
+        }
+        catch (...) {
+            qDebug() << "Unknown error processing line" << lineNumber;
+        }
+    }
+
+    file.close();
+
+    // Second pass: Set prerequisites
+    for (const auto& data : coursePrereqs) {
+        course* currentCourse = getCourse(data.courseId);
+        if (!currentCourse) {
+            qDebug() << "Course not found in system:" << data.courseId;
+            continue;
+        }
+
+        // Clear any existing prerequisites
+        currentCourse->clearPrerequisites();
+
+        // Add each prerequisite by fetching the actual course object
+        for (long prereqId : data.prerequisiteIds) {
+            course* prereqCourse = getCourse(prereqId);
+            if (prereqCourse) {
+                currentCourse->addPrerequisite(*prereqCourse);
+                qDebug() << "Added prerequisite:" << prereqCourse->getTitle().c_str()
+                    << "to course:" << currentCourse->getTitle().c_str();
+            }
+            else {
+                qDebug() << "Prerequisite course not found:" << prereqId
+                    << " for course:" << currentCourse->getTitle().c_str();
+            }
+        }
+    }
+
+    // Save the data to persist the changes
+    qDebug() << "Attempting to save data with" << successCount << "new courses";
+    bool saveResult = saveData();
+    if (saveResult) {
+        qDebug() << "Data saved successfully";
+    }
+    else {
+        qDebug() << "Failed to save data after import";
+    }
+
+    return successCount > 0 && saveResult;
+}
+
+void courseSystem::importCoursesFromFile(QWidget* parent) {
+    // Open file dialog to select CSV file
+    QString fileName = QFileDialog::getOpenFileName(
+        parent,
+        QObject::tr("Select Course CSV File"),
+        QDir::homePath(),
+        QObject::tr("CSV Files (*.csv);;All Files (*)")
+    );
+
+    if (fileName.isEmpty()) {
+        return; // User canceled
+    }
+
+    qDebug() << "Selected file:" << fileName;
+
+    // Call the import function with the selected file
+    if (importCoursesFromCSV(fileName)) {
+        QMessageBox::information(parent, QObject::tr("Success"),
+            QObject::tr("Courses imported successfully!"));
+    }
+    else {
+        QMessageBox::warning(parent, QObject::tr("Error"),
+            QObject::tr("Failed to import courses from file."));
+    }
 }

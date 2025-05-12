@@ -6,7 +6,7 @@
 #include "json.hpp"
 
 class FileUtils {
-private:
+public:
     static std::string studentsFilePath;
     static std::string coursesFilePath;
     static std::string adminsFilePath;

@@ -5,9 +5,8 @@
 
 
 courseSystem Sys;             //lazem yeb2o global
-user* currentUser = nullptr;     //lazem yeb2o global
-student* s = nullptr;            // Student in student panel
-admin* a = nullptr;          // Admin in admin's panel
+user* currentUser = nullptr;       //lazem yeb2o global
+
 
 
 
@@ -44,22 +43,25 @@ Coursify::Coursify(QWidget* parent)
                 QMessageBox::information(this, " Success", "\n Student registered successfully \n ");
                 ui.stackedWidget->setCurrentWidget(ui.Login);
 
-            }  
-         
+            }
+
         }
 
-        else if (ui.radioButtonA->isChecked()){
+        else if (ui.radioButtonA->isChecked()) {
             if (Sys.registerAdmin(ui.Register_A1, ui.Register_A2, ui.Register_A3, ui.Register_A4, ui.Register_A5)) {
                 QMessageBox::information(this, " Success", "\n Administrator registered successfully \n\n You knew the admin secret key :) \n ");
                 ui.stackedWidget->setCurrentWidget(ui.Login);
 
             }
-            
+
         }
         else {
             QMessageBox::critical(this, " Error", "\n Must choose to register as Student or admin \n ");
         }
 
+        });
+    connect(ui.pushButton_uploadDescription, &QPushButton::clicked, this, [this]() {
+        m_system->importCoursesFromFile(this);  // Use m_system instead of courseSystem
         });
 
 
@@ -70,27 +72,11 @@ Coursify::Coursify(QWidget* parent)
 
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
-
-             s = dynamic_cast<student*>(currentUser);                   //Downcasting to student
-            if (s) {
-                QString welcomeText = "Welcome, " + QString::fromStdString(s->getName()) +".  "
-                    +"   Your Student ID : " + QString::number(s->getStudentID());
-                ui.label_15->setText(welcomeText);
-            }
-
         }
         else if (choice == 'A') {
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
-
-            admin* a = dynamic_cast<admin*>(currentUser);                      //Downcasting to Admin
-            if (a) {
-                QString welcomeText = "Welcome, " + QString::fromStdString(a->getName()) +".  "
-                    +"  Your Admin ID : " + QString::number(a->getAdminID());
-                ui.label_14->setText(welcomeText);
-            }
-
         }
-        else if (choice =='F'){
+        else if (choice == 'F') {
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
         }
 
@@ -120,8 +106,8 @@ Coursify::Coursify(QWidget* parent)
     else { cout << "Success"; }
 }
 
-    Coursify::~Coursify()
-    {
-        delete m_system;
-    }
+Coursify::~Coursify()
+{
+    delete m_system;
+}
 

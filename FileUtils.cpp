@@ -10,13 +10,25 @@ std::string FileUtils::coursesFilePath = "courses.json";
 std::string FileUtils::adminsFilePath = "admins.json";
 
 void FileUtils::initializePaths() {
-    std::string dataDir = "./data/";
+    // Get the executable's directory as base path
+    std::filesystem::path execPath = std::filesystem::current_path();
+    std::string dataDir = (execPath / "data").string() + "/";
+
+    std::cout << "Setting data directory to: " << dataDir << std::endl;
+
     if (!std::filesystem::exists(dataDir)) {
+        std::cout << "Creating data directory: " << dataDir << std::endl;
         std::filesystem::create_directory(dataDir);
     }
+
     studentsFilePath = dataDir + "students.json";
     coursesFilePath = dataDir + "courses.json";
     adminsFilePath = dataDir + "admins.json";
+
+    std::cout << "Files will be saved to:" << std::endl;
+    std::cout << "- Students: " << studentsFilePath << std::endl;
+    std::cout << "- Courses: " << coursesFilePath << std::endl;
+    std::cout << "- Admins: " << adminsFilePath << std::endl;
 }
 
 nlohmann::json FileUtils::studentToJson(const student& s) {
@@ -50,6 +62,7 @@ nlohmann::json FileUtils::courseToJson(const course& c) {
     j["syllabus"] = c.getSyllabus();
     j["enrolled"] = c.isEnrolled();
 
+    // Save prerequisites as array of course IDs
     nlohmann::json prereqArray = nlohmann::json::array();
     for (const auto& prereq : c.getPrerequisites()) {
         prereqArray.push_back(prereq.getCourseID());
@@ -148,29 +161,6 @@ std::pair<course, grade> FileUtils::jsonToCourseGradePair(const nlohmann::json& 
     return std::make_pair(c, g);
 }
 
-bool FileUtils::saveJsonToFile(const nlohmann::json& j, const std::string& filePath) {
-    try {
-        std::filesystem::path path(filePath);
-        std::filesystem::path dir = path.parent_path();
-        if (!dir.empty() && !std::filesystem::exists(dir)) {
-            std::filesystem::create_directories(dir);
-        }
-
-        std::ofstream file(filePath);
-        if (!file.is_open()) {
-            std::cerr << "Could not open file for writing: " << filePath << std::endl;
-            return false;
-        }
-
-        file << std::setw(4) << j << std::endl;
-        file.close();
-        return true;
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Error saving JSON to file: " << e.what() << std::endl;
-        return false;
-    }
-}
 
 nlohmann::json FileUtils::loadJsonFromFile(const std::string& filePath) {
     try {
@@ -255,21 +245,113 @@ bool FileUtils::saveAdmins(const std::unordered_map<std::string, admin>& admins)
 }
 
 bool FileUtils::saveAllData(const courseSystem& system) {
+    // Add debugging information
+    std::cout << "Saving all data to disk..." << std::endl;
+    std::cout << "Students: " << system.getAllStudents().size() << std::endl;
+    std::cout << "Courses: " << system.getAllCourses().size() << std::endl;
+    std::cout << "Admins: " << system.getAllAdmins().size() << std::endl;
+
+    // Print paths being used
+    std::cout << "Students file path: " << studentsFilePath << std::endl;
+    std::cout << "Courses file path: " << coursesFilePath << std::endl;
+    std::cout << "Admins file path: " << adminsFilePath << std::endl;
+
+    // Create data directory if it doesn't exist
+    std::string dataDir = "./data/";
+    if (!std::filesystem::exists(dataDir)) {
+        std::cout << "Creating data directory: " << dataDir << std::endl;
+        std::filesystem::create_directory(dataDir);
+    }
+
+    // Save each data set
     bool studentsSuccess = saveStudents(system.getAllStudents());
     bool coursesSuccess = saveCourses(system.getAllCourses());
     bool adminsSuccess = saveAdmins(system.getAllAdmins());
 
+    // Report results
     if (!studentsSuccess) {
         std::cerr << "Failed to save students data." << std::endl;
     }
+    else {
+        std::cout << "Students data saved successfully." << std::endl;
+    }
+
     if (!coursesSuccess) {
         std::cerr << "Failed to save courses data." << std::endl;
     }
+    else {
+        std::cout << "Courses data saved successfully." << std::endl;
+    }
+
     if (!adminsSuccess) {
         std::cerr << "Failed to save admins data." << std::endl;
     }
+    else {
+        std::cout << "Admins data saved successfully." << std::endl;
+    }
 
     return studentsSuccess && coursesSuccess && adminsSuccess;
+}
+
+bool FileUtils::saveJsonToFile(const nlohmann::json& j, const std::string& filePath) {
+    try {
+        std::filesystem::path path(filePath);
+        std::filesystem::path dir = path.parent_path();
+
+        std::cout << "Saving JSON data to: " << filePath << std::endl;
+        std::cout << "Parent directory: " << dir.string() << std::endl;
+
+        if (!dir.empty() && !std::filesystem::exists(dir)) {
+            std::cout << "Creating directory: " << dir.string() << std::endl;
+            std::filesystem::create_directories(dir);
+        }
+
+        // Get absolute path to verify where we're writing
+        std::filesystem::path absPath = std::filesystem::absolute(path);
+        std::cout << "Absolute file path: " << absPath.string() << std::endl;
+
+        std::ofstream file(filePath);
+        if (!file.is_open()) {
+            std::cerr << "Could not open file for writing: " << filePath << std::endl;
+
+            // Try to diagnose the issue
+            if (!std::filesystem::exists(dir)) {
+                std::cerr << "Directory does not exist: " << dir.string() << std::endl;
+            }
+
+            // Check permissions 
+            std::error_code ec;
+            auto perms = std::filesystem::status(dir, ec).permissions();
+            if (ec) {
+                std::cerr << "Error checking permissions: " << ec.message() << std::endl;
+            }
+            else {
+                std::cout << "Directory permissions allow write: "
+                    << ((perms & std::filesystem::perms::owner_write) != std::filesystem::perms::none)
+                    << std::endl;
+            }
+
+            return false;
+        }
+
+        file << std::setw(4) << j << std::endl;
+        file.close();
+
+        // Verify file was written
+        if (std::filesystem::exists(filePath)) {
+            std::cout << "File successfully written: " << filePath
+                << " (size: " << std::filesystem::file_size(filePath) << " bytes)" << std::endl;
+            return true;
+        }
+        else {
+            std::cerr << "File write operation completed but file doesn't exist: " << filePath << std::endl;
+            return false;
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error saving JSON to file: " << e.what() << std::endl;
+        return false;
+    }
 }
 
 bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students) {
@@ -397,7 +479,7 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
         std::cerr << "Error loading admins: " << e.what() << std::endl;
         return false;
     }
-} 
+}
 
 bool FileUtils::loadAllData(courseSystem& system) {
     std::map<long, course> courses;
