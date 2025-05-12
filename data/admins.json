@@ -3,7 +3,7 @@
         "admin_id": 0,
         "email": "admin@school.edu",
         "name": "Administrator",
-        "password": "116455c0dc671160",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "admin"
     },
@@ -11,7 +11,7 @@
         "admin_id": 1,
         "email": "registrar@school.edu",
         "name": "Jane Wilson",
-        "password": "116455c0dc671160",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "registrar"
     },
@@ -19,7 +19,7 @@
         "admin_id": 5,
         "email": " null",
         "name": "hady",
-        "password": "16080098921530639044",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "hadyy"
     },
@@ -27,7 +27,7 @@
         "admin_id": 2,
         "email": "dept.head@school.edu",
         "name": "Robert Johnson",
-        "password": "116455c0dc671160",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "depthead"
     },
@@ -35,7 +35,7 @@
         "admin_id": 3,
         "email": " null",
         "name": "a",
-        "password": "4b69a20f1e47979d",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "test"
     },
@@ -43,7 +43,7 @@
         "admin_id": 6,
         "email": " null",
         "name": "wagdyy",
-        "password": "776284006529606074",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "Wagdyy2"
     },
@@ -51,7 +51,7 @@
         "admin_id": 4,
         "email": " null",
         "name": "ahmedd",
-        "password": "9a357af708c92b90",
+        "password": "17197393981645110028",
         "role": "A",
         "username": "ahmedd"
     }

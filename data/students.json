@@ -46,7 +46,7 @@
         "gpa": 3.4285714626312256,
         "max_credit_hours": 18,
         "name": "John Doe",
-        "password": "ed07f8f337f77ac5",
+        "password": "2992457363794458960",
         "role": "S",
         "student_id": 1000,
         "username": "student1"
@@ -98,10 +98,21 @@
         "gpa": 4.0,
         "max_credit_hours": 21,
         "name": "Jane Smith",
-        "password": "ed07f8f337f77ac5",
+        "password": "2992457363794458960",
         "role": "S",
         "student_id": 1001,
         "username": "student2"
+    },
+    {
+        "courses": [],
+        "email": "null",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "ahmed",
+        "password": "1078807228920081105",
+        "role": "S",
+        "student_id": 1005,
+        "username": "Dahyzz2"
     },
     {
         "courses": [],
