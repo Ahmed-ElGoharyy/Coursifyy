@@ -69,6 +69,8 @@ Coursify::Coursify(QWidget* parent)
 
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
+            ui.label_15->setText(QString::fromStdString("Welcome " + currentUser->getName() +"!"));
+
         }
         else if (choice == 'A') {
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
