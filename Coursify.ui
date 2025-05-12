@@ -511,7 +511,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3213,7 +3213,7 @@ border: 1px solid #CFD8DC;
 </string>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3948,7 +3948,7 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>100</x>
           <y>100</y>
           <width>1051</width>
           <height>541</height>
@@ -4154,8 +4154,8 @@ background-color: #183B4E</string>
          </palette>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 1px  black;   /* Border */
-border-radius: 15px;  
+         <string notr="true">border: 3px  black;   /* Border */
+border-radius: 20px;  
 color: #000000</string>
         </property>
         <property name="currentIndex">
@@ -4223,22 +4223,106 @@ font: 12pt &quot;Segoe UI&quot;;</string>
          <widget class="QPushButton" name="pushButton_2">
           <property name="geometry">
            <rect>
-            <x>780</x>
+            <x>790</x>
             <y>40</y>
             <width>80</width>
-            <height>24</height>
+            <height>31</height>
            </rect>
           </property>
           <property name="font">
            <font>
             <pointsize>12</pointsize>
+            <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 61, 184);
+ 
+    border-radius: 10px;         
+    padding: 6px 12px;
+    font-weight: bold;</string>
           </property>
           <property name="text">
            <string>Search</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>110</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>110</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_3">
+          <property name="geometry">
+           <rect>
+            <x>730</x>
+            <y>110</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_4">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>310</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_5">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>310</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_6">
+          <property name="geometry">
+           <rect>
+            <x>730</x>
+            <y>310</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
           </property>
          </widget>
         </widget>
@@ -6460,5 +6544,102 @@ background-color: #007074</string>
  <resources>
   <include location="Coursify.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>923</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_2</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>965</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>715</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_4</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>945</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_5</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>717</x>
+     <y>534</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_3</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>973</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1029</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_6</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>969</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1041</x>
+     <y>564</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
