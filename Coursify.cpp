@@ -107,3 +107,4 @@ Coursify::Coursify(QWidget* parent)
     {
         delete m_system;
     }
+

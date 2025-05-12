@@ -493,7 +493,7 @@
     <string notr="true">background-color: rgb(197, 211, 232);</string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="enabled">
        <bool>true</bool>
@@ -3948,8 +3948,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
-          <x>100</x>
-          <y>100</y>
+          <x>30</x>
+          <y>110</y>
           <width>1051</width>
           <height>541</height>
          </rect>
@@ -4159,7 +4159,7 @@ border-radius: 20px;
 color: #000000</string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
@@ -4250,20 +4250,28 @@ background-color: rgb(0, 61, 184);
          <widget class="QPlainTextEdit" name="plainTextEdit">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>50</x>
             <y>110</y>
-            <width>231</width>
+            <width>230</width>
             <height>181</height>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);</string>
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
           </property>
          </widget>
          <widget class="QPlainTextEdit" name="plainTextEdit_2">
           <property name="geometry">
            <rect>
-            <x>390</x>
+            <x>400</x>
             <y>110</y>
             <width>231</width>
             <height>181</height>
@@ -4277,7 +4285,7 @@ background-color: rgb(0, 61, 184);
           <property name="geometry">
            <rect>
             <x>730</x>
-            <y>110</y>
+            <y>100</y>
             <width>231</width>
             <height>181</height>
            </rect>
@@ -4289,8 +4297,8 @@ background-color: rgb(0, 61, 184);
          <widget class="QPlainTextEdit" name="plainTextEdit_4">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>310</y>
+            <x>50</x>
+            <y>320</y>
             <width>231</width>
             <height>181</height>
            </rect>
@@ -4302,8 +4310,8 @@ background-color: rgb(0, 61, 184);
          <widget class="QPlainTextEdit" name="plainTextEdit_5">
           <property name="geometry">
            <rect>
-            <x>390</x>
-            <y>310</y>
+            <x>410</x>
+            <y>320</y>
             <width>231</width>
             <height>181</height>
            </rect>
@@ -4316,7 +4324,7 @@ background-color: rgb(0, 61, 184);
           <property name="geometry">
            <rect>
             <x>730</x>
-            <y>310</y>
+            <y>320</y>
             <width>231</width>
             <height>181</height>
            </rect>
@@ -4325,16 +4333,366 @@ background-color: rgb(0, 61, 184);
            <string notr="true">background-color: rgb(120, 120, 120);</string>
           </property>
          </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>250</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>480</x>
+            <y>250</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>810</x>
+            <y>240</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="geometry">
+           <rect>
+            <x>490</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="geometry">
+           <rect>
+            <x>810</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_6">
          <attribute name="title">
           <string>Prerequisites</string>
          </attribute>
+         <widget class="QPlainTextEdit" name="plainTextEdit_7">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_8">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>310</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_9">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_10">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>310</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_11">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>300</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_12">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_22">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>10</y>
+            <width>291</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);</string>
+          </property>
+          <property name="text">
+           <string>Academic Prerequistes</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tabe_7">
          <attribute name="title">
           <string>View Grades</string>
          </attribute>
+         <widget class="QLabel" name="label_21">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>40</y>
+            <width>251</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);</string>
+          </property>
+          <property name="text">
+           <string>Completed  Courses Grades</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>50</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+background-color:  rgb(0, 61, 184);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>View Grades</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>130</y>
+            <width>571</width>
+            <height>311</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <column>
+           <property name="text">
+            <string>phy</string>
+           </property>
+          </column>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_8">
          <attribute name="title">
@@ -4371,8 +4729,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4398,8 +4756,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4407,8 +4765,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4436,8 +4794,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4463,8 +4821,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4472,8 +4830,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4501,8 +4859,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4528,8 +4886,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4537,8 +4895,8 @@ background-color: rgb(0, 61, 184);
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4566,8 +4924,9 @@ background-color: rgb(0, 61, 184);
           <property name="styleSheet">
            <string notr="true">border: 5px solid black;   /* Border */
 border-radius: 15px;  
-background-color: #00557f;
-color: rgb(255, 255, 255);</string>
+/*background-color: #00557f;*/
+color: rgb(255, 255, 255);
+background-color: rgb(0, 61, 184);;</string>
           </property>
           <property name="text">
            <string>Export</string>
