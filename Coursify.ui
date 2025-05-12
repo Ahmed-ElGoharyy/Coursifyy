@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>720</height>
+    <height>749</height>
    </rect>
   </property>
   <property name="palette">
@@ -493,7 +493,7 @@
     <string notr="true">background-color: rgb(197, 211, 232);</string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="enabled">
        <bool>true</bool>
@@ -507,8 +507,11 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3049,10 +3052,14 @@ border-radius: 50px;
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(33, 52, 72);</string>
+         <string notr="true">color: #212121;
+</string>
         </property>
         <property name="text">
          <string>Admin Panel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
        <widget class="QPushButton" name="back_button_2">
@@ -3191,14 +3198,22 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget">
         <property name="geometry">
          <rect>
-          <x>190</x>
-          <y>140</y>
-          <width>881</width>
-          <height>431</height>
+          <x>170</x>
+          <y>130</y>
+          <width>911</width>
+          <height>491</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(50, 50, 50);
+color: rgb(255, 255, 255);
+border-radius: 10px;
+border: 1px solid #CFD8DC;
+
+</string>
+        </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3213,48 +3228,111 @@ background-color: #183B4E</string>
             <height>24</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_courseTitle">
           <property name="geometry">
            <rect>
             <x>240</x>
-            <y>150</y>
+            <y>110</y>
             <width>491</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
           </property>
          </widget>
          <widget class="QTextEdit" name="textEdit_description">
           <property name="geometry">
            <rect>
             <x>240</x>
-            <y>230</y>
+            <y>280</y>
             <width>491</width>
             <height>70</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_uploadDescription">
           <property name="geometry">
            <rect>
-            <x>410</x>
-            <y>330</y>
+            <x>440</x>
+            <y>380</y>
             <width>80</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #1565C0;
+}
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+</string>
           </property>
           <property name="text">
            <string>Upload</string>
           </property>
          </widget>
          <widget class="QLabel" name="label">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="geometry">
            <rect>
-            <x>120</x>
-            <y>60</y>
-            <width>71</width>
-            <height>16</height>
+            <x>110</x>
+            <y>50</y>
+            <width>111</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+            <strikeout>false</strikeout>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Course ID</string>
@@ -3263,11 +3341,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_2">
           <property name="geometry">
            <rect>
-            <x>120</x>
-            <y>150</y>
-            <width>81</width>
-            <height>16</height>
+            <x>100</x>
+            <y>100</y>
+            <width>131</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Course Title</string>
@@ -3276,14 +3367,121 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_3">
           <property name="geometry">
            <rect>
-            <x>120</x>
-            <y>250</y>
-            <width>91</width>
-            <height>16</height>
+            <x>90</x>
+            <y>300</y>
+            <width>131</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Description</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_creditHours">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>160</y>
+            <width>491</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_instructor">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>220</y>
+            <width>491</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_19">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>160</y>
+            <width>141</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::Panel</enum>
+          </property>
+          <property name="text">
+           <string>Credit Hours</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_20">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>210</y>
+            <width>171</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+            <kerning>true</kerning>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="text">
+           <string>Instructor Name</string>
           </property>
          </widget>
         </widget>
@@ -3300,6 +3498,15 @@ background-color: #183B4E</string>
             <height>24</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
          </widget>
          <widget class="QListWidget" name="list_prereq">
           <property name="geometry">
@@ -3310,15 +3517,42 @@ background-color: #183B4E</string>
             <height>151</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
          </widget>
          <widget class="QPushButton" name="pushButton_setPrerequisites">
           <property name="geometry">
            <rect>
-            <x>520</x>
+            <x>450</x>
             <y>350</y>
             <width>80</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #1565C0;
+}
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+</string>
           </property>
           <property name="text">
            <string>Set</string>
@@ -3327,11 +3561,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_4">
           <property name="geometry">
            <rect>
-            <x>140</x>
-            <y>90</y>
-            <width>49</width>
-            <height>16</height>
+            <x>130</x>
+            <y>80</y>
+            <width>81</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Course</string>
@@ -3340,11 +3587,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>130</x>
+            <x>110</x>
             <y>230</y>
-            <width>71</width>
-            <height>16</height>
+            <width>141</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Prerequisites</string>
@@ -3359,40 +3619,85 @@ background-color: #183B4E</string>
           <property name="geometry">
            <rect>
             <x>280</x>
-            <y>80</y>
-            <width>361</width>
+            <y>110</y>
+            <width>421</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_courseID_2">
           <property name="geometry">
            <rect>
             <x>280</x>
-            <y>150</y>
-            <width>351</width>
+            <y>180</y>
+            <width>421</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_grade">
           <property name="geometry">
            <rect>
             <x>280</x>
-            <y>220</y>
-            <width>361</width>
+            <y>260</y>
+            <width>421</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_submitGrade">
           <property name="geometry">
            <rect>
-            <x>480</x>
-            <y>300</y>
+            <x>440</x>
+            <y>320</y>
             <width>80</width>
             <height>24</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #1565C0;
+}
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+</string>
           </property>
           <property name="text">
            <string>Submit</string>
@@ -3401,11 +3706,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_16">
           <property name="geometry">
            <rect>
-            <x>150</x>
-            <y>80</y>
-            <width>81</width>
-            <height>16</height>
+            <x>130</x>
+            <y>100</y>
+            <width>121</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Student ID</string>
@@ -3414,11 +3732,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_17">
           <property name="geometry">
            <rect>
-            <x>150</x>
-            <y>150</y>
-            <width>71</width>
-            <height>16</height>
+            <x>130</x>
+            <y>170</y>
+            <width>111</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Course ID</string>
@@ -3427,11 +3758,24 @@ background-color: #183B4E</string>
          <widget class="QLabel" name="label_18">
           <property name="geometry">
            <rect>
-            <x>150</x>
-            <y>220</y>
-            <width>49</width>
-            <height>16</height>
+            <x>140</x>
+            <y>260</y>
+            <width>81</width>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
           </property>
           <property name="text">
            <string>Grade</string>
@@ -3604,8 +3948,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>100</y>
+          <x>30</x>
+          <y>110</y>
           <width>1051</width>
           <height>541</height>
          </rect>
@@ -3810,12 +4154,12 @@ background-color: #183B4E</string>
          </palette>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 1px  black;   /* Border */
-border-radius: 15px;  
+         <string notr="true">border: 3px  black;   /* Border */
+border-radius: 20px;  
 color: #000000</string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
@@ -3879,22 +4223,252 @@ font: 12pt &quot;Segoe UI&quot;;</string>
          <widget class="QPushButton" name="pushButton_2">
           <property name="geometry">
            <rect>
-            <x>780</x>
+            <x>790</x>
             <y>40</y>
+            <width>80</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 61, 184);
+ 
+    border-radius: 10px;         
+    padding: 6px 12px;
+    font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>Search</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>110</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>110</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_3">
+          <property name="geometry">
+           <rect>
+            <x>730</x>
+            <y>100</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_4">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>320</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_5">
+          <property name="geometry">
+           <rect>
+            <x>410</x>
+            <y>320</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_6">
+          <property name="geometry">
+           <rect>
+            <x>730</x>
+            <y>320</y>
+            <width>231</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>250</y>
             <width>80</width>
             <height>24</height>
            </rect>
           </property>
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>11</pointsize>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
           </property>
           <property name="text">
-           <string>Search</string>
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>480</x>
+            <y>250</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>810</x>
+            <y>240</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="geometry">
+           <rect>
+            <x>490</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="geometry">
+           <rect>
+            <x>810</x>
+            <y>460</y>
+            <width>80</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 61, 184);
+color: rgb(255, 255, 255);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>Register</string>
           </property>
          </widget>
         </widget>
@@ -3902,11 +4476,223 @@ font: 12pt &quot;Segoe UI&quot;;</string>
          <attribute name="title">
           <string>Prerequisites</string>
          </attribute>
+         <widget class="QPlainTextEdit" name="plainTextEdit_7">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_8">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>310</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_9">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_10">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>310</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_11">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>300</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_12">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>80</y>
+            <width>230</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+font: 700 12pt &quot;Segoe UI&quot;;
+</string>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="plainText">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_22">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>10</y>
+            <width>291</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);</string>
+          </property>
+          <property name="text">
+           <string>Academic Prerequistes</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tabe_7">
          <attribute name="title">
           <string>View Grades</string>
          </attribute>
+         <widget class="QLabel" name="label_21">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>40</y>
+            <width>251</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);</string>
+          </property>
+          <property name="text">
+           <string>Completed  Courses Grades</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>50</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+background-color:  rgb(0, 61, 184);
+border-radius:6px;</string>
+          </property>
+          <property name="text">
+           <string>View Grades</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>130</y>
+            <width>571</width>
+            <height>311</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <column>
+           <property name="text">
+            <string>phy</string>
+           </property>
+          </column>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_8">
          <attribute name="title">
@@ -3943,8 +4729,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -3970,8 +4756,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -3979,8 +4765,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4008,8 +4794,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4035,8 +4821,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4044,8 +4830,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4073,8 +4859,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4100,8 +4886,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4109,8 +4895,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
               <brush brushstyle="SolidPattern">
                <color alpha="255">
                 <red>0</red>
-                <green>85</green>
-                <blue>127</blue>
+                <green>61</green>
+                <blue>184</blue>
                </color>
               </brush>
              </colorrole>
@@ -4138,8 +4924,9 @@ font: 12pt &quot;Segoe UI&quot;;</string>
           <property name="styleSheet">
            <string notr="true">border: 5px solid black;   /* Border */
 border-radius: 15px;  
-background-color: #00557f;
-color: rgb(255, 255, 255);</string>
+/*background-color: #00557f;*/
+color: rgb(255, 255, 255);
+background-color: rgb(0, 61, 184);;</string>
           </property>
           <property name="text">
            <string>Export</string>
@@ -6116,5 +6903,102 @@ background-color: #007074</string>
  <resources>
   <include location="Coursify.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>923</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_2</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>965</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>715</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_4</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>945</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_5</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>717</x>
+     <y>534</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_3</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>973</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1029</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>plainTextEdit_6</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>969</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1041</x>
+     <y>564</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
