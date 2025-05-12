@@ -11,7 +11,7 @@ private:
     std::map<long, course> courses;
     std::unordered_map<std::string, admin> admins;
     user* currentUser;
-   
+
 public:
     courseSystem();
     ~courseSystem();
@@ -20,11 +20,11 @@ public:
 
     bool registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd);
 
-    bool registerAdmin(QLineEdit* namee, QLineEdit* usernamee,QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit);
+    bool registerAdmin(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit);
 
 
     bool login(const std::string& username, const std::string& password, user*& loggedUser);
-    bool addCourse(const course& newCourse);
+    bool addCourse(const course& newCourse);  // Remove the courses parameter
     bool updateCourse(long courseID, const course& updatedCourse);
     bool removeCourse(long courseID);
     course* getCourse(long courseID);
@@ -43,4 +43,6 @@ public:
     const std::unordered_map<std::string, admin>& getAllAdmins() const { return admins; }
     bool loadData();
     bool saveData();
+    void importCoursesFromFile(QWidget* parent);
+    bool importCoursesFromCSV(const QString& filePath);
 };
