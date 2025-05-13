@@ -511,7 +511,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3970,7 +3970,7 @@ border-radius: 20px;
 color: #000000</string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
@@ -4449,24 +4449,14 @@ border-radius:6px;</string>
            <string>Prerequistes are</string>
           </property>
          </widget>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QListWidget" name="list_showpreq">
           <property name="geometry">
            <rect>
-            <x>290</x>
+            <x>375</x>
             <y>270</y>
-            <width>521</width>
-            <height>201</height>
+            <width>291</width>
+            <height>192</height>
            </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
           </property>
          </widget>
         </widget>

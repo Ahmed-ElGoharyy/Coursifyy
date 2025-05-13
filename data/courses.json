@@ -63,5 +63,233 @@
         "semester": "Fall",
         "syllabus": "Requirements, design, testing, and project management",
         "title": "Software Engineering"
+    },
+    {
+        "course_id": 106,
+        "credit_hours": 4,
+        "description": "Fundamentals of computer networking and protocols",
+        "enrolled": false,
+        "instructor": "Prof. Martinez",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "OSI model",
+        "title": "Computer Networks"
+    },
+    {
+        "course_id": 107,
+        "credit_hours": 3,
+        "description": "Client-side and server-side web programming",
+        "enrolled": false,
+        "instructor": "Prof. Johnson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "HTML",
+        "title": "Web Development"
+    },
+    {
+        "course_id": 108,
+        "credit_hours": 4,
+        "description": "Introduction to machine learning algorithms",
+        "enrolled": false,
+        "instructor": "Prof. Lee",
+        "prerequisites": [
+            101,
+            102,
+            103
+        ],
+        "semester": "Spring",
+        "syllabus": "Supervised and unsupervised learning techniques",
+        "title": "Machine Learning"
+    },
+    {
+        "course_id": 109,
+        "credit_hours": 3,
+        "description": "Theory and practice of computer graphics",
+        "enrolled": false,
+        "instructor": "Prof. Wilson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "2D and 3D rendering",
+        "title": "Computer Graphics"
+    },
+    {
+        "course_id": 110,
+        "credit_hours": 3,
+        "description": "Advanced database concepts and technologies",
+        "enrolled": false,
+        "instructor": "Prof. Roberts",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Query optimization",
+        "title": "Advanced Databases"
+    },
+    {
+        "course_id": 111,
+        "credit_hours": 4,
+        "description": "Design and implementation of distributed systems",
+        "enrolled": false,
+        "instructor": "Prof. Taylor",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Synchronization",
+        "title": "Distributed Systems"
+    },
+    {
+        "course_id": 112,
+        "credit_hours": 3,
+        "description": "Principles of mobile app development",
+        "enrolled": false,
+        "instructor": "Prof. Garcia",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "UI design",
+        "title": "Mobile App Development"
+    },
+    {
+        "course_id": 113,
+        "credit_hours": 3,
+        "description": "Principles of information security",
+        "enrolled": false,
+        "instructor": "Prof. White",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Cryptography",
+        "title": "Computer Security"
+    },
+    {
+        "course_id": 114,
+        "credit_hours": 4,
+        "description": "Introduction to cloud computing technologies",
+        "enrolled": false,
+        "instructor": "Prof. Anderson",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Virtualization",
+        "title": "Cloud Computing"
+    },
+    {
+        "course_id": 115,
+        "credit_hours": 4,
+        "description": "Introduction to artificial intelligence concepts",
+        "enrolled": false,
+        "instructor": "Prof. Harris",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Search algorithms",
+        "title": "Artificial Intelligence"
+    },
+    {
+        "course_id": 116,
+        "credit_hours": 4,
+        "description": "Fundamentals of computer networking and protocols",
+        "enrolled": false,
+        "instructor": "Prof. Martinez",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "OSI model",
+        "title": "Computer Networks"
+    },
+    {
+        "course_id": 117,
+        "credit_hours": 3,
+        "description": "Client-side and server-side web programming",
+        "enrolled": false,
+        "instructor": "Prof. Johnson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "HTML",
+        "title": "Web Development"
+    },
+    {
+        "course_id": 118,
+        "credit_hours": 4,
+        "description": "Introduction to machine learning algorithms",
+        "enrolled": false,
+        "instructor": "Prof. Lee",
+        "prerequisites": [
+            101,
+            102,
+            103
+        ],
+        "semester": "Spring",
+        "syllabus": "Supervised and unsupervised learning techniques",
+        "title": "Machine Learning"
+    },
+    {
+        "course_id": 119,
+        "credit_hours": 3,
+        "description": "Theory and practice of computer graphics",
+        "enrolled": false,
+        "instructor": "Prof. Wilson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "2D and 3D rendering",
+        "title": "Computer Graphics"
+    },
+    {
+        "course_id": 120,
+        "credit_hours": 3,
+        "description": "Advanced database concepts and technologies",
+        "enrolled": false,
+        "instructor": "Prof. Roberts",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Query optimization",
+        "title": "Advanced Databases"
+    },
+    {
+        "course_id": 121,
+        "credit_hours": 4,
+        "description": "Design and implementation of distributed systems",
+        "enrolled": false,
+        "instructor": "Prof. Taylor",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Synchronization",
+        "title": "Distributed Systems"
+    },
+    {
+        "course_id": 122,
+        "credit_hours": 3,
+        "description": "Principles of mobile app development",
+        "enrolled": false,
+        "instructor": "Prof. Garcia",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "UI design",
+        "title": "Mobile App Development"
+    },
+    {
+        "course_id": 123,
+        "credit_hours": 3,
+        "description": "Principles of information security",
+        "enrolled": false,
+        "instructor": "Prof. White",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Cryptography",
+        "title": "Computer Security"
+    },
+    {
+        "course_id": 124,
+        "credit_hours": 4,
+        "description": "Introduction to cloud computing technologies",
+        "enrolled": false,
+        "instructor": "Prof. Anderson",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Virtualization",
+        "title": "Cloud Computing"
+    },
+    {
+        "course_id": 125,
+        "credit_hours": 4,
+        "description": "Introduction to artificial intelligence concepts",
+        "enrolled": false,
+        "instructor": "Prof. Harris",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Search algorithms",
+        "title": "Artificial Intelligence"
     }
 ]

@@ -75,7 +75,9 @@ Coursify::Coursify(QWidget* parent)
 
     //student panel 
     courseSystem::showCourseComboBox(ui.combo_choose);
-
+    connect(ui.combo_choose, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
+        });
   
 
 
