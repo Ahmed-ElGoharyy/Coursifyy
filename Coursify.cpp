@@ -13,6 +13,8 @@ Coursify::Coursify(QWidget* parent)
     ui.setupUi(this);
     ui.stackedWidget->setCurrentWidget(ui.Login);   // Start at login page
 
+
+
     // Set up navigation connections
     connect(ui.signup_button, &QPushButton::clicked, this, [=]() {
         ui.stackedWidget->setCurrentWidget(ui.Register);
