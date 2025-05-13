@@ -1,13 +1,5 @@
 [
     {
-        "admin_id": 1,
-        "email": "registrar@school.edu",
-        "name": "Jane Wilson",
-        "password": "17197393981645110028",
-        "role": "A",
-        "username": "registrar"
-    },
-    {
         "admin_id": 0,
         "email": "admin@school.edu",
         "name": "Administrator",
@@ -16,12 +8,12 @@
         "username": "admin"
     },
     {
-        "admin_id": 2,
-        "email": "dept.head@school.edu",
-        "name": "Robert Johnson",
+        "admin_id": 1,
+        "email": "registrar@school.edu",
+        "name": "Jane Wilson",
         "password": "17197393981645110028",
         "role": "A",
-        "username": "depthead"
+        "username": "registrar"
     },
     {
         "admin_id": 5,
@@ -32,6 +24,14 @@
         "username": "hadyy"
     },
     {
+        "admin_id": 2,
+        "email": "dept.head@school.edu",
+        "name": "Robert Johnson",
+        "password": "17197393981645110028",
+        "role": "A",
+        "username": "depthead"
+    },
+    {
         "admin_id": 3,
         "email": " null",
         "name": "a",
@@ -40,12 +40,12 @@
         "username": "test"
     },
     {
-        "admin_id": 4,
+        "admin_id": 6,
         "email": " null",
-        "name": "ahmedd",
+        "name": "wagdyy",
         "password": "17197393981645110028",
         "role": "A",
-        "username": "ahmedd"
+        "username": "Wagdyy2"
     },
     {
         "admin_id": 8,
@@ -56,12 +56,12 @@
         "username": "aaa"
     },
     {
-        "admin_id": 6,
+        "admin_id": 4,
         "email": " null",
-        "name": "wagdyy",
+        "name": "ahmedd",
         "password": "17197393981645110028",
         "role": "A",
-        "username": "Wagdyy2"
+        "username": "ahmedd"
     },
     {
         "admin_id": 7,

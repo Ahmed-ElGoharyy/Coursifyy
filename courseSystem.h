@@ -45,4 +45,6 @@ public:
     bool saveData();
     void importCoursesFromFile(QWidget* parent);
     bool importCoursesFromCSV(const QString& filePath);
+    static void showCourseComboBox(QComboBox* comboBox);
+    static bool setCoursePrerequisites(QComboBox* targetCourseBox, QListWidget* prereqListWidget);
 };

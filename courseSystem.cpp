@@ -673,3 +673,12 @@ void courseSystem::importCoursesFromFile(QWidget* parent) {
             QObject::tr("Failed to import courses from file."));
     }
 }
+//try 
+extern courseSystem Sys;
+void courseSystem::showCourseComboBox(QComboBox* comboBox) {
+    comboBox->clear();
+    for (const auto& pair : Sys.getAllCourses()) {
+        const course& c = pair.second;
+        comboBox->addItem(QString::fromStdString(c.getTitle()), QVariant::fromValue(c.getCourseID()));
+    }
+}

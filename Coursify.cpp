@@ -64,6 +64,7 @@ Coursify::Coursify(QWidget* parent)
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
         }
         });
+    courseSystem::showCourseComboBox(ui.combo_course);
 
     setupRadioButtonLogic(ui.radioButtonA, ui.radioButtonS,
         ui.Register_S1, ui.Register_S2,
