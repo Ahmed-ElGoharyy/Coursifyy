@@ -10,6 +10,8 @@
 #include <QTranslator>
 
 
+
+
 courseSystem::courseSystem() {
     FileUtils::initializePaths();
     if (!loadData()) {

@@ -66,6 +66,17 @@ Coursify::Coursify(QWidget* parent)
         });
     courseSystem::showCourseComboBox(ui.combo_course);
 
+
+
+    //student panel 
+    courseSystem::showCourseComboBox(ui.combo_choose);
+
+  
+
+
+
+
+
     setupRadioButtonLogic(ui.radioButtonA, ui.radioButtonS,
         ui.Register_S1, ui.Register_S2,
         ui.Register_S3, ui.Register_S4,
