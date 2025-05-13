@@ -675,12 +675,49 @@ void courseSystem::importCoursesFromFile(QWidget* parent) {
             QObject::tr("Failed to import courses from file."));
     }
 }
-//try 
+//admin panel func
 extern courseSystem Sys;
 void courseSystem::showCourseComboBox(QComboBox* comboBox) {
     comboBox->clear();
     for (const auto& pair : Sys.getAllCourses()) {
         const course& c = pair.second;
         comboBox->addItem(QString::fromStdString(c.getTitle()), QVariant::fromValue(c.getCourseID()));
+    }
+}
+
+vector<string> courseSystem::getCoursePrereqTitles(long courseId) {
+    vector<std::string> result;
+    const course* c = Sys.getCourse(courseId);
+    if (!c) return result;  // Return empty if course not found
+
+    // Iterate through each prerequisite course
+    for (const course& prereq : c->getPrerequisites()) {
+        result.push_back(prereq.getTitle());  // Get the title of the prerequisite course
+    }
+
+    return result;
+}
+
+
+void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QListWidget* prereqListWidget) {
+    prereqListWidget->clear();
+
+    QVariant selected = courseComboBox->currentData();
+    if (!selected.isValid()) return;
+
+    long courseId = selected.toLongLong();
+    std::vector<std::string> prereqs = getCoursePrereqTitles(courseId);
+
+    if (prereqs.empty()) {
+        prereqListWidget->addItem("No prerequisites for this course");
+        // You might want to make the item disabled so it can't be selected
+        QListWidgetItem* item = prereqListWidget->item(0);
+        item->setFlags(item->flags() & ~Qt::ItemIsSelectable & ~Qt::ItemIsEnabled);
+        
+    }
+    else {
+        for (const std::string& title : prereqs) {
+            prereqListWidget->addItem(QString::fromStdString(title));
+        }
     }
 }

@@ -64,7 +64,12 @@ Coursify::Coursify(QWidget* parent)
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
         }
         });
+    //admin panel
     courseSystem::showCourseComboBox(ui.combo_course);
+    connect(ui.combo_course, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
+        });
+   
 
 
 

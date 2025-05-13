@@ -511,7 +511,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3259,7 +3259,7 @@ QPushButton:disabled {
           <property name="geometry">
            <rect>
             <x>270</x>
-            <y>90</y>
+            <y>40</y>
             <width>451</width>
             <height>24</height>
            </rect>
@@ -3278,7 +3278,7 @@ QPushButton:disabled {
           <property name="geometry">
            <rect>
             <x>270</x>
-            <y>210</y>
+            <y>180</y>
             <width>451</width>
             <height>151</height>
            </rect>
@@ -3293,7 +3293,7 @@ QPushButton:disabled {
 </string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_setPrerequisites">
+         <widget class="QPushButton" name="pushButton_addPrerequisites">
           <property name="geometry">
            <rect>
             <x>450</x>
@@ -3312,7 +3312,7 @@ QPushButton:disabled {
     font-weight: bold;
 }
 QPushButton:hover {
-    background-color: #1565C0;
+    background-color: rgb(165, 28, 10);
 }
 QPushButton:disabled {
     background-color: #E0E0E0;
@@ -3321,14 +3321,14 @@ QPushButton:disabled {
 </string>
           </property>
           <property name="text">
-           <string>Set</string>
+           <string>Add</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_4">
           <property name="geometry">
            <rect>
             <x>130</x>
-            <y>80</y>
+            <y>40</y>
             <width>81</width>
             <height>31</height>
            </rect>
@@ -3353,8 +3353,8 @@ font-weight: bold;
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>260</y>
+            <x>120</x>
+            <y>210</y>
             <width>141</width>
             <height>31</height>
            </rect>
@@ -3374,6 +3374,51 @@ font-weight: bold;
           </property>
           <property name="text">
            <string>Prerequisites</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>110</y>
+            <width>451</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>110</y>
+            <width>141</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="text">
+           <string>Course Name</string>
           </property>
          </widget>
         </widget>
