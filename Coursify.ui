@@ -511,7 +511,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Login">
        <widget class="QLabel" name="label_6">
@@ -3198,8 +3198,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget">
         <property name="geometry">
          <rect>
-          <x>180</x>
-          <y>150</y>
+          <x>170</x>
+          <y>140</y>
           <width>911</width>
           <height>491</height>
          </rect>
@@ -3213,7 +3213,7 @@ border: 1px solid #CFD8DC;
 </string>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3222,18 +3222,19 @@ border: 1px solid #CFD8DC;
          <widget class="QPushButton" name="pushButton_uploadDescription">
           <property name="geometry">
            <rect>
-            <x>300</x>
-            <y>190</y>
+            <x>290</x>
+            <y>230</y>
             <width>311</width>
-            <height>61</height>
+            <height>81</height>
            </rect>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {
+	font: 700 18pt &quot;Segoe UI&quot;;
     background-color: rgb(255, 0, 0);
     color: white;
-    border: none;
-    border-radius: 6px;
+    border: 1px solid white;
+    border-radius: 15px;
     padding: 6px 12px;
     font-weight: bold;
 }
@@ -3247,7 +3248,45 @@ QPushButton:disabled {
 </string>
           </property>
           <property name="text">
-           <string>Upload Course</string>
+           <string> Upload Course</string>
+          </property>
+          <property name="icon">
+           <iconset theme="QIcon::ThemeIcon::FolderNew"/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_24">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>100</y>
+            <width>321</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+font: 600 20pt &quot;Segoe UI&quot;;
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="text">
+           <string>Upload Course as CSV :</string>
           </property>
          </widget>
         </widget>
@@ -3626,23 +3665,24 @@ font-weight: bold;
         </widget>
         <widget class="QWidget" name="tab_4">
          <attribute name="title">
-          <string>Upload CSV</string>
+          <string>Upload Grades as CSV</string>
          </attribute>
          <widget class="QPushButton" name="gradesUploadButton">
           <property name="geometry">
            <rect>
-            <x>320</x>
-            <y>170</y>
-            <width>311</width>
-            <height>61</height>
+            <x>290</x>
+            <y>230</y>
+            <width>331</width>
+            <height>81</height>
            </rect>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {
     background-color: rgb(255, 0, 0);
     color: white;
-    border: none;
-    border-radius: 6px;
+    border: 1px solid white;
+    border-radius: 16px;
+	font: 700 18pt &quot;Segoe UI&quot;;
     padding: 6px 12px;
     font-weight: bold;
 }
@@ -3656,7 +3696,45 @@ QPushButton:disabled {
 </string>
           </property>
           <property name="text">
-           <string>Upload Course Grades</string>
+           <string> Upload Grades</string>
+          </property>
+          <property name="icon">
+           <iconset theme="QIcon::ThemeIcon::GoUp"/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_25">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>110</y>
+            <width>321</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+font: 600 20pt &quot;Segoe UI&quot;;
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="text">
+           <string>Upload Grades as CSV :</string>
           </property>
          </widget>
         </widget>
@@ -4036,7 +4114,7 @@ color: #000000;
 font: 14pt &quot;Segoe UI&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
