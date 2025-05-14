@@ -3,6 +3,9 @@
 #include "admin.h"
 #include "student.h"
 #include "stdafx.h"
+#include <QStringList>
+#include <QString>
+
 #pragma once
 class courseSystem {
     friend class FileUtils;
@@ -58,5 +61,12 @@ public:
     void importGradesFromFile(QWidget* parent);
 
     void showStudentCourseGrade(QComboBox* courseComboBox, QListWidget* gradesListWidget, QWidget* parent = nullptr);
+    //void populateListFromReport(student* currentStudent);
+    void populateListFromReport(student* currentStudent, QListWidget* listWidget, QWidget* parent);
+
+   
+    QStringList getStudentCourseReport(student* currentStudent);
+
+    void populateListWidgetUI(student* currentStudent, QListWidget* listWidget);
 
 };

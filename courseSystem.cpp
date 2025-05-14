@@ -8,6 +8,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTranslator>
+#include <QStringList>
+#include <QString>
+
 
 
 
@@ -1023,4 +1026,105 @@ void courseSystem::showStudentCourseGrade(QComboBox* courseComboBox, QListWidget
             .arg(QString::fromStdString(it->second.getLetter()));
         gradesListWidget->addItem(result);
     }*/
+}
+
+
+
+
+/*void populateListFromReport(student* currentStudent, QWidget* parent) {
+    if (!currentStudent) return;
+
+    const auto& courses = currentStudent->getGrades();
+
+    ui.listWidget_r->clear();
+
+    // Header line (just for styling)
+    QString header = QString("%1 | %2 | %3 | %4 | %5")
+        .arg("Course Title", -30)
+        .arg("ID", -6)
+        .arg("Credits", -7)
+        .arg("Grade", -5)
+        .arg("Points", -6);
+    ui.listWidget_r->addItem(header);
+    ui.listWidget_r->addItem(QString(70, '-')); // separator
+
+    for (const auto& pair : courses) {
+        const course& c = pair.first;
+        const grade& g = pair.second;
+
+        QString line = QString("%1 | %2 | %3 | %4 | %5")
+            .arg(QString::fromStdString(c.getTitle()), -30)
+            .arg(QString::number(c.getCourseID()), -6)
+            .arg(QString::number(c.getCreditHours()), -7)
+            .arg(QString(g.getGrade()), -5)
+            .arg(QString::number(g.getGPA()), -6);
+        ui.listWidget_r->addItem(line);
+    }
+}*/
+/*void populateListFromReport(student* currentStudent, QListWidget* listWidget, QWidget* parent) {
+    if (!currentStudent || !listWidget) return;
+
+    const auto& courses = currentStudent->getGrades();
+
+    // Clear the list widget
+    listWidget->clear();
+
+    // Header line (just for styling)
+    QString header = QString("%1 | %2 | %3 | %4 | %5")
+        .arg("Course Title", -30)
+        .arg("ID", -6)
+        .arg("Credits", -7)
+        .arg("Grade", -5)
+        .arg("Points", -6);
+
+    listWidget->addItem(header);
+    listWidget->addItem(QString(70, '-')); // separator
+
+    for (const auto& pair : courses) {
+        const course& c = pair.first;
+        const grade& g = pair.second;
+
+        QString line = QString("%1 | %2 | %3 | %4 | %5")
+            .arg(QString::fromStdString(c.getTitle()), -30)
+            .arg(QString::number(c.getCourseID()), -6)
+            .arg(QString::number(c.getCreditHours()), -7)
+            .arg(QString(g.getGrade()), -5)
+            .arg(QString::number(g.getGPA()), -6);
+
+        listWidget->addItem(line);
+    }
+}*/  
+
+// coursesystem.cpp
+
+QStringList  courseSystem:: getStudentCourseReport(student* currentStudent) {
+    QStringList report;
+
+    if (!currentStudent) return report;
+
+    const auto& courses = currentStudent->getGrades();
+
+    report << QString("%1 | %2 | %3 | %4 | %5")
+        .arg("Course Title", -25)
+        .arg("Course ID", -12)
+        .arg("Credit Hours", -12)
+        .arg("Grade", -8)
+        .arg("Points", -8);
+    report << QString(70, '-');
+
+    for (const auto& pair : courses) {
+        const course& c = pair.first;
+        const grade& g = pair.second;
+
+        QString line = QString("%1   | %2 | %3 | %4 | %5")
+            .arg(QString::fromStdString(c.getTitle()), -40)
+            .arg(QString::number(c.getCourseID()), -6)
+            .arg(QString::number(c.getCreditHours()), -7)
+            .arg(QString(g.getGrade()), -5)
+            .arg(QString::number(g.getGPA()), -6);
+        report << line;
+        report << QString(70,' ');
+    }
+
+    return report;
 }

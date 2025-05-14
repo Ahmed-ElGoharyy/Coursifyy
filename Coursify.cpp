@@ -45,9 +45,9 @@ Coursify::Coursify(QWidget* parent)
     // Use the global Sys instance for importing CSV files
     connect(ui.pushButton_uploadDescription, &QPushButton::clicked, this, [this]() {
         Sys.importCoursesFromFile(this);
-            Sys.showCourseComboBox(ui.combo_course);
-            Sys.showCourseComboBox(ui.combo_choose);
-            Sys.showCourseComboBox(ui.combo_pre);
+        Sys.showCourseComboBox(ui.combo_course);
+        Sys.showCourseComboBox(ui.combo_choose);
+        Sys.showCourseComboBox(ui.combo_pre);
         });
 
 
@@ -88,10 +88,80 @@ Coursify::Coursify(QWidget* parent)
     ui.searchResultsList->installEventFilter(this);
 
     //grades view 
-	Sys.showCourseComboBox(ui.comboBox_grade);
+    Sys.showCourseComboBox(ui.comboBox_grade);
+
+
     connect(ui.pushButton_3, &QPushButton::clicked, this, [=]() {
-       // courseSystem.showStudentCourseGrade(ui.list_showgrade, ui->gradesListWidget, this);
+        // (ui.list_showgrade, ui->gradesListWidget, this);
         });
+
+
+
+
+
+    //report grades 
+    connect(ui.tabWidget_2, &QTabWidget::currentChanged, this, [=]() {
+        student* currentStudent = dynamic_cast<student*>(currentUser);
+        if (!currentStudent) {
+            QMessageBox::critical(this, "Error", "User type mismatch. Cannot load student data.");
+            return;
+        }
+
+        //  Welcome message
+        ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
+
+        // Populate fields
+        ui.textEdit_n->setText(QString::fromStdString(currentStudent->getName()));  // Name
+        ui.textEdit_i->setText(QString::number(currentStudent->getStudentID()));           // ID
+        ui.textEdit_g->setText(QString::number(currentStudent->calculateGPA(), 'f', 2)); // GPA
+
+        //  Populate report list
+        QStringList report = Sys.getStudentCourseReport(currentStudent);
+        ui.listWidget_r->clear();
+        ui.listWidget_r->addItems(report);
+        });
+    //Sys.populateListFromReport(currentUser <student> ,ui.listwidget_r );
+  
+
+    
+
+
+
+
+
+
+    //report  export
+    connect(ui.export_button, &QPushButton::clicked, this, [=]() {
+
+        ui.export_button->setVisible(false);
+
+        QString fileName = QFileDialog::getSaveFileName(this, "Export Report as PDF", "", "*.pdf");
+        if (fileName.isEmpty()) return;
+        if (!fileName.endsWith(".pdf")) fileName += ".pdf";
+
+        QPdfWriter writer(fileName);
+        writer.setPageSize(QPageSize::A4);
+        writer.setResolution(300);
+
+        QPainter painter(&writer);
+
+        // Grab the report tab (ui.tab_8) and scale it to fit the PDF page
+        double xscale = writer.width() / double(ui.tab_8->width());
+        double yscale = writer.height() / double(ui.tab_8->height());
+        double scale = std::min(xscale, yscale);
+
+        painter.scale(scale, scale);
+        ui.tab_8->render(&painter);
+        painter.end();
+
+        ui.export_button->setVisible(true);
+
+        QMessageBox::information(this, "Export Complete", "Report successfully exported as PDF.");
+        });
+
+
+
+
 
 
     // Registration functionality
@@ -125,8 +195,10 @@ Coursify::Coursify(QWidget* parent)
         char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
+			ui.tabWidget_2->setCurrentIndex(0); 
             student* currentStudent = dynamic_cast<student*>(currentUser);
             ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
+          
 
         }
         else if (choice == 'A') {
