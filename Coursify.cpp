@@ -50,9 +50,19 @@ Coursify::Coursify(QWidget* parent)
         });
 
     
-
     Sys.showCourseComboBox(ui.combo_course);
+    connect(ui.combo_course, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
+        });
+
+
+
+
+    //student panel 
     Sys.showCourseComboBox(ui.combo_choose);
+    connect(ui.combo_choose, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
+        });
     // Search functionality
     connect(ui.searchBar, &QLineEdit::textChanged, this, &Coursify::onSearchTextChanged);
     connect(ui.searchResultsList, &QListWidget::itemClicked, this, &Coursify::onSearchResultSelected);

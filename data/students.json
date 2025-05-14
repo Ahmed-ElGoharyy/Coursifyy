@@ -40,6 +40,49 @@
                     "semester": 2,
                     "year": 2024
                 }
+            },
+            {
+                "course": {
+                    "course_id": 103,
+                    "credit_hours": 3,
+                    "description": "Database design and implementation",
+                    "enrolled": true,
+                    "instructor": "Prof. Williams",
+                    "prerequisites": [
+                        101
+                    ],
+                    "semester": "Fall",
+                    "syllabus": "Relational databases, SQL, and NoSQL",
+                    "title": "Database Systems"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": " ",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 105,
+                    "credit_hours": 3,
+                    "description": "Software development process and methodologies",
+                    "enrolled": false,
+                    "instructor": "Prof. Brown",
+                    "prerequisites": [
+                        102,
+                        103
+                    ],
+                    "semester": "Fall",
+                    "syllabus": "Requirements, design, testing, and project management",
+                    "title": "Software Engineering"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": " ",
+                    "semester": 1,
+                    "year": 2023
+                }
             }
         ],
         "email": "john.doe@student.edu",
