@@ -50,6 +50,9 @@ Coursify::Coursify(QWidget* parent)
         });
 
     
+
+    Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_choose);
     // Search functionality
     connect(ui.searchBar, &QLineEdit::textChanged, this, &Coursify::onSearchTextChanged);
     connect(ui.searchResultsList, &QListWidget::itemClicked, this, &Coursify::onSearchResultSelected);
