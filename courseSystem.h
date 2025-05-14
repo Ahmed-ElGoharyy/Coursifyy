@@ -47,9 +47,8 @@ public:
     bool importCoursesFromCSV(const QString& filePath);
      void showCourseComboBox(QComboBox* comboBox);
     vector <string> getCoursePrereqTitles(long courseId);
-    bool updateCoursePrerequisites(long courseId, const vector<string>& prereqTitles);
-    //void updatePrerequisites(const QString& course);
-    //void handleSetPrerequisites(QComboBox* courseComboBox, QListWidget* prereqListWidget, QWidget* parent);
+    void addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBox* prereqCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
+    void removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QListWidget* prereqListWidget);
 public:
     bool addCourseToStudent(student* student, const course& courseToAdd);

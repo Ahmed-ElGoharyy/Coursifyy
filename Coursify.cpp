@@ -47,15 +47,25 @@ Coursify::Coursify(QWidget* parent)
         Sys.importCoursesFromFile(this);
             Sys.showCourseComboBox(ui.combo_course);
             Sys.showCourseComboBox(ui.combo_choose);
+            Sys.showCourseComboBox(ui.combo_pre);
         });
 
-    
+    //admin panell
     Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_pre);
     connect(ui.combo_course, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
         Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
         });
+    connect(ui.pushButton_add, &QPushButton::clicked, this, [=]() {
+        Sys.addPrerequisiteToList(ui.combo_course, ui.combo_pre, ui.list_prereq, this);
+        });
 
-
+    // Remove a selected prerequisite when "Remove" is clicked
+    connect(ui.pushButton_remove, &QPushButton::clicked, this, [=]() {
+        Sys.removeSelectedPrerequisite(ui.combo_course, ui.list_prereq, this);
+        });
+    ///////////
 
 
     //student panel 

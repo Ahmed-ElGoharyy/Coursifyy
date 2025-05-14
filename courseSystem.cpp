@@ -670,6 +670,7 @@ void courseSystem::importCoursesFromFile(QWidget* parent) {
     }
     saveData();
 }
+//admin panel func
 void courseSystem::showCourseComboBox(QComboBox* comboBox) {
     comboBox->clear();
     for (const auto& pair : this->courses) {  // Use this instance's courses
@@ -715,6 +716,54 @@ void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QLis
         }
     }
 }
+void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBox* prereqCourseComboBox, QListWidget* prereqListWidget, QWidget* parent) {
+    QString selectedPrereqTitle = prereqCourseComboBox->currentText();
+    if (selectedPrereqTitle.isEmpty()) return;
+
+    // Prevent adding the same course as its own prerequisite
+    if (mainCourseComboBox->currentText() == selectedPrereqTitle) {
+        QMessageBox::warning(parent, "Invalid Operation", "A course cannot be a prerequisite of itself.");
+        return;
+    }
+
+    // Check for duplicates in the list
+    for (int i = 0; i < prereqListWidget->count(); ++i) {
+        if (prereqListWidget->item(i)->text() == selectedPrereqTitle) {
+            QMessageBox::warning(parent, "Duplicate Prerequisite", "This prerequisite is already added.");
+            return;
+        }
+    }
+
+    // Add to list
+    prereqListWidget->addItem(selectedPrereqTitle);
+
+    // Show success message
+    QMessageBox::information(parent, "Added", "Prerequisite added successfully.");
+}
+
+void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QListWidget* prereqListWidget, QWidget* parent) {
+    QListWidgetItem* selectedItem = prereqListWidget->currentItem();
+    if (!selectedItem) {
+        QMessageBox::warning(parent, "No Selection", "Please select a prerequisite to remove.");
+        return;
+    }
+
+    // Store title for optional feedback
+    QString removedTitle = selectedItem->text();
+
+    // Remove from list
+    delete selectedItem;
+
+    
+
+    // Show success message
+    QMessageBox::information(parent, "Removed", QString("Prerequisite '%1' removed successfully.").arg(removedTitle));
+}
+
+
+
+////////////////////////////////
+
 
 bool courseSystem::addCourseToStudent(student* student, const course& courseToAdd) {
     if (!student || !getCourse(courseToAdd.getCourseID())) {
