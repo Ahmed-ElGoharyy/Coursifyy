@@ -81,6 +81,9 @@ Coursify::Coursify(QWidget* parent)
     ui.searchBar->installEventFilter(this);
     ui.searchResultsList->installEventFilter(this);
 
+    //grades view 
+	Sys.showCourseComboBox(ui.comboBox_grade);
+
     // Registration functionality
     connect(ui.Register_signup, &QPushButton::clicked, this, [=]() {
         if (ui.radioButtonS->isChecked()) {
