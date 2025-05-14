@@ -720,25 +720,37 @@ void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBo
     QString selectedPrereqTitle = prereqCourseComboBox->currentText();
     if (selectedPrereqTitle.isEmpty()) return;
 
-    // Prevent adding the same course as its own prerequisite
-    if (mainCourseComboBox->currentText() == selectedPrereqTitle) {
+    long mainCourseId = mainCourseComboBox->currentData().toLongLong();
+    long prereqCourseId = prereqCourseComboBox->currentData().toLongLong();
+
+    if (mainCourseId == prereqCourseId) {
         QMessageBox::warning(parent, "Invalid Operation", "A course cannot be a prerequisite of itself.");
         return;
     }
 
-    // Check for duplicates in the list
-    for (int i = 0; i < prereqListWidget->count(); ++i) {
-        if (prereqListWidget->item(i)->text() == selectedPrereqTitle) {
-            QMessageBox::warning(parent, "Duplicate Prerequisite", "This prerequisite is already added.");
+    course* mainCourse = getCourse(mainCourseId);
+    course* prereqCourse = getCourse(prereqCourseId);
+
+    if (!mainCourse || !prereqCourse) return;
+
+    for (const course& c : mainCourse->getPrerequisites()) {
+        if (c.getCourseID() == prereqCourseId) {
+            QMessageBox::warning(parent, "Duplicate", "This prerequisite is already assigned.");
             return;
         }
     }
 
-    // Add to list
+   
+    if (prereqListWidget->count() == 1 &&
+        prereqListWidget->item(0)->text() == "No prerequisites for this course") {
+        delete prereqListWidget->takeItem(0);
+    }
+
+    // Add to the course and UI
+    mainCourse->addPrerequisite(*prereqCourse);
     prereqListWidget->addItem(selectedPrereqTitle);
 
-    // Show success message
-    QMessageBox::information(parent, "Added", "Prerequisite added successfully.");
+    QMessageBox::information(parent, "Added", "Prerequisite added and saved to the course.");
 }
 
 void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QListWidget* prereqListWidget, QWidget* parent) {
@@ -748,17 +760,31 @@ void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QLi
         return;
     }
 
-    // Store title for optional feedback
     QString removedTitle = selectedItem->text();
+    long mainCourseId = mainCourseComboBox->currentData().toLongLong();
+    course* mainCourse = getCourse(mainCourseId);
 
-    // Remove from list
+    if (!mainCourse) return;
+
+    // Find the course ID of the prerequisite by matching the title
+    long prereqIdToRemove = -1;
+    for (const course& c : mainCourse->getPrerequisites()) {
+        if (c.getTitle() == removedTitle.toStdString()) {
+            prereqIdToRemove = c.getCourseID();
+            break;
+        }
+    }
+
+    if (prereqIdToRemove != -1) {
+        mainCourse->removePrerequisite(prereqIdToRemove);
+    }
+
     delete selectedItem;
 
-    
-
-    // Show success message
-    QMessageBox::information(parent, "Removed", QString("Prerequisite '%1' removed successfully.").arg(removedTitle));
+    QMessageBox::information(parent, "Removed", QString("Prerequisite '%1' removed from course.").arg(removedTitle));
 }
+
+
 
 
 

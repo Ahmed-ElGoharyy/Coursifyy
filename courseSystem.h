@@ -50,6 +50,8 @@ public:
     void addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBox* prereqCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QListWidget* prereqListWidget);
+   
+
 public:
     bool addCourseToStudent(student* student, const course& courseToAdd);
     bool importGradesFromCSV(const QString& filePath);
