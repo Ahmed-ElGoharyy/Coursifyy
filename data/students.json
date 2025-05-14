@@ -57,7 +57,7 @@
                 },
                 "grade": {
                     "gpa": 0.0,
-                    "grade": " ",
+                    "grade": "F",
                     "semester": 1,
                     "year": 2023
                 }
@@ -79,7 +79,7 @@
                 },
                 "grade": {
                     "gpa": 0.0,
-                    "grade": " ",
+                    "grade": "F",
                     "semester": 1,
                     "year": 2023
                 }
@@ -189,6 +189,17 @@
         "role": "S",
         "student_id": 1003,
         "username": "mostafa"
+    },
+    {
+        "courses": [],
+        "email": "null",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "ahmedz",
+        "password": "9796540329036790974",
+        "role": "S",
+        "student_id": 1007,
+        "username": "ahmedz"
     },
     {
         "courses": [],
