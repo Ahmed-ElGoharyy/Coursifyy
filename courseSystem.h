@@ -55,5 +55,6 @@ public:
     bool importGradesFromCSV(const QString& filePath);
     void importGradesFromFile(QWidget* parent);
 
+    void showStudentCourseGrade(QComboBox* courseComboBox, QListWidget* gradesListWidget, QWidget* parent = nullptr);
 
 };

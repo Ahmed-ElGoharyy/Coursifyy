@@ -954,4 +954,47 @@ void courseSystem::importGradesFromFile(QWidget* parent) {
     }
 }
 
+void courseSystem::showStudentCourseGrade(QComboBox* courseComboBox, QListWidget* gradesListWidget, QWidget* parent) {
+    // Ensure currentUser is a student
+    student* stu = dynamic_cast<student*>(currentUser);
+    if (!stu) {
+        QMessageBox::warning(parent, "Error", "No student is currently logged in.");
+        return;
+    }
 
+    // Get selected course title
+    QString selectedCourseTitle = courseComboBox->currentText();
+    if (selectedCourseTitle.isEmpty()) {
+        QMessageBox::warning(parent, "No Course Selected", "Please select a course.");
+        return;
+    }
+
+    // Find course ID by title
+    long courseId = -1;
+    for (const auto& [id, c] : courses) {
+        if (QString::fromStdString(c.getTitle()) == selectedCourseTitle) {
+            courseId = id;
+            break;
+        }
+    }
+
+    if (courseId == -1) {
+        QMessageBox::warning(parent, "Course Not Found", "Selected course not found.");
+        return;
+    }
+
+    // Get grade
+    const auto& gradesMap = stu->getGrades();  // returns map<long, grade>
+   /* auto it = getCourse(courseId)..find(courseId);
+    gradesListWidget->clear();
+
+    if (it == gradesMap.end()) {
+        gradesListWidget->addItem("No grade available for this course.");
+    }
+    else {
+        QString result = QString("Course: %1\nGrade: %2")
+            .arg(selectedCourseTitle)
+            .arg(QString::fromStdString(it->second.getLetter()));
+        gradesListWidget->addItem(result);
+    }*/
+}

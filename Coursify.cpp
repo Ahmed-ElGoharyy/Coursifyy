@@ -83,6 +83,10 @@ Coursify::Coursify(QWidget* parent)
 
     //grades view 
 	Sys.showCourseComboBox(ui.comboBox_grade);
+    connect(ui.pushButton_3, &QPushButton::clicked, this, [=]() {
+       // courseSystem.showStudentCourseGrade(ui.list_showgrade, ui->gradesListWidget, this);
+        });
+
 
     // Registration functionality
     connect(ui.Register_signup, &QPushButton::clicked, this, [=]() {
