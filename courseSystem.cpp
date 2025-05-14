@@ -249,6 +249,10 @@ course* courseSystem::getCourse(long courseID) {
 
 std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) const {
     std::vector<course> results;
+    if (searchTerm.empty()) {
+        return results;
+    }
+
     std::string lowerSearchTerm = searchTerm;
     std::transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(),
         [](unsigned char c) { return std::tolower(c); });
@@ -256,26 +260,16 @@ std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) c
     for (const auto& pair : courses) {
         const course& c = pair.second;
         std::string lowerTitle = c.getTitle();
-        std::string lowerDesc = c.getDescription();
-        std::string lowerInstructor = c.getInstructor();
-
         std::transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(),
             [](unsigned char c) { return std::tolower(c); });
-        std::transform(lowerDesc.begin(), lowerDesc.end(), lowerDesc.begin(),
-            [](unsigned char c) { return std::tolower(c); });
-        std::transform(lowerInstructor.begin(), lowerInstructor.end(), lowerInstructor.begin(),
-            [](unsigned char c) { return std::tolower(c); });
 
-        if (lowerTitle.find(lowerSearchTerm) != std::string::npos ||
-            lowerDesc.find(lowerSearchTerm) != std::string::npos ||
-            lowerInstructor.find(lowerSearchTerm) != std::string::npos) {
+        if (lowerTitle.find(lowerSearchTerm) != std::string::npos) {
             results.push_back(c);
         }
     }
 
     return results;
 }
-
 bool courseSystem::addStudent(const student& newStudent) {
     std::string username = newStudent.getUsername();
     if (students.find(username) != students.end()) {
@@ -674,20 +668,20 @@ void courseSystem::importCoursesFromFile(QWidget* parent) {
         QMessageBox::warning(parent, QObject::tr("Error"),
             QObject::tr("Failed to import courses from file."));
     }
+    saveData();
 }
-//admin panel func
-extern courseSystem Sys;
 void courseSystem::showCourseComboBox(QComboBox* comboBox) {
     comboBox->clear();
-    for (const auto& pair : Sys.getAllCourses()) {
+    for (const auto& pair : this->courses) {  // Use this instance's courses
         const course& c = pair.second;
-        comboBox->addItem(QString::fromStdString(c.getTitle()), QVariant::fromValue(c.getCourseID()));
+        comboBox->addItem(QString::fromStdString(c.getTitle()),
+            QVariant::fromValue(c.getCourseID()));
     }
 }
 
 vector<string> courseSystem::getCoursePrereqTitles(long courseId) {
     vector<std::string> result;
-    const course* c = Sys.getCourse(courseId);
+    const course* c = getCourse(courseId);
     if (!c) return result;  // Return empty if course not found
 
     // Iterate through each prerequisite course
@@ -719,5 +713,194 @@ void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QLis
         for (const std::string& title : prereqs) {
             prereqListWidget->addItem(QString::fromStdString(title));
         }
+    }
+}
+
+bool courseSystem::addCourseToStudent(student* student, const course& courseToAdd) {
+    if (!student || !getCourse(courseToAdd.getCourseID())) {
+        return false; // Invalid student or course
+    }
+
+    try {
+        // Check if student already has this course
+        if (student->hasCourse(courseToAdd.getCourseID())) {
+            return false;
+        }
+
+        // Add to student's course list with a default grade
+        grade defaultGrade; // Creates a default grade (0.0 or ungraded)
+        student->courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+
+        // Update the system data
+        saveData();
+        return true;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error adding course to student: " << e.what() << std::endl;
+        return false;
+    }
+}
+bool courseSystem::importGradesFromCSV(const QString& filePath) {
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(nullptr, "File Error",
+            QString("Failed to open file:\n%1").arg(file.errorString()));
+        return false;
+    }
+
+    QTextStream in(&file);
+    int lineNumber = 0;
+    int successCount = 0;
+    int errorCount = 0;
+    QStringList errorMessages;
+
+    // Process header
+    if (!in.atEnd()) {
+        QString header = in.readLine().trimmed();
+        if (header != "student_id,course_id,grade_letter") {
+            QMessageBox::critical(nullptr, "Format Error",
+                "Invalid CSV format.\n"
+                "Expected header: student_id,course_id,grade_letter\n"
+                "Found header: " + header);
+            return false;
+        }
+    }
+
+    while (!in.atEnd()) {
+        lineNumber++;
+        QString line = in.readLine().trimmed();
+        if (line.isEmpty()) continue;
+
+        QStringList tokens = line.split(',');
+        if (tokens.size() != 3) {
+            errorMessages << QString("Line %1: Invalid format. Expected 3 columns, found %2")
+                .arg(lineNumber).arg(tokens.size());
+            errorCount++;
+            continue;
+        }
+
+        bool ok;
+        long studentID = tokens[0].toLong(&ok);
+        if (!ok) {
+            errorMessages << QString("Line %1: Invalid student ID: %2")
+                .arg(lineNumber).arg(tokens[0]);
+            errorCount++;
+            continue;
+        }
+
+        long courseID = tokens[1].toLong(&ok);
+        if (!ok) {
+            errorMessages << QString("Line %1: Invalid course ID: %2")
+                .arg(lineNumber).arg(tokens[1]);
+            errorCount++;
+            continue;
+        }
+
+        QString gradeStr = tokens[2].trimmed().toUpper();
+        if (gradeStr.length() != 1 ||
+            (gradeStr[0] < 'A' || gradeStr[0] > 'F' ||
+                (gradeStr[0] > 'D' && gradeStr[0] < 'F'))) {
+            errorMessages << QString("Line %1: Invalid grade letter (must be A-F): %2")
+                .arg(lineNumber).arg(tokens[2]);
+            errorCount++;
+            continue;
+        }
+        char gradeLetter = gradeStr[0].toLatin1();
+
+        // Find student
+        student* s = getStudent(studentID);
+        if (!s) {
+            errorMessages << QString("Line %1: Student not found with ID: %2")
+                .arg(lineNumber).arg(studentID);
+            errorCount++;
+            continue;
+        }
+
+        // Find course
+        course* c = getCourse(courseID);
+        if (!c) {
+            errorMessages << QString("Line %1: Course not found with ID: %2")
+                .arg(lineNumber).arg(courseID);
+            errorCount++;
+            continue;
+        }
+
+        // Check enrollment
+        if (!s->hasCourse(courseID)) {
+            errorMessages << QString("Line %1: Student %2 not enrolled in course %3")
+                .arg(lineNumber).arg(studentID).arg(courseID);
+            errorCount++;
+            continue;
+        }
+
+        // Update grade
+        if (s->updateGrade(courseID, grade(1, gradeLetter, 2023))) {
+            successCount++;
+        }
+        else {
+            errorMessages << QString("Line %1: Failed to update grade for student %2 in course %3")
+                .arg(lineNumber).arg(studentID).arg(courseID);
+            errorCount++;
+        }
+    }
+
+    file.close();
+
+    // Show summary of errors if any occurred
+    if (!errorMessages.isEmpty()) {
+        QString errorReport = QString("%1 errors occurred:\n\n").arg(errorCount);
+        errorReport += errorMessages.join("\n\n");
+
+        // Show first 10 errors to avoid overwhelming the user
+        if (errorMessages.size() > 10) {
+            errorReport = QString("%1 errors occurred (showing first 10):\n\n").arg(errorCount);
+            for (int i = 0; i < 10 && i < errorMessages.size(); i++) {
+                errorReport += errorMessages[i] + "\n\n";
+            }
+            errorReport += "... and " + QString::number(errorMessages.size() - 10) + " more errors";
+        }
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle("Import Warnings");
+        msgBox.setText(QString("Completed with %1 errors").arg(errorCount));
+        msgBox.setDetailedText(errorReport);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+    }
+
+    if (successCount > 0) {
+        saveData();
+        QMessageBox::information(nullptr, "Import Complete",
+            QString("Successfully updated %1 grades").arg(successCount));
+        return true;
+    }
+
+    QMessageBox::critical(nullptr, "Import Failed",
+        "No grades were updated. Please check the CSV file format.");
+    return false;
+}
+
+void courseSystem::importGradesFromFile(QWidget* parent) {
+    QString fileName = QFileDialog::getOpenFileName(
+        parent,
+        QObject::tr("Select Grades CSV File"),
+        QDir::homePath(),
+        QObject::tr("CSV Files (*.csv);;All Files (*)")
+    );
+
+    if (fileName.isEmpty()) {
+        return; // User canceled
+    }
+
+    qDebug() << "Selected grades file:" << fileName;
+
+    if (importGradesFromCSV(fileName)) {
+        QMessageBox::information(parent, QObject::tr("Success"),
+            QObject::tr("Grades imported successfully!"));
+    }
+    else {
+        QMessageBox::warning(parent, QObject::tr("Error"),
+            QObject::tr("Failed to import grades from file."));
     }
 }

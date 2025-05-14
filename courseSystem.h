@@ -45,10 +45,16 @@ public:
     bool saveData();
     void importCoursesFromFile(QWidget* parent);
     bool importCoursesFromCSV(const QString& filePath);
-    static void showCourseComboBox(QComboBox* comboBox);
+     void showCourseComboBox(QComboBox* comboBox);
     vector <string> getCoursePrereqTitles(long courseId);
     bool updateCoursePrerequisites(long courseId, const vector<string>& prereqTitles);
     //void updatePrerequisites(const QString& course);
     //void handleSetPrerequisites(QComboBox* courseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QListWidget* prereqListWidget);
+public:
+    bool addCourseToStudent(student* student, const course& courseToAdd);
+    bool importGradesFromCSV(const QString& filePath);
+    void importGradesFromFile(QWidget* parent);
+
+
 };
