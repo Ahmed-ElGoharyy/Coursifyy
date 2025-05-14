@@ -34,13 +34,14 @@ void FileUtils::initializePaths() {
 nlohmann::json FileUtils::studentToJson(const student& s) {
     nlohmann::json j;
     j["username"] = s.getUsername();
-    j["password"] = s.getPassword(); // Changed from password_hash to password
+    j["password"] = s.getPassword();
     j["name"] = s.getName();
     j["email"] = s.getEmail();
     j["role"] = std::string(1, s.getRole());
     j["student_id"] = s.getStudentID();
     j["gpa"] = s.getGPA();
     j["max_credit_hours"] = s.max_credit_hours;
+    j["current_semester"] = s.getCurrentSemester();
 
     nlohmann::json coursesArray = nlohmann::json::array();
     for (const auto& pair : s.courses) {
@@ -102,9 +103,10 @@ nlohmann::json FileUtils::courseGradePairToJson(const std::pair<course, grade>& 
 student FileUtils::jsonToStudent(const nlohmann::json& j) {
     student s(
         j["username"].get<std::string>(),
-        j["password"].get<std::string>(), // Changed from password_hash to password
+        j["password"].get<std::string>(),
         j["name"].get<std::string>(),
-        j["email"].get<std::string>()
+        j["email"].get<std::string>(),
+        j["current_semester"].get<std::string>()  // Add semester
     );
 
     s.setID(j["student_id"].get<long>());

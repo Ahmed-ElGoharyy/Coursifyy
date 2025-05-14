@@ -5,11 +5,17 @@
 
 // Initialize static counter
 long student::counter = 0;
-
-student::student() : user(), StudentID(counter++), gpa(0.0), max_credit_hours(21) {
+student::student() : user(), StudentID(counter++), gpa(0.0), max_credit_hours(21), currentSemester("Fall 2023") {
     setRole('S');
-    std::cout << "Created new student with ID: " << StudentID << std::endl;
+    cout << "Created new student with ID: " << StudentID << endl;
 }
+
+student::student(string username, string password, string name, string email, string semester)
+    : user(username, password, name, email, 'S'), gpa(0.0), max_credit_hours(21), currentSemester(semester) {
+    StudentID = counter++;
+    cout << "Created new student with ID: " << StudentID << endl;
+}
+
 
 student::student(string username, string password, string name, string email)
     : user(username, password, name, email, 'S'), gpa(0.0), max_credit_hours(21) {

@@ -105,10 +105,33 @@
                     "semester": 1,
                     "year": 2023
                 }
+            },
+            {
+                "course": {
+                    "course_id": 104,
+                    "credit_hours": 4,
+                    "description": "Principles of operating system design",
+                    "enrolled": false,
+                    "instructor": "Prof. Davis",
+                    "prerequisites": [
+                        101,
+                        102
+                    ],
+                    "semester": "Spring",
+                    "syllabus": "Process management, memory management, file systems",
+                    "title": "Operating Systems"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": "F",
+                    "semester": 1,
+                    "year": 2023
+                }
             }
         ],
+        "current_semester": "Fall 2023",
         "email": "john.doe@student.edu",
-        "gpa": 3.5,
+        "gpa": 1.399999976158142,
         "max_credit_hours": 18,
         "name": "John Doe",
         "password": "2992457363794458960",
@@ -159,6 +182,7 @@
                 }
             }
         ],
+        "current_semester": "Spring 2024",
         "email": "jane.smith@student.edu",
         "gpa": 3.5,
         "max_credit_hours": 21,
@@ -170,6 +194,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
@@ -181,6 +206,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
@@ -192,6 +218,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
@@ -203,6 +230,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
@@ -214,6 +242,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
@@ -225,6 +254,7 @@
     },
     {
         "courses": [],
+        "current_semester": "Fall 2023",
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,

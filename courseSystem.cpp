@@ -61,10 +61,10 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         }
 
         if (user::isValidUsername(username) && user::isValidPassword(password)) {
-
             string hashedpass = user::hashPassword(password);
 
-            student newStudent(username, hashedpass, name);
+            // Default to current semester (you might want to make this configurable)
+            student newStudent(username, hashedpass, name, "Fall 2023");
             students[username] = newStudent;
             saveData();
 
