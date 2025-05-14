@@ -135,25 +135,9 @@ Coursify::Coursify(QWidget* parent)
 
         ui.export_button->setVisible(false);
 
-        QString fileName = QFileDialog::getSaveFileName(this, "Export Report as PDF", "", "*.pdf");
-        if (fileName.isEmpty()) return;
-        if (!fileName.endsWith(".pdf")) fileName += ".pdf";
-
-        QPdfWriter writer(fileName);
-        writer.setPageSize(QPageSize::A4);
-        writer.setResolution(300);
-
-        QPainter painter(&writer);
-
-        // Grab the report tab (ui.tab_8) and scale it to fit the PDF page
-        double xscale = writer.width() / double(ui.tab_8->width());
-        double yscale = writer.height() / double(ui.tab_8->height());
-        double scale = std::min(xscale, yscale);
-
-        painter.scale(scale, scale);
-        ui.tab_8->render(&painter);
-        painter.end();
-
+        student* currentStudent = dynamic_cast<student*>(currentUser);
+        currentStudent->generateReport();
+        
         ui.export_button->setVisible(true);
 
         QMessageBox::information(this, "Export Complete", "Report successfully exported as PDF.");

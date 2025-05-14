@@ -108,22 +108,19 @@
             },
             {
                 "course": {
-                    "course_id": 104,
-                    "credit_hours": 4,
-                    "description": "Principles of operating system design",
+                    "course_id": 107,
+                    "credit_hours": 3,
+                    "description": "Client-side and server-side web programming",
                     "enrolled": false,
-                    "instructor": "Prof. Davis",
-                    "prerequisites": [
-                        101,
-                        102
-                    ],
-                    "semester": "Spring",
-                    "syllabus": "Process management, memory management, file systems",
-                    "title": "Operating Systems"
+                    "instructor": "Prof. Johnson",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "HTML",
+                    "title": "Web Development"
                 },
                 "grade": {
                     "gpa": 0.0,
-                    "grade": "F",
+                    "grade": "N",
                     "semester": 1,
                     "year": 2023
                 }
@@ -132,7 +129,7 @@
         "current_semester": "Fall 2023",
         "email": "john.doe@student.edu",
         "gpa": 1.399999976158142,
-        "max_credit_hours": 18,
+        "max_credit_hours": 1,
         "name": "John Doe",
         "password": "2992457363794458960",
         "role": "S",
@@ -185,7 +182,7 @@
         "current_semester": "Spring 2024",
         "email": "jane.smith@student.edu",
         "gpa": 3.5,
-        "max_credit_hours": 21,
+        "max_credit_hours": 15,
         "name": "Jane Smith",
         "password": "2992457363794458960",
         "role": "S",

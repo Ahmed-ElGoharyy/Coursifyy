@@ -805,9 +805,18 @@ bool courseSystem::addCourseToStudent(student* student, const course& courseToAd
             return false;
         }
 
+        // Check credit hours
+        int courseHours = courseToAdd.getCreditHours();
+        if (student->max_credit_hours < courseHours) {
+            return false; // Not enough remaining credit hours
+        }
+
         // Add to student's course list with a default grade
         grade defaultGrade; // Creates a default grade (0.0 or ungraded)
         student->courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+
+        // Update remaining credit hours
+        student->max_credit_hours -= courseHours;
 
         // Update the system data
         saveData();

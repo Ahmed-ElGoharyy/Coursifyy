@@ -1,1 +1,66 @@
-[]
+[
+    {
+        "username": "admin_williams",
+        "passwordHash": "7c6a180b36896a0a8c02787eeafb0e4c", //password1
+        "name": "Dr. Robert Williams",
+        "email": "robert.williams@example.edu",
+        "role": "A",
+        "adminID": 1001
+    },
+    {
+        "username": "admin_chen",
+        "passwordHash": "6cb75f652a9b52798eb6cf2201057c73", //password2
+        "name": "Dr. Emily Chen",
+        "email": "emily.chen@example.edu",
+        "role": "A",
+        "adminID": 1002
+    },
+    {
+        "username": "admin_johnson",
+        "passwordHash": "81dc9bdb52d04dc20036dbd8313ed055", //1234
+        "name": "Dr. Mark Johnson",
+        "email": "mark.johnson@example.edu",
+        "role": "A",
+        "adminID": 1003
+    },
+    {
+        "username": "admin_thompson",
+        "passwordHash": "e10adc3949ba59abbe56e057f20f883e", //123456
+        "name": "Dr. Sarah Thompson",
+        "email": "sarah.thompson@example.edu",
+        "role": "A",
+        "adminID": 1004
+    },
+    {
+        "username": "admin_wilson",
+        "passwordHash": "fcea920f7412b5da7be0cf42b8c93759", //1234567
+        "name": "Dr. James Wilson",
+        "email": "james.wilson@example.edu",
+        "role": "A",
+        "adminID": 1005
+    },
+    {
+        "username": "admin_martinez",
+        "passwordHash": "d8578edf8458ce06fbc5bb76a58c5ca4", //qwerty
+        "name": "Dr. Linda Martinez",
+        "email": "linda.martinez@example.edu",
+        "role": "A",
+        "adminID": 1006
+    },
+    {
+        "username": "admin_brown",
+        "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99", //password
+        "name": "Dr. Michael Brown",
+        "email": "michael.brown@example.edua",
+        "role": "A",
+        "adminID": 1007
+    },
+    {
+        "username": "admin_wong",
+        "passwordHash": "25d55ad283aa400af464c76d713c07ad", //12345678
+        "name": "Dr. Alice Wong",
+        "email": "alice.wong@example.edu",
+        "role": "A",
+        "adminID": 1008
+    }
+]

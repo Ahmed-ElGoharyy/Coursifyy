@@ -3,7 +3,7 @@
 // grade.cpp
 #include "grade.h"
 
-grade::grade() : Semester(1), Grade(' '), year(2023), gpa(0.0f) {}
+grade::grade() : Semester(1), Grade('N'), year(2023), gpa(0.0f) {}
 
 grade::grade(int Semester, char Grade, int year)
     : Semester(Semester), Grade(toupper(Grade)), year(year) {
@@ -15,7 +15,12 @@ void grade::setGrade(char newGrade) {
     gpa = calculateGPAFromGrade(Grade);
 }
 
-void grade::setGPA(float newGPA) {
+void grade::setGPA(float gpatemp)
+{
+    this->gpa == gpatemp;
+}
+
+void grade::GetGradeFromGPA(float newGPA) {
     gpa = newGPA;
     // Update letter grade based on GPA
     if (gpa >= 3.5f) Grade = 'A';

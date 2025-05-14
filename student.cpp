@@ -48,6 +48,7 @@ pair<course, grade> student::getonegrade(string courseName) const noexcept(false
 }
 
 bool student::registerCourse(course newCourse) noexcept(false) {
+    // Check if course already exists
     for (const auto& pair : courses) {
         if (pair.first.getCourseID() == newCourse.getCourseID()) {
             throw student_exception("Course already registered: " + newCourse.getTitle());
@@ -60,14 +61,19 @@ bool student::registerCourse(course newCourse) noexcept(false) {
             to_string(courseHours) + " credit hours");
     }
 
+    // Check remaining credit hours
     if (courseHours > max_credit_hours) {
         throw student_exception("Cannot register for course: Exceeds maximum credit hours (" +
             to_string(max_credit_hours) + " remaining)");
     }
 
+    // Add course with default grade
     grade newGrade;
     courses.push_back(make_pair(newCourse, newGrade));
+
+    // Update remaining credit hours
     max_credit_hours -= courseHours;
+
     return true;
 }
 
@@ -78,17 +84,17 @@ list<pair<course, grade>> student::getGrades() const noexcept(false) {
 float student::calculateGPA() noexcept(false) {
     if (courses.empty()) return 0.0f;
 
-    float total = 0.0f;
-    int count = 0;
+    float totalWeightedPoints = 0.0f;
+    int totalCreditHours = 0;
 
     for (const auto& coursePair : courses) {
-        if (coursePair.second.getGrade() != ' ') {
-            total += coursePair.second.getGPA();
-            count++;
+        if (coursePair.second.getGrade() != 'N') {  // Or whatever represents "no grade"
+            totalWeightedPoints += coursePair.second.getGPA() * coursePair.first.getCreditHours();
+            totalCreditHours += coursePair.first.getCreditHours();
         }
     }
 
-    return count > 0 ? total / count : 0.0f;
+    return totalCreditHours > 0 ? totalWeightedPoints / totalCreditHours : 0.0f;
 }
 
 
@@ -110,7 +116,13 @@ bool student::hasCompletedCourse(long courseID) const {
     return false;
 }
 
-bool student::generateReport() const noexcept(false) {
+int student::modifycredithours(course c)
+{
+    max_credit_hours -= c.getCreditHours();
+    return this->max_credit_hours;
+}
+
+bool student::generateReport() {
     try {
         string filename = "student_" + to_string(StudentID) + "_report.txt";
         ofstream report(filename);
@@ -124,10 +136,10 @@ bool student::generateReport() const noexcept(false) {
         report << "ID: " << StudentID << endl;
         report << "Name: " << getName() << endl;
         report << "Email: " << getEmail() << endl;
-        report << "GPA: " << fixed << setprecision(2) << gpa << endl;
-        report << "Remaining Credit Hours: " << max_credit_hours << endl;
+        this->calculateGPA();
+        report << "GPA: " << fixed << setprecision(2) << this->getGPA() << endl;
+        report << "Remaining Credit Hours: " << this->max_credit_hours << endl;
         report << endl;
-
         report << "Courses:" << endl;
         report << "--------" << endl;
         report << left << setw(40) << "Course Title"
@@ -164,11 +176,17 @@ bool student::addCourseToPlan(const course& courseToAdd) {
             }
         }
 
+        if (max_credit_hours < courseToAdd.getCreditHours()) {
+            return false;
+        }
+
         // Create a default grade
         grade defaultGrade;
 
         // Add the course to the student's list
         courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+		// Update remaining credit hours
+        this->modifycredithours(courseToAdd);
 
         return true;
     }

@@ -13,6 +13,7 @@
 #include "grade.h"
 #include "user.h"
 
+
 using namespace std;
 
 class student : public user {
@@ -45,10 +46,11 @@ public:
         currentSemester = newSemester;
         return true;
     }
-    bool generateReport() const noexcept(false);
+    bool generateReport();
     bool updateGrade(long courseID, const grade& newGrade);
     bool hasCourse(long courseID) const;
     bool hasCompletedCourse(long courseID) const;
+    int modifycredithours(course c);
 
     // Getters
     long getStudentID() const { return StudentID; }

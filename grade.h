@@ -22,7 +22,9 @@ public:
     void setSemester(int sem) { Semester = sem; }
     void setYear(int yr) { year = yr; }
     void setGrade(char newGrade);
-    void setGPA(float newGPA);
+    void setGPA(float gpatemp);
+
+    void GetGradeFromGPA(float newGPA);
 
     static float calculateGPAFromGrade(char letterGrade);
 };

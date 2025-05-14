@@ -93,6 +93,7 @@ nlohmann::json FileUtils::gradeToJson(const grade& g) {
     return j;
 }
 
+
 nlohmann::json FileUtils::courseGradePairToJson(const std::pair<course, grade>& pair) {
     nlohmann::json j;
     j["course"] = courseToJson(pair.first);
@@ -159,12 +160,24 @@ admin FileUtils::jsonToAdmin(const nlohmann::json& j) {
 grade FileUtils::jsonToGrade(const nlohmann::json& j) {
     grade g;
     g.setSemester(j["semester"].get<int>());
-    g.setGrade(j["grade"].get<std::string>()[0]);
+
+    // Get the grade character
+    char gradeChar = j["grade"].get<std::string>()[0];
+    g.setGrade(gradeChar);
+
     g.setYear(j["year"].get<int>());
-    g.setGPA(j["gpa"].get<float>());
+
+    // Only call GetGradeFromGPA if grade is not 'N'
+    if (gradeChar != 'N') {
+        g.GetGradeFromGPA(j["gpa"].get<float>());
+    }
+    else {
+        // Set GPA to 0 or keep existing value for 'N' grades
+        g.setGPA(0.0f);
+    }
+
     return g;
 }
-
 std::pair<course, grade> FileUtils::jsonToCourseGradePair(const nlohmann::json& j) {
     course c = jsonToCourse(j["course"]);
     grade g = jsonToGrade(j["grade"]);
@@ -388,6 +401,7 @@ bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students)
         students.clear();
         for (const auto& studentJson : studentsArray) {
             student s = jsonToStudent(studentJson);
+
             students[s.getUsername()] = s;
         }
 
@@ -396,7 +410,6 @@ bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students)
         for (const auto& pair : students) {
             maxId = std::max(maxId, pair.second.getStudentID());
         }
-        // Make sure the static counter starts from the highest existing ID + 1
         student::counter = maxId + 1;
 
         std::cout << "Student counter initialized to: " << student::counter << std::endl;
