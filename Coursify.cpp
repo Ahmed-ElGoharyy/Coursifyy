@@ -50,6 +50,9 @@ Coursify::Coursify(QWidget* parent)
             Sys.showCourseComboBox(ui.combo_pre);
         });
 
+
+
+
     //admin panell
     Sys.showCourseComboBox(ui.combo_course);
     Sys.showCourseComboBox(ui.combo_course);
@@ -66,6 +69,9 @@ Coursify::Coursify(QWidget* parent)
         Sys.removeSelectedPrerequisite(ui.combo_course, ui.list_prereq, this);
         });
     ///////////
+
+
+
 
 
     //student panel 
@@ -107,19 +113,26 @@ Coursify::Coursify(QWidget* parent)
         }
         });
 
-    // FIX: Use the global Sys instance for importing CSV files
     connect(ui.pushButton_uploadDescription, &QPushButton::clicked, this, [this]() {
         Sys.importCoursesFromFile(this);  // Use global Sys instance instead of m_system
         });
+
+
+
 
     // Login functionality
     connect(ui.login_button, &QPushButton::clicked, this, [=]() {
         char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
+            student* currentStudent = dynamic_cast<student*>(currentUser);
+            ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
+
         }
         else if (choice == 'A') {
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
+            admin* currentAdmin = dynamic_cast<admin*>(currentUser);
+            ui.label_14->setText(QString::fromStdString("Welcome,  " + currentAdmin->getName()));
         }
         else if (choice == 'F') {
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
@@ -137,7 +150,7 @@ Coursify::Coursify(QWidget* parent)
         ui.Register_A1, ui.Register_A2,
         ui.Register_A3, ui.Register_A4, ui.Register_A5);
 
-    // FIX: Remove this separate m_system instance which conflicts with the global Sys
+ 
     // Instead, initialize the global Sys
     if (!Sys.loadData()) {
         QMessageBox::warning(this, "Data Loading Error",

@@ -83,6 +83,28 @@
                     "semester": 1,
                     "year": 2023
                 }
+            },
+            {
+                "course": {
+                    "course_id": 104,
+                    "credit_hours": 4,
+                    "description": "Principles of operating system design",
+                    "enrolled": false,
+                    "instructor": "Prof. Davis",
+                    "prerequisites": [
+                        101,
+                        102
+                    ],
+                    "semester": "Spring",
+                    "syllabus": "Process management, memory management, file systems",
+                    "title": "Operating Systems"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": " ",
+                    "semester": 1,
+                    "year": 2023
+                }
             }
         ],
         "email": "john.doe@student.edu",

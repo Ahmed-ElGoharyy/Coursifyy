@@ -3040,8 +3040,8 @@ border-radius: 50px;
         <property name="geometry">
          <rect>
           <x>340</x>
-          <y>40</y>
-          <width>541</width>
+          <y>20</y>
+          <width>571</width>
           <height>61</height>
          </rect>
         </property>
@@ -3666,9 +3666,9 @@ QPushButton:disabled {
        <widget class="QLabel" name="label_15">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>400</x>
           <y>40</y>
-          <width>231</width>
+          <width>581</width>
           <height>31</height>
          </rect>
         </property>
@@ -3683,6 +3683,9 @@ QPushButton:disabled {
         </property>
         <property name="text">
          <string>Student Panel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
        <widget class="QPushButton" name="back_button_3">
@@ -3821,8 +3824,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
-          <x>160</x>
-          <y>100</y>
+          <x>130</x>
+          <y>130</y>
           <width>1051</width>
           <height>541</height>
          </rect>
@@ -4033,7 +4036,7 @@ color: #000000;
 font: 14pt &quot;Segoe UI&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
@@ -4042,8 +4045,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
          <widget class="QListWidget" name="searchResultsList">
           <property name="geometry">
            <rect>
-            <x>50</x>
-            <y>160</y>
+            <x>90</x>
+            <y>240</y>
             <width>831</width>
             <height>206</height>
            </rect>
@@ -4094,8 +4097,8 @@ QListWidget#searchResultsList::item:hover {
          <widget class="QLineEdit" name="searchBar">
           <property name="geometry">
            <rect>
-            <x>40</x>
-            <y>50</y>
+            <x>80</x>
+            <y>140</y>
             <width>851</width>
             <height>71</height>
            </rect>
@@ -4113,8 +4116,39 @@ QListWidget#searchResultsList::item:hover {
         }
 </string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
           <property name="placeholderText">
-           <string>Search courses...</string>
+           <string>Register Course</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_20">
+          <property name="geometry">
+           <rect>
+            <x>200</x>
+            <y>70</y>
+            <width>581</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 20pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Search for courses and register </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
          </widget>
         </widget>
@@ -4127,7 +4161,7 @@ QListWidget#searchResultsList::item:hover {
            <rect>
             <x>400</x>
             <y>20</y>
-            <width>291</width>
+            <width>311</width>
             <height>31</height>
            </rect>
           </property>
@@ -4144,16 +4178,16 @@ QListWidget#searchResultsList::item:hover {
 font: 700 20pt &quot;Segoe UI&quot;;</string>
           </property>
           <property name="text">
-           <string>Academic Prerequistes</string>
+           <string>Academic Prerequisites</string>
           </property>
          </widget>
          <widget class="QComboBox" name="combo_choose">
           <property name="geometry">
            <rect>
-            <x>270</x>
+            <x>290</x>
             <y>110</y>
-            <width>561</width>
-            <height>31</height>
+            <width>581</width>
+            <height>41</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -4197,7 +4231,7 @@ font: 700 20pt &quot;Segoe UI&quot;;</string>
           <property name="geometry">
            <rect>
             <x>40</x>
-            <y>340</y>
+            <y>270</y>
             <width>211</width>
             <height>31</height>
            </rect>
@@ -4221,10 +4255,10 @@ font: 700 20pt &quot;Segoe UI&quot;;</string>
          <widget class="QListWidget" name="list_showpreq">
           <property name="geometry">
            <rect>
-            <x>270</x>
-            <y>250</y>
-            <width>561</width>
-            <height>241</height>
+            <x>290</x>
+            <y>190</y>
+            <width>581</width>
+            <height>211</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -4236,6 +4270,31 @@ font: 16pt &quot;Segoe UI&quot;;
     border-radius: 4px;
     padding: 4px;
 </string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_19">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>450</y>
+            <width>781</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 13pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Choose a Course to check it's prerequisites, You must fulfill them before you register the course</string>
           </property>
          </widget>
         </widget>
@@ -4555,9 +4614,9 @@ font: 16pt bold &quot;Segoe UI&quot;;</string>
           <property name="font">
            <font>
             <family>Segoe UI</family>
-            <pointsize>14</pointsize>
+            <pointsize>18</pointsize>
             <italic>false</italic>
-            <bold>false</bold>
+            <bold>true</bold>
            </font>
           </property>
           <property name="cursor">
@@ -4565,6 +4624,7 @@ font: 16pt bold &quot;Segoe UI&quot;;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">border: 5px solid black;   /* Border */
+font: 700 18pt &quot;Segoe UI&quot;;
 border-radius: 15px;  
 /*background-color: #00557f;*/
 color: rgb(255, 255, 255);
