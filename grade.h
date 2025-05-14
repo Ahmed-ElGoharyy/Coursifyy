@@ -12,7 +12,7 @@ private:
 
 public:
     grade();
-    grade(int Semster, char grade, int year);
+    grade(int Semester, char grade, int year);
 
     int getSemester() const { return Semester; }
     char getGrade() const { return Grade; }

@@ -64,11 +64,22 @@ void course::clearPrerequisites() {
 }
 
 bool course::checkPrerequisites(const student& s) const {
+    // If no prerequisites, automatically passes
+    if (prerequisites.empty()) {
+        return true;
+    }
+
+    // Check each prerequisite course
     for (const auto& prereq : prerequisites) {
+        // First check if prerequisite is in student's completed courses
         if (!s.hasCompletedCourse(prereq.getCourseID())) {
-            std::cout << "Missing prerequisite: " << prereq.getCourseID()
-                << " for course " << CourseID << std::endl;
-            return false;
+            // If not completed, check if it's in their current courses
+            if (!s.hasCourse(prereq.getCourseID())) {
+                std::cout << "Missing prerequisite: " << prereq.getTitle()
+                    << " (ID: " << prereq.getCourseID() << ")"
+                    << " for course " << title << std::endl;
+                return false;
+            }
         }
     }
     return true;

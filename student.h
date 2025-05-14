@@ -47,6 +47,7 @@ public:
     void setGPA(float x) { gpa = x; }
     void setID(long id) { StudentID = id; }
     list<pair<course, grade>> getCourses() const { return courses; }
+    bool addCourseToPlan(const course& courseToAdd);
 
     // Exception class
     class student_exception : public runtime_error {
@@ -63,5 +64,6 @@ namespace std {
         }
     };
 }
+
 
 #endif // STUDENT_H

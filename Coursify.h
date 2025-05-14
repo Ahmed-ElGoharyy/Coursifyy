@@ -13,6 +13,15 @@ public:
     Coursify(QWidget* parent = nullptr);
     ~Coursify();
 
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event) override;
+
+private slots:
+    void onSearchTextChanged(const QString& text);
+    void onSearchResultSelected(QListWidgetItem* item);
+    QString highlightMatchingChars(const QString& text, const QString& searchTerm);
+
 private:
     Ui::CoursifyClass ui;
 

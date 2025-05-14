@@ -13,8 +13,8 @@ Coursify::Coursify(QWidget* parent)
     ui.setupUi(this);
     ui.stackedWidget->setCurrentWidget(ui.Login);   // Start at login page
 
-
-
+    //For Search Courses
+    ui.searchResultsList->hide();
     // Set up navigation connections
     connect(ui.signup_button, &QPushButton::clicked, this, [=]() {
         ui.stackedWidget->setCurrentWidget(ui.Register);
@@ -28,6 +28,65 @@ Coursify::Coursify(QWidget* parent)
     connect(ui.back_button_3, &QPushButton::clicked, this, [=]() {
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
+
+
+    // In Coursify constructor, after other connections:
+    connect(ui.gradesUploadButton, &QPushButton::clicked, this, [this]() {
+        // Only allow admins to upload grades
+        if (dynamic_cast<admin*>(currentUser)) {
+            Sys.importGradesFromFile(this);
+        }
+        else {
+            QMessageBox::warning(this, "Permission Denied",
+                "Only administrators can upload grades.");
+        }
+        });
+
+    // Use the global Sys instance for importing CSV files
+    connect(ui.pushButton_uploadDescription, &QPushButton::clicked, this, [this]() {
+        Sys.importCoursesFromFile(this);
+            Sys.showCourseComboBox(ui.combo_course);
+            Sys.showCourseComboBox(ui.combo_choose);
+            Sys.showCourseComboBox(ui.combo_pre);
+        });
+
+    //admin panell
+    Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_pre);
+    connect(ui.combo_course, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
+        });
+    connect(ui.pushButton_add, &QPushButton::clicked, this, [=]() {
+        Sys.addPrerequisiteToList(ui.combo_course, ui.combo_pre, ui.list_prereq, this);
+        });
+
+    // Remove a selected prerequisite when "Remove" is clicked
+    connect(ui.pushButton_remove, &QPushButton::clicked, this, [=]() {
+        Sys.removeSelectedPrerequisite(ui.combo_course, ui.list_prereq, this);
+        });
+    ///////////
+
+
+    //student panel 
+    Sys.showCourseComboBox(ui.combo_choose);
+    connect(ui.combo_choose, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
+        Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
+        });
+    // Search functionality
+    connect(ui.searchBar, &QLineEdit::textChanged, this, &Coursify::onSearchTextChanged);
+    connect(ui.searchResultsList, &QListWidget::itemClicked, this, &Coursify::onSearchResultSelected);
+
+    // Handle Enter key press in search bar
+    ui.searchBar->installEventFilter(this);
+    ui.searchResultsList->installEventFilter(this);
+
+    //grades view 
+	Sys.showCourseComboBox(ui.comboBox_grade);
+    connect(ui.pushButton_3, &QPushButton::clicked, this, [=]() {
+       // courseSystem.showStudentCourseGrade(ui.list_showgrade, ui->gradesListWidget, this);
+        });
+
 
     // Registration functionality
     connect(ui.Register_signup, &QPushButton::clicked, this, [=]() {
@@ -65,20 +124,6 @@ Coursify::Coursify(QWidget* parent)
         else if (choice == 'F') {
             QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
         }
-        });
-    //admin panel
-    courseSystem::showCourseComboBox(ui.combo_course);
-    connect(ui.combo_course, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
-        Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
-        });
-   
-
-
-
-    //student panel 
-    courseSystem::showCourseComboBox(ui.combo_choose);
-    connect(ui.combo_choose, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
-        Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
         });
   
 
@@ -122,3 +167,125 @@ private:
     Ui::CoursifyClass ui;
     // Remove the line: courseSystem* m_system;
 */
+
+
+bool Coursify::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == ui.searchBar && event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
+            if (!ui.searchResultsList->isHidden() && ui.searchResultsList->count() > 0) {
+                // Select the first item if nothing is selected
+                if (!ui.searchResultsList->currentItem()) {
+                    ui.searchResultsList->setCurrentRow(0);
+                }
+                onSearchResultSelected(ui.searchResultsList->currentItem());
+                return true;
+            }
+        }
+        else if (keyEvent->key() == Qt::Key_Down) {
+            if (!ui.searchResultsList->isHidden() && ui.searchResultsList->count() > 0) {
+                ui.searchResultsList->setFocus();
+                if (!ui.searchResultsList->currentItem()) {
+                    ui.searchResultsList->setCurrentRow(0);
+                }
+                return true;
+            }
+        }
+    }
+    else if (obj == ui.searchResultsList && event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
+            if (ui.searchResultsList->currentItem()) {
+                onSearchResultSelected(ui.searchResultsList->currentItem());
+                return true;
+            }
+        }
+        else if (keyEvent->key() == Qt::Key_Escape) {
+            ui.searchResultsList->hide();
+            ui.searchBar->setFocus();
+            return true;
+        }
+    }
+    return QMainWindow::eventFilter(obj, event);
+}
+void Coursify::onSearchTextChanged(const QString& text) {
+    ui.searchResultsList->clear();
+
+    if (text.isEmpty()) {
+        ui.searchResultsList->hide();
+        return;
+    }
+
+    auto results = Sys.searchCourses(text.toStdString());
+
+    for (const auto& course : results) {
+        QString title = QString::fromStdString(course.getTitle());
+        QString highlightedTitle = highlightMatchingChars(title, text);
+
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setData(Qt::UserRole, QVariant::fromValue(course.getCourseID()));
+
+        // Simplified display - only show the highlighted title and ID
+        item->setText(QString("%1 (ID: %2)").arg(highlightedTitle).arg(course.getCourseID()));
+        ui.searchResultsList->addItem(item);
+    }
+
+    if (!results.empty()) {
+        QPoint pos = ui.searchBar->mapToParent(QPoint(0, ui.searchBar->height()));
+        ui.searchResultsList->move(pos);
+        ui.searchResultsList->setFixedWidth(ui.searchBar->width());
+        ui.searchResultsList->show();
+    }
+    else {
+        ui.searchResultsList->hide();
+    }
+}
+void Coursify::onSearchResultSelected(QListWidgetItem* item) {
+    if (!item || !currentUser) return;
+
+    // Only students can add courses
+    student* currentStudent = dynamic_cast<student*>(currentUser);
+    if (!currentStudent) {
+        QMessageBox::information(this, "Info", "Only students can add courses");
+        return;
+    }
+
+    long courseId = item->data(Qt::UserRole).toLongLong();
+    course* selectedCourse = Sys.getCourse(courseId);
+
+    if (!selectedCourse) return;
+
+    // Check prerequisites
+    if (selectedCourse->checkPrerequisites(*currentStudent)) {
+        // Add to student's course list (without enrolling)
+        if (currentStudent->addCourseToPlan(*selectedCourse)) {
+            Sys.saveData(); // Save changes
+            QMessageBox::information(this, "Success",
+                QString("Course %1 added to your plan").arg(selectedCourse->getTitle().c_str()));
+        }
+        else {
+            QMessageBox::warning(this, "Warning",
+                "Course is already in your plan");
+        }
+    }
+    else {
+        // Show missing prerequisites
+        QString missingPrereqs;
+        for (const auto& prereq : selectedCourse->getPrerequisites()) {
+            if (!currentStudent->hasCompletedCourse(prereq.getCourseID())) {
+                missingPrereqs += QString("\n- %1").arg(prereq.getTitle().c_str());
+            }
+        }
+
+        QMessageBox::warning(this, "Prerequisites Not Met",
+            QString("You need to complete these courses first:%1").arg(missingPrereqs));
+    }
+
+    // Clear search
+    ui.searchBar->clear();
+    ui.searchResultsList->hide();
+}
+
+QString Coursify::highlightMatchingChars(const QString& text, const QString& searchTerm) {
+    return text;
+}

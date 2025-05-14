@@ -3198,8 +3198,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget">
         <property name="geometry">
          <rect>
-          <x>170</x>
-          <y>130</y>
+          <x>180</x>
+          <y>150</y>
           <width>911</width>
           <height>491</height>
          </rect>
@@ -3238,7 +3238,7 @@ border: 1px solid #CFD8DC;
     font-weight: bold;
 }
 QPushButton:hover {
-    background-color: #1565C0;
+    background-color:rgb(149, 1, 1);
 }
 QPushButton:disabled {
     background-color: #E0E0E0;
@@ -3259,7 +3259,7 @@ QPushButton:disabled {
           <property name="geometry">
            <rect>
             <x>270</x>
-            <y>40</y>
+            <y>60</y>
             <width>451</width>
             <height>24</height>
            </rect>
@@ -3278,9 +3278,9 @@ QPushButton:disabled {
           <property name="geometry">
            <rect>
             <x>270</x>
-            <y>180</y>
+            <y>220</y>
             <width>451</width>
-            <height>151</height>
+            <height>91</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -3293,11 +3293,11 @@ QPushButton:disabled {
 </string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_addPrerequisites">
+         <widget class="QPushButton" name="pushButton_add">
           <property name="geometry">
            <rect>
-            <x>450</x>
-            <y>380</y>
+            <x>570</x>
+            <y>370</y>
             <width>80</width>
             <height>24</height>
            </rect>
@@ -3327,8 +3327,8 @@ QPushButton:disabled {
          <widget class="QLabel" name="label_4">
           <property name="geometry">
            <rect>
-            <x>130</x>
-            <y>40</y>
+            <x>110</x>
+            <y>50</y>
             <width>81</width>
             <height>31</height>
            </rect>
@@ -3353,9 +3353,9 @@ font-weight: bold;
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>120</x>
-            <y>210</y>
-            <width>141</width>
+            <x>80</x>
+            <y>240</y>
+            <width>181</width>
             <height>31</height>
            </rect>
           </property>
@@ -3373,14 +3373,40 @@ font-weight: bold;
 </string>
           </property>
           <property name="text">
-           <string>Prerequisites</string>
+           <string>Prerequisites List</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>130</y>
+            <width>201</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+border-color:rgb(50, 50, 50);
+
+font-weight: bold;
+</string>
+          </property>
+          <property name="text">
+           <string>Prerequisite Course</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="combo_pre">
           <property name="geometry">
            <rect>
             <x>270</x>
-            <y>110</y>
+            <y>140</y>
             <width>451</width>
             <height>24</height>
            </rect>
@@ -3395,30 +3421,35 @@ font-weight: bold;
 </string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_3">
+         <widget class="QPushButton" name="pushButton_remove">
           <property name="geometry">
            <rect>
-            <x>100</x>
-            <y>110</y>
-            <width>141</width>
-            <height>31</height>
+            <x>320</x>
+            <y>370</y>
+            <width>80</width>
+            <height>24</height>
            </rect>
           </property>
-          <property name="font">
-           <font>
-            <pointsize>15</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-border-color:rgb(50, 50, 50);
-
-font-weight: bold;
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: rgb(165, 28, 10);
+}
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
 </string>
           </property>
           <property name="text">
-           <string>Course Name</string>
+           <string>Remove</string>
           </property>
          </widget>
         </widget>
@@ -3597,6 +3628,37 @@ font-weight: bold;
          <attribute name="title">
           <string>Upload CSV</string>
          </attribute>
+         <widget class="QPushButton" name="gradesUploadButton">
+          <property name="geometry">
+           <rect>
+            <x>320</x>
+            <y>170</y>
+            <width>311</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #1565C0;
+}
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Upload Course Grades</string>
+          </property>
+         </widget>
         </widget>
        </widget>
       </widget>
@@ -3759,8 +3821,8 @@ background-color: #183B4E</string>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>120</y>
+          <x>160</x>
+          <y>100</y>
           <width>1051</width>
           <height>541</height>
          </rect>
@@ -3971,414 +4033,88 @@ color: #000000;
 font: 14pt &quot;Segoe UI&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
           <string>Course Registration</string>
          </attribute>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QListWidget" name="searchResultsList">
           <property name="geometry">
            <rect>
-            <x>240</x>
-            <y>30</y>
-            <width>651</width>
-            <height>51</height>
+            <x>50</x>
+            <y>160</y>
+            <width>831</width>
+            <height>206</height>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(43, 43, 43);
-color: rgb(255, 255, 255);
-font: 12pt &quot;Segoe UI&quot;;</string>
+           <string notr="true">/* Apply this to your QListWidget */
+QListWidget#searchResultsList {
+    /* Visibility - handled programmatically, not in stylesheet */
+    background: white;
+    border: 1px solid #ccc;  /* Replaces StyledPanel */
+    border-radius: 4px;
+    padding: 2px;
+    show-decoration-selected: 1;
+    
+    /* Scrollbar behavior */
+    overflow-y: auto;  /* Replaces ScrollBarAsNeeded */
+    
+    /* Size limits */
+    max-height: 200px;
+}
+
+/* Scrollbar styling */
+QListWidget#searchResultsList::scroll-bar:vertical {
+    width: 12px;
+    background: #f1f1f1;
+}
+
+QListWidget#searchResultsList::scroll-bar:vertical:hover {
+    background: #e1e1e1;
+}
+
+/* Item styling */
+QListWidget#searchResultsList::item {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+QListWidget#searchResultsList::item:selected {
+    background: #d0e3ff;
+    color: black;
+}
+
+QListWidget#searchResultsList::item:hover {
+    background: #f0f0f0;
+}</string>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+         </widget>
+         <widget class="QLineEdit" name="searchBar">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>50</y>
+            <width>851</width>
+            <height>71</height>
+           </rect>
           </property>
-          <property name="readOnly">
-           <bool>false</bool>
+          <property name="toolTipDuration">
+           <number>-4</number>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">        QLineEdit {
+           background-color: white;
+           text-align: center;
+           border: 1px solid #ccc;
+           border-radius: 15px;
+           padding: 20px;
+        }
+</string>
           </property>
           <property name="placeholderText">
-           <string>Search Course</string>
-          </property>
-          <property name="cursorMoveStyle">
-           <enum>Qt::CursorMoveStyle::LogicalMoveStyle</enum>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>40</y>
-            <width>20</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(43, 43, 43);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="QIcon::ThemeIcon::EditFind"/>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="geometry">
-           <rect>
-            <x>790</x>
-            <y>40</y>
-            <width>80</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(0, 61, 184);
- 
-    border-radius: 10px;         
-    padding: 6px 12px;
-    font-weight: bold;</string>
-          </property>
-          <property name="text">
-           <string>Search</string>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>110</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="geometry">
-           <rect>
-            <x>120</x>
-            <y>250</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit_2">
-          <property name="geometry">
-           <rect>
-            <x>430</x>
-            <y>110</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit_3">
-          <property name="geometry">
-           <rect>
-            <x>790</x>
-            <y>110</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit_4">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>310</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit_5">
-          <property name="geometry">
-           <rect>
-            <x>430</x>
-            <y>310</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPlainTextEdit" name="plainTextEdit_6">
-          <property name="geometry">
-           <rect>
-            <x>790</x>
-            <y>310</y>
-            <width>230</width>
-            <height>181</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-font: 700 12pt &quot;Segoe UI&quot;;
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="plainText">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="geometry">
-           <rect>
-            <x>510</x>
-            <y>250</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_11">
-          <property name="geometry">
-           <rect>
-            <x>870</x>
-            <y>250</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_12">
-          <property name="geometry">
-           <rect>
-            <x>120</x>
-            <y>450</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_13">
-          <property name="geometry">
-           <rect>
-            <x>500</x>
-            <y>450</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_14">
-          <property name="geometry">
-           <rect>
-            <x>870</x>
-            <y>450</y>
-            <width>80</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 61, 184);
-color: rgb(255, 255, 255);
-border-radius:6px;</string>
-          </property>
-          <property name="text">
-           <string>Register</string>
+           <string>Search courses...</string>
           </property>
          </widget>
         </widget>
@@ -4510,8 +4246,8 @@ font: 16pt &quot;Segoe UI&quot;;
          <widget class="QLabel" name="label_21">
           <property name="geometry">
            <rect>
-            <x>240</x>
-            <y>50</y>
+            <x>20</x>
+            <y>300</y>
             <width>351</width>
             <height>51</height>
            </rect>
@@ -4535,8 +4271,8 @@ font: 700 20pt &quot;Segoe UI&quot;;</string>
          <widget class="QPushButton" name="pushButton_3">
           <property name="geometry">
            <rect>
-            <x>620</x>
-            <y>50</y>
+            <x>810</x>
+            <y>40</y>
             <width>161</width>
             <height>51</height>
            </rect>
@@ -4562,10 +4298,10 @@ font: 16pt bold &quot;Segoe UI&quot;;</string>
          <widget class="QTableWidget" name="tableWidget">
           <property name="geometry">
            <rect>
-            <x>160</x>
-            <y>130</y>
-            <width>751</width>
-            <height>371</height>
+            <x>390</x>
+            <y>210</y>
+            <width>611</width>
+            <height>281</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -4577,6 +4313,24 @@ font: 16pt bold &quot;Segoe UI&quot;;</string>
     padding: 4px;
 
 </string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_grade">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>40</y>
+            <width>501</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;</string>
           </property>
          </widget>
         </widget>
@@ -4829,118 +4583,11 @@ background-color: rgb(0, 61, 184);;</string>
            </size>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget_2">
-          <property name="geometry">
-           <rect>
-            <x>40</x>
-            <y>100</y>
-            <width>691</width>
-            <height>371</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>14</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-
-   color:white;
-   /* border: 1px solid Blue;*/
-    border-radius: 4px;
-   /* padding: 4px;*/
-
-</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Shape::StyledPanel</enum>
-          </property>
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
-          </property>
-          <property name="gridStyle">
-           <enum>Qt::PenStyle::SolidLine</enum>
-          </property>
-          <property name="rowCount">
-           <number>4</number>
-          </property>
-          <property name="columnCount">
-           <number>1</number>
-          </property>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>550</number>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>false</bool>
-          </attribute>
-          <row>
-           <property name="text">
-            <string>Student Name :</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>Student Id :</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>Total GPA:</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>Semster Grades         </string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>Data </string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>14</pointsize>
-             <hintingpreference>PreferDefaultHinting</hintingpreference>
-            </font>
-           </property>
-          </column>
-          <item row="0" column="0">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-           <property name="flags">
-            <set>NoItemFlags</set>
-           </property>
-          </item>
-          <item row="1" column="0">
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-          <item row="3" column="0">
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-         </widget>
          <widget class="QLabel" name="label_23">
           <property name="geometry">
            <rect>
-            <x>300</x>
-            <y>40</y>
+            <x>410</x>
+            <y>10</y>
             <width>201</width>
             <height>41</height>
            </rect>
@@ -4959,6 +4606,230 @@ font: 700 20pt &quot;Segoe UI&quot;;</string>
           </property>
           <property name="text">
            <string>Student Report</string>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit_5">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>80</y>
+            <width>191</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit_6">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>140</y>
+            <width>191</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit_7">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>200</y>
+            <width>191</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit_8">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>260</y>
+            <width>191</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>520</x>
+            <y>80</y>
+            <width>501</width>
+            <height>301</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(120, 120, 120);
+
+   color:white;
+    border: 1px solid Blue;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_28">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>80</y>
+            <width>201</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 20pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Students Name </string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_29">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>140</y>
+            <width>161</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 20pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Students ID</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_30">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>200</y>
+            <width>111</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 20pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Semster </string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_31">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>260</y>
+            <width>131</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>20</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(33, 52, 72);
+font: 700 20pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Total GPA</string>
           </property>
          </widget>
         </widget>
@@ -6923,22 +6794,5 @@ background-color: #007074</string>
  <resources>
   <include location="Coursify.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>plainTextEdit</receiver>
-   <slot>showNormal()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>923</x>
-     <y>225</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>333</x>
-     <y>409</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

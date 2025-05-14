@@ -70,47 +70,25 @@ list<pair<course, grade>> student::getGrades() const noexcept(false) {
 }
 
 float student::calculateGPA() noexcept(false) {
-    if (courses.empty()) {
-        gpa = 0.0;
-        return gpa;
-    }
+    if (courses.empty()) return 0.0f;
 
-    float totalPoints = 0.0;
-    int totalHours = 0;
+    float total = 0.0f;
+    int count = 0;
 
-    for (const auto& pair : courses) {
-        if (pair.second.getGrade() != 'N') {
-            int hours = pair.first.getCreditHours();
-            float gradePoints = pair.second.getGPA();
-            totalPoints += hours * gradePoints;
-            totalHours += hours;
+    for (const auto& coursePair : courses) {
+        if (coursePair.second.getGrade() != ' ') {
+            total += coursePair.second.getGPA();
+            count++;
         }
     }
 
-    if (totalHours > 0) {
-        gpa = totalPoints / totalHours;
-    }
-    else {
-        gpa = 0.0;
-    }
-
-    return gpa;
+    return count > 0 ? total / count : 0.0f;
 }
 
-bool student::updateGrade(long courseID, const grade& newGrade) {
-    for (auto& pair : courses) {
-        if (pair.first.getCourseID() == courseID) {
-            pair.second = newGrade;
-            calculateGPA();
-            return true;
-        }
-    }
-    return false;
-}
 
 bool student::hasCourse(long courseID) const {
-    for (const auto& pair : courses) {
-        if (pair.first.getCourseID() == courseID) {
+    for (const auto& coursePair : courses) {
+        if (coursePair.first.getCourseID() == courseID) {
             return true;
         }
     }
@@ -171,3 +149,36 @@ bool student::generateReport() const noexcept(false) {
         return false;
     }
 }
+bool student::addCourseToPlan(const course& courseToAdd) {
+    try {
+        // Check if course already exists in student's list
+        for (const auto& [existingCourse, grade] : courses) {
+            if (existingCourse.getCourseID() == courseToAdd.getCourseID()) {
+                return false; // Course already exists
+            }
+        }
+
+        // Create a default grade
+        grade defaultGrade;
+
+        // Add the course to the student's list
+        courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+
+        return true;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error adding course to student: " << e.what() << std::endl;
+        return false;
+    }
+}
+bool student::updateGrade(long courseID, const grade& newGrade) {
+    for (auto& coursePair : courses) {
+        if (coursePair.first.getCourseID() == courseID) {
+            coursePair.second = newGrade;
+            this->gpa = calculateGPA(); // Recalculate GPA
+            return true;
+        }
+    }
+    return false;
+}
+
