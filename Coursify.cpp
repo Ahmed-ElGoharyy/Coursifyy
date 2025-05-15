@@ -335,9 +335,24 @@ void Coursify::onSearchResultSelected(QListWidgetItem* item) {
     course* selectedCourse = Sys.getCourse(courseId);
 
     if (!selectedCourse) return;
+    if (currentStudent->hasCourse(courseId)) {
+        QMessageBox::warning(this, "Warning",
+            "Course is already in your plan");
+    }
+    else if (selectedCourse->getCreditHours()>currentStudent->max_credit_hours && selectedCourse->checkPrerequisites(*currentStudent)) {
+    
+        QMessageBox::warning(this, "Warning",
+            "Your Credit Hours Isn`t Enough");
+        return;
+    }
+    else if (selectedCourse->getCreditHours() > currentStudent->max_credit_hours && !selectedCourse->checkPrerequisites(*currentStudent)) {
+        QMessageBox::warning(this, "Warning",
+            "-Your Credit Hours Isn`t Enough. \n-You Dont`t Meet The Right Prerequisites.");
+        return;
 
+    }
     // Check prerequisites
-    if (selectedCourse->checkPrerequisites(*currentStudent)) {
+    else if (selectedCourse->checkPrerequisites(*currentStudent) && selectedCourse->getCreditHours() < currentStudent->max_credit_hours) {
         // Add to student's course list (without enrolling)
         if (currentStudent->addCourseToPlan(*selectedCourse)) {
             Sys.saveData(); // Save changes
@@ -345,8 +360,8 @@ void Coursify::onSearchResultSelected(QListWidgetItem* item) {
                 QString("Course %1 added to your plan").arg(selectedCourse->getTitle().c_str()));
         }
         else {
-            QMessageBox::warning(this, "Warning",
-                "Course is already in your plan");
+            QMessageBox::warning(this, "Error",
+                "Undefined Behavior");
         }
     }
     else {

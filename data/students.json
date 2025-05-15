@@ -195,11 +195,11 @@
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
-        "name": "ahmed",
-        "password": "1078807228920081105",
+        "name": "ahmedd",
+        "password": "c93b811a76d7004c",
         "role": "S",
-        "student_id": 1005,
-        "username": "Dahyzz2"
+        "student_id": 1002,
+        "username": "ahmedd1"
     },
     {
         "courses": [],
@@ -207,11 +207,11 @@
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
-        "name": "ahmedd",
-        "password": "c93b811a76d7004c",
+        "name": "ahmed",
+        "password": "1078807228920081105",
         "role": "S",
-        "student_id": 1002,
-        "username": "ahmedd1"
+        "student_id": 1005,
+        "username": "Dahyzz2"
     },
     {
         "courses": [],
@@ -243,11 +243,11 @@
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
-        "name": "ahmedz",
-        "password": "9796540329036790974",
+        "name": "Tonyy",
+        "password": "4038629738051122432",
         "role": "S",
-        "student_id": 1007,
-        "username": "ahmedz"
+        "student_id": 1004,
+        "username": "Tonyy22"
     },
     {
         "courses": [],
@@ -255,10 +255,101 @@
         "email": "null",
         "gpa": 0.0,
         "max_credit_hours": 21,
-        "name": "Tonyy",
-        "password": "4038629738051122432",
+        "name": "ahmedz",
+        "password": "9796540329036790974",
         "role": "S",
-        "student_id": 1004,
-        "username": "Tonyy22"
+        "student_id": 1007,
+        "username": "ahmedz"
+    },
+    {
+        "courses": [
+            {
+                "course": {
+                    "course_id": 101,
+                    "credit_hours": 3,
+                    "description": "Basic concepts of computer systems",
+                    "enrolled": true,
+                    "instructor": "Prof. Smith",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Introduction to algorithms and data structures",
+                    "title": "Introduction to Computer Science"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": "N",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 110,
+                    "credit_hours": 3,
+                    "description": "Advanced database concepts and technologies",
+                    "enrolled": false,
+                    "instructor": "Prof. Roberts",
+                    "prerequisites": [],
+                    "semester": "Spring",
+                    "syllabus": "Query optimization",
+                    "title": "Advanced Databases"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": "N",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 102,
+                    "credit_hours": 4,
+                    "description": "Fundamental data structures and algorithms",
+                    "enrolled": true,
+                    "instructor": "Prof. Johnson",
+                    "prerequisites": [
+                        101
+                    ],
+                    "semester": "Spring",
+                    "syllabus": "Arrays, linked lists, trees, graphs, and algorithms",
+                    "title": "Data Structures"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": "N",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 106,
+                    "credit_hours": 4,
+                    "description": "Fundamentals of computer networking and protocols",
+                    "enrolled": false,
+                    "instructor": "Prof. Martinez",
+                    "prerequisites": [],
+                    "semester": "Spring",
+                    "syllabus": "OSI model",
+                    "title": "Computer Networks"
+                },
+                "grade": {
+                    "gpa": 0.0,
+                    "grade": "N",
+                    "semester": 1,
+                    "year": 2023
+                }
+            }
+        ],
+        "current_semester": "",
+        "email": "Fall 2023",
+        "gpa": 0.0,
+        "max_credit_hours": 7,
+        "name": "pavly",
+        "password": "14422758923189608096",
+        "role": "S",
+        "student_id": 1008,
+        "username": "pavly55"
     }
 ]
