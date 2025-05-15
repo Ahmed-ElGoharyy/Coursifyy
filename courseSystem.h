@@ -68,5 +68,5 @@ public:
     QStringList getStudentCourseReport(student* currentStudent);
 
     void populateListWidgetUI(student* currentStudent, QListWidget* listWidget);
-
+    QStringList getStudentGrades(student* currentStudent);
 };

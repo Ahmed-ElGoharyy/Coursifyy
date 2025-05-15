@@ -14,8 +14,8 @@
                     "title": "Introduction to Computer Science"
                 },
                 "grade": {
-                    "gpa": 4.0,
-                    "grade": "A",
+                    "gpa": 1.0,
+                    "grade": "D",
                     "semester": 1,
                     "year": 2023
                 }
@@ -128,7 +128,7 @@
         ],
         "current_semester": "Fall 2023",
         "email": "john.doe@student.edu",
-        "gpa": 1.399999976158142,
+        "gpa": 0.8823529481887817,
         "max_credit_hours": 1,
         "name": "John Doe",
         "password": "2992457363794458960",

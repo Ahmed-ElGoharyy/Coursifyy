@@ -3353,7 +3353,7 @@ border: 1px solid #CFD8DC;
 </string>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3708,9 +3708,9 @@ QPushButton:disabled {
          <widget class="QLabel" name="label_16">
           <property name="geometry">
            <rect>
-            <x>100</x>
+            <x>80</x>
             <y>100</y>
-            <width>151</width>
+            <width>191</width>
             <height>31</height>
            </rect>
           </property>
@@ -4067,7 +4067,7 @@ background-color: #183B4E</string>
         <property name="geometry">
          <rect>
           <x>130</x>
-          <y>130</y>
+          <y>100</y>
           <width>1051</width>
           <height>541</height>
          </rect>
@@ -4278,7 +4278,7 @@ color: #000000;
 font: 14pt &quot;Segoe UI&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
@@ -4547,8 +4547,8 @@ font: 700 13pt &quot;Segoe UI&quot;;</string>
          <widget class="QLabel" name="label_21">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>300</y>
+            <x>370</x>
+            <y>20</y>
             <width>351</width>
             <height>51</height>
            </rect>
@@ -4569,13 +4569,13 @@ font: 700 20pt &quot;Segoe UI&quot;;</string>
            <string>Completed  Courses Grades</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="pushButton_g">
           <property name="geometry">
            <rect>
-            <x>810</x>
-            <y>40</y>
-            <width>161</width>
-            <height>51</height>
+            <x>730</x>
+            <y>240</y>
+            <width>191</width>
+            <height>61</height>
            </rect>
           </property>
           <property name="font">
@@ -4593,16 +4593,16 @@ border-radius:6px;
 font: 16pt bold &quot;Segoe UI&quot;;</string>
           </property>
           <property name="text">
-           <string>View Grades</string>
+           <string>View All Grades</string>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QListWidget" name="listWidget_g">
           <property name="geometry">
            <rect>
-            <x>390</x>
-            <y>210</y>
-            <width>611</width>
-            <height>281</height>
+            <x>30</x>
+            <y>110</y>
+            <width>621</width>
+            <height>341</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -4614,24 +4614,6 @@ font: 16pt bold &quot;Segoe UI&quot;;</string>
     padding: 4px;
 
 </string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_grade">
-          <property name="geometry">
-           <rect>
-            <x>270</x>
-            <y>40</y>
-            <width>501</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(120, 120, 120);
-
-   color:white;
-    border: 1px solid Blue;
-    border-radius: 4px;
-    padding: 4px;</string>
           </property>
          </widget>
         </widget>
@@ -7037,7 +7019,7 @@ background-color: #007074</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>36</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -92,12 +92,20 @@ Coursify::Coursify(QWidget* parent)
     ui.searchBar->installEventFilter(this);
     ui.searchResultsList->installEventFilter(this);
 
-    //grades view 
-    Sys.showCourseComboBox(ui.comboBox_grade);
+   
 
+	//view grades
+    connect(ui.pushButton_g, &QPushButton::clicked, this, [=]() {
+        student* currentStudent = dynamic_cast<student*>(currentUser);
+        if (!currentStudent) {
+            QMessageBox::critical(this, "Error", "User type mismatch. Cannot load student data.");
+            return;
+        }
 
-    connect(ui.pushButton_3, &QPushButton::clicked, this, [=]() {
-        // (ui.list_showgrade, ui->gradesListWidget, this);
+        //  Populate report list
+        QStringList report = Sys.getStudentGrades(currentStudent);
+        ui.listWidget_g->clear();
+        ui.listWidget_g->addItems(report);
         });
 
 
@@ -112,8 +120,7 @@ Coursify::Coursify(QWidget* parent)
             return;
         }
 
-        //  Welcome message
-        ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
+     
 
         // Populate fields
         ui.textEdit_n->setText(QString::fromStdString(currentStudent->getName()));  // Name
@@ -125,7 +132,7 @@ Coursify::Coursify(QWidget* parent)
         ui.listWidget_r->clear();
         ui.listWidget_r->addItems(report);
         });
-    //Sys.populateListFromReport(currentUser <student> ,ui.listwidget_r );
+   
   
 
     
@@ -363,3 +370,4 @@ void Coursify::onSearchResultSelected(QListWidgetItem* item) {
 QString Coursify::highlightMatchingChars(const QString& text, const QString& searchTerm) {
     return text;
 }
+
