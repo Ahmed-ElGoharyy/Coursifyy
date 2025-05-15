@@ -194,7 +194,8 @@ Coursify::Coursify(QWidget* parent)
 			ui.tabWidget_2->setCurrentIndex(0); 
             student* currentStudent = dynamic_cast<student*>(currentUser);
             ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
-          
+            ui.listWidget_g->clear();
+           
 
         }
         else if (choice == 'A') {
