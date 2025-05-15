@@ -53,7 +53,7 @@ public:
     void addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBox* prereqCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QListWidget* prereqListWidget, QWidget* parent);
     void loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QListWidget* prereqListWidget);
-   
+   void assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* courseIdEdit, QComboBox* gradeComboBox, QWidget* parent);
 
 public:
     bool addCourseToStudent(student* student, const course& courseToAdd);

@@ -788,7 +788,62 @@ void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QLi
 }
 
 
+void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* courseIdEdit, QComboBox* gradeComboBox, QWidget* parent) {
+    std::string username = usernameEdit->text().toStdString();
 
+    std::string courseString = courseIdEdit->text().toStdString();
+    long courseId = courseIdEdit->text().toLongLong();
+    QString selectedGrade = gradeComboBox->currentText();
+
+    if ( username.empty() || courseString.empty()) {
+        QMessageBox::warning(parent, "Error", "Enter all fields.");
+        return;
+    }
+
+    // Check student exists
+    auto it = students.find(username);
+    if (it == students.end()) {
+        QMessageBox::warning(parent, "Error", "Student not found.");
+        return;
+    }
+
+    student& stu = it->second;
+
+    // Check course exists in student's courses
+    course* foundCourse = nullptr;
+    for (auto& pair : stu.courses) {
+        if (pair.first.getCourseID() == courseId) {
+            foundCourse = &pair.first;
+            break;
+        }
+    }
+
+    if (!foundCourse) {
+        QMessageBox::warning(parent, "Error", "Course not registered for this student.\n \n or not a valid course ID");
+        return;
+    }
+
+    // Convert QString to grade enum manually
+    grade g;
+    if (selectedGrade == "A") g.setGrade('A');
+    else if (selectedGrade == "B") g.setGrade('B');
+    else if (selectedGrade == "C") g.setGrade('C');
+    else if (selectedGrade == "D") g.setGrade('D');
+    else if (selectedGrade == "F") g.setGrade('F');
+    else {
+        QMessageBox::warning(parent, "Error", "Invalid grade selected.");
+        return;
+    }
+
+    // Update the grade
+    bool updated = stu.updateGrade(courseId, g);
+    if (updated) {
+        QMessageBox::information(parent, "Success", "Grade updated successfully.");
+    }
+    else {
+        QMessageBox::warning(parent, "Failure", "Failed to update grade.");
+    }
+}
 
 
 ////////////////////////////////

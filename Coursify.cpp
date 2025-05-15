@@ -68,7 +68,12 @@ Coursify::Coursify(QWidget* parent)
     connect(ui.pushButton_remove, &QPushButton::clicked, this, [=]() {
         Sys.removeSelectedPrerequisite(ui.combo_course, ui.list_prereq, this);
         });
-    ///////////
+        connect(ui.pushButton_submitGrade, &QPushButton::clicked, this, [=]() {
+     Sys.assignGradeToStudent(ui.StudentUser, ui.lineEdit_courseID_2 , ui.comboBox, this);
+     });
+
+
+    ////////////////
 
 
 

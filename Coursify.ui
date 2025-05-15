@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>738</height>
+    <height>749</height>
    </rect>
   </property>
   <property name="palette">
@@ -3353,7 +3353,7 @@ border: 1px solid #CFD8DC;
 </string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3636,7 +3636,7 @@ QPushButton:disabled {
          <attribute name="title">
           <string>Mange Grades</string>
          </attribute>
-         <widget class="QLineEdit" name="lineEdit_studentID">
+         <widget class="QLineEdit" name="StudentUser">
           <property name="geometry">
            <rect>
             <x>280</x>
@@ -3674,30 +3674,11 @@ QPushButton:disabled {
 </string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_grade">
-          <property name="geometry">
-           <rect>
-            <x>280</x>
-            <y>260</y>
-            <width>421</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">
-   color:white;
-    border: 1px solid Red;
-    border-radius: 4px;
-    padding: 4px;
-
-</string>
-          </property>
-         </widget>
          <widget class="QPushButton" name="pushButton_submitGrade">
           <property name="geometry">
            <rect>
-            <x>440</x>
-            <y>320</y>
+            <x>610</x>
+            <y>270</y>
             <width>80</width>
             <height>24</height>
            </rect>
@@ -3727,9 +3708,9 @@ QPushButton:disabled {
          <widget class="QLabel" name="label_16">
           <property name="geometry">
            <rect>
-            <x>130</x>
+            <x>100</x>
             <y>100</y>
-            <width>121</width>
+            <width>151</width>
             <height>31</height>
            </rect>
           </property>
@@ -3747,7 +3728,7 @@ font-weight: bold;
 </string>
           </property>
           <property name="text">
-           <string>Student ID</string>
+           <string>Student UserName</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_17">
@@ -3801,6 +3782,49 @@ font-weight: bold;
           <property name="text">
            <string>Grade</string>
           </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox">
+          <property name="geometry">
+           <rect>
+            <x>282</x>
+            <y>260</y>
+            <width>181</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">   color:white;
+    border: 1px solid Red;
+    border-radius: 4px;
+    padding: 4px;
+
+</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>A</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>B</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>C</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>D</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F</string>
+           </property>
+          </item>
          </widget>
         </widget>
         <widget class="QWidget" name="tab_4">
@@ -7013,7 +7037,7 @@ background-color: #007074</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>21</height>
+     <height>36</height>
     </rect>
    </property>
   </widget>
