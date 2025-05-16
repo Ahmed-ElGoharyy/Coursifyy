@@ -40,6 +40,7 @@ Coursify::Coursify(QWidget* parent)
         // Only allow admins to upload grades
         if (dynamic_cast<admin*>(currentUser)) {
             Sys.importGradesFromFile(this);
+            refreshAdminUI();
         }
         else {
             QMessageBox::warning(this, "Permission Denied",
@@ -50,9 +51,7 @@ Coursify::Coursify(QWidget* parent)
     // Use the global Sys instance for importing CSV files
     connect(ui.pushButton_uploadDescription, &QPushButton::clicked, this, [this]() {
         Sys.importCoursesFromFile(this);
-        Sys.showCourseComboBox(ui.combo_course);
-        Sys.showCourseComboBox(ui.combo_choose);
-        Sys.showCourseComboBox(ui.combo_pre);
+        refreshAdminUI();
         });
 
 
