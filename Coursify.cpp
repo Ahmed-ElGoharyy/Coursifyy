@@ -156,7 +156,7 @@ Coursify::Coursify(QWidget* parent)
         
         ui.export_button->setVisible(true);
 
-        QMessageBox::information(this, "Export Complete", "Report successfully exported as PDF.");
+        QMessageBox::information(this, "Export Complete", "Report successfully exported as Txt.");
         });
 
 

@@ -6,7 +6,7 @@
                     "course_id": 101,
                     "credit_hours": 3,
                     "description": "Introduction to Programming",
-                    "enrolled": true,
+                    "enrolled": false,
                     "instructor": "Prof. Smith",
                     "prerequisites": [],
                     "semester": "Fall",
@@ -25,7 +25,7 @@
                     "course_id": 102,
                     "credit_hours": 3,
                     "description": "Discrete Mathematics for Computer Science",
-                    "enrolled": true,
+                    "enrolled": false,
                     "instructor": "Prof. Johnson",
                     "prerequisites": [],
                     "semester": "Fall",
@@ -68,76 +68,6 @@
         "role": "S",
         "student_id": 1001,
         "username": "ahmeddahy"
-    },
-    {
-        "courses": [
-            {
-                "course": {
-                    "course_id": 101,
-                    "credit_hours": 3,
-                    "description": "Introduction to Programming",
-                    "enrolled": false,
-                    "instructor": "Prof. Smith",
-                    "prerequisites": [],
-                    "semester": "Fall",
-                    "syllabus": "Basic programming concepts and problem solving",
-                    "title": "Programming Fundamentals"
-                },
-                "grade": {
-                    "gpa": 3.0,
-                    "grade": "B",
-                    "semester": 1,
-                    "year": 2023
-                }
-            },
-            {
-                "course": {
-                    "course_id": 102,
-                    "credit_hours": 3,
-                    "description": "Discrete Mathematics for Computer Science",
-                    "enrolled": false,
-                    "instructor": "Prof. Johnson",
-                    "prerequisites": [],
-                    "semester": "Fall",
-                    "syllabus": "Logic, sets, relations, and functions",
-                    "title": "Discrete Math"
-                },
-                "grade": {
-                    "gpa": 2.0,
-                    "grade": "C",
-                    "semester": 1,
-                    "year": 2023
-                }
-            },
-            {
-                "course": {
-                    "course_id": 103,
-                    "credit_hours": 3,
-                    "description": "Computer Organization and Architecture",
-                    "enrolled": false,
-                    "instructor": "Prof. Williams",
-                    "prerequisites": [],
-                    "semester": "Fall",
-                    "syllabus": "Digital logic, processor design, memory hierarchy",
-                    "title": "Computer Architecture"
-                },
-                "grade": {
-                    "gpa": 1.0,
-                    "grade": "D",
-                    "semester": 1,
-                    "year": 2023
-                }
-            }
-        ],
-        "current_semester": "Fall 2023",
-        "email": "student2@university.edu",
-        "gpa": 2.0,
-        "max_credit_hours": 12,
-        "name": "Ramez Emad",
-        "password": "2992457363794458960",
-        "role": "S",
-        "student_id": 1002,
-        "username": "ramezemad"
     },
     {
         "courses": [
@@ -208,6 +138,76 @@
         "role": "S",
         "student_id": 1003,
         "username": "ahmedgohary"
+    },
+    {
+        "courses": [
+            {
+                "course": {
+                    "course_id": 101,
+                    "credit_hours": 3,
+                    "description": "Introduction to Programming",
+                    "enrolled": false,
+                    "instructor": "Prof. Smith",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Basic programming concepts and problem solving",
+                    "title": "Programming Fundamentals"
+                },
+                "grade": {
+                    "gpa": 3.0,
+                    "grade": "B",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 102,
+                    "credit_hours": 3,
+                    "description": "Discrete Mathematics for Computer Science",
+                    "enrolled": false,
+                    "instructor": "Prof. Johnson",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Logic, sets, relations, and functions",
+                    "title": "Discrete Math"
+                },
+                "grade": {
+                    "gpa": 2.0,
+                    "grade": "C",
+                    "semester": 1,
+                    "year": 2023
+                }
+            },
+            {
+                "course": {
+                    "course_id": 103,
+                    "credit_hours": 3,
+                    "description": "Computer Organization and Architecture",
+                    "enrolled": false,
+                    "instructor": "Prof. Williams",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Digital logic, processor design, memory hierarchy",
+                    "title": "Computer Architecture"
+                },
+                "grade": {
+                    "gpa": 1.0,
+                    "grade": "D",
+                    "semester": 1,
+                    "year": 2023
+                }
+            }
+        ],
+        "current_semester": "Fall 2023",
+        "email": "student2@university.edu",
+        "gpa": 2.0,
+        "max_credit_hours": 12,
+        "name": "Ramez Emad",
+        "password": "2992457363794458960",
+        "role": "S",
+        "student_id": 1002,
+        "username": "ramezemad"
     },
     {
         "courses": [
@@ -602,7 +602,7 @@
                     "course_id": 104,
                     "credit_hours": 3,
                     "description": "Advanced Programming Concepts",
-                    "enrolled": true,
+                    "enrolled": false,
                     "instructor": "Prof. Brown",
                     "prerequisites": [
                         101
@@ -623,7 +623,7 @@
                     "course_id": 110,
                     "credit_hours": 3,
                     "description": "Web Application Development",
-                    "enrolled": true,
+                    "enrolled": false,
                     "instructor": "Prof. Martinez",
                     "prerequisites": [
                         101,

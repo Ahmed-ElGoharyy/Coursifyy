@@ -983,7 +983,7 @@ bool courseSystem::importGradesFromCSV(const QString& filePath) {
         }
 
         long courseID = tokens[1].toLong(&ok);
-        if (!ok) {
+        if (!ok || tokens[1].isEmpty()) {
             errorMessages << QString("Line %1: Invalid course ID: %2")
                 .arg(lineNumber).arg(tokens[1]);
             errorCount++;
@@ -1026,6 +1026,9 @@ bool courseSystem::importGradesFromCSV(const QString& filePath) {
             errorCount++;
             continue;
         }
+
+        // Set enrolled to true for this course before updating grade
+        c->setEnrolled(true);
 
         // Update grade
         if (s->updateGrade(courseID, grade(1, gradeLetter, 2023))) {
