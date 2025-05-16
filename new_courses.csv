@@ -1,0 +1,9 @@
+Title,Description,Instructor,Semester,CreditHours,Syllabus,Prerequisites
+Data Structures,Advanced data structures and algorithms,Prof. Adams,Fall,4,Trees, graphs, hash tables, and algorithm analysis,101;102
+Software Testing,Principles and techniques of software testing,Prof. Clark,Spring,3,Unit testing, integration testing, test automation,101;104
+Computer Vision,Fundamentals of computer vision systems,Prof. Evans,Fall,4,Image processing, feature detection, object recognition,101;103;105
+Natural Language Processing,Introduction to NLP techniques,Prof. Green,Spring,3,Text processing, sentiment analysis, language models,101;102;111
+Blockchain Technology,Principles of blockchain and cryptocurrencies,Prof. King,Fall,3,Distributed ledgers, smart contracts, consensus algorithms,101;108
+Big Data Analytics,Processing and analyzing large datasets,Prof. Lopez,Spring,4,Hadoop, Spark, data mining techniques,101;107;105
+Embedded Systems,Design of embedded computer systems,Prof. Nelson,Fall,3,Microcontrollers, real-time systems, hardware interfaces,101;103
+Human-Computer Interaction,Principles of user interface design,Prof. Parker,Spring,3,Usability testing, interaction design, UX principles,101;104
