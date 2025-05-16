@@ -1028,7 +1028,7 @@ bool courseSystem::importGradesFromCSV(const QString& filePath) {
         }
 
         // Set enrolled to true for this course before updating grade
-        c->setEnrolled(true);
+        
 
         // Update grade
         if (s->updateGrade(courseID, grade(1, gradeLetter, 2023))) {

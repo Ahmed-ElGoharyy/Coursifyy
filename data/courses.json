@@ -150,5 +150,93 @@
         "semester": "Spring",
         "syllabus": "Cryptography, network security",
         "title": "Security"
+    },
+    {
+        "course_id": 113,
+        "credit_hours": 4,
+        "description": "Advanced data structures and algorithms",
+        "enrolled": false,
+        "instructor": "Prof. Adams",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Trees",
+        "title": "Data Structures"
+    },
+    {
+        "course_id": 114,
+        "credit_hours": 3,
+        "description": "Principles and techniques of software testing",
+        "enrolled": false,
+        "instructor": "Prof. Clark",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Unit testing",
+        "title": "Software Testing"
+    },
+    {
+        "course_id": 115,
+        "credit_hours": 4,
+        "description": "Fundamentals of computer vision systems",
+        "enrolled": false,
+        "instructor": "Prof. Evans",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Image processing",
+        "title": "Computer Vision"
+    },
+    {
+        "course_id": 116,
+        "credit_hours": 3,
+        "description": "Introduction to NLP techniques",
+        "enrolled": false,
+        "instructor": "Prof. Green",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Text processing",
+        "title": "Natural Language Processing"
+    },
+    {
+        "course_id": 117,
+        "credit_hours": 3,
+        "description": "Principles of blockchain and cryptocurrencies",
+        "enrolled": false,
+        "instructor": "Prof. King",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Distributed ledgers",
+        "title": "Blockchain Technology"
+    },
+    {
+        "course_id": 118,
+        "credit_hours": 4,
+        "description": "Processing and analyzing large datasets",
+        "enrolled": false,
+        "instructor": "Prof. Lopez",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Hadoop",
+        "title": "Big Data Analytics"
+    },
+    {
+        "course_id": 119,
+        "credit_hours": 3,
+        "description": "Design of embedded computer systems",
+        "enrolled": false,
+        "instructor": "Prof. Nelson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Microcontrollers",
+        "title": "Embedded Systems"
+    },
+    {
+        "course_id": 120,
+        "credit_hours": 3,
+        "description": "Principles of user interface design",
+        "enrolled": false,
+        "instructor": "Prof. Parker",
+        "prerequisites": [],
+        "semester": "Spring",
+        "syllabus": "Usability testing",
+        "title": "Human-Computer Interaction"
     }
 ]

@@ -57,12 +57,31 @@
                     "semester": 1,
                     "year": 2023
                 }
+            },
+            {
+                "course": {
+                    "course_id": 115,
+                    "credit_hours": 4,
+                    "description": "Fundamentals of computer vision systems",
+                    "enrolled": true,
+                    "instructor": "Prof. Evans",
+                    "prerequisites": [],
+                    "semester": "Fall",
+                    "syllabus": "Image processing",
+                    "title": "Computer Vision"
+                },
+                "grade": {
+                    "gpa": 3.0,
+                    "grade": "B",
+                    "semester": 1,
+                    "year": 2023
+                }
             }
         ],
         "current_semester": "Fall 2023",
         "email": "student1@university.edu",
         "gpa": 3.0,
-        "max_credit_hours": 12,
+        "max_credit_hours": 4,
         "name": "Ahmed Dahy",
         "password": "2992457363794458960",
         "role": "S",

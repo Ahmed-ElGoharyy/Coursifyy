@@ -190,6 +190,7 @@ bool student::updateGrade(long courseID, const grade& newGrade) {
     for (auto& coursePair : courses) {
         if (coursePair.first.getCourseID() == courseID) {
             coursePair.second = newGrade;
+            coursePair.first.setEnrolled(true);
             this->gpa = calculateGPA(); // Recalculate GPA
             return true;
         }
