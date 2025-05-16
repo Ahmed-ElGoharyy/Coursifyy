@@ -72,9 +72,10 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
             return false;
         }
 
-        // Check if username exists
-        if (students.find(username) != students.end()) {
-            QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
+        // Check if username exists in either students or admins
+        if (students.find(username) != students.end() || admins.find(username) != admins.end()) {
+            QMessageBox::warning(nullptr, "Username already exists",
+                "\n Username already taken by another user.\n Please choose another username.\n");
             return false;
         }
 
@@ -104,7 +105,6 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         return false;
     }
 }
-
 
 bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
     QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit) {
@@ -149,9 +149,10 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
             return false;
         }
 
-        // Check if username exists
-        if (admins.find(username) != admins.end()) {
-            QMessageBox::warning(nullptr, "Username already exists", " \n Username already taken. \n Choose another username. \n");
+        // Check if username exists in either admins or students
+        if (admins.find(username) != admins.end() || students.find(username) != students.end()) {
+            QMessageBox::warning(nullptr, "Username already exists",
+                "\n Username already taken by another user.\n Please choose another username.\n");
             return false;
         }
 
@@ -191,8 +192,6 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
         return false;
     }
 }
-
-
 
 char courseSystem::authenticateUser(QLineEdit* usernameEdit, QLineEdit* passwordEdit, user*& loggedUser)   // USED
 {

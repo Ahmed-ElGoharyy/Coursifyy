@@ -200,6 +200,7 @@ Coursify::Coursify(QWidget* parent)
             student* currentStudent = dynamic_cast<student*>(currentUser);
             ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
             ui.listWidget_g->clear();
+
            
 
         }

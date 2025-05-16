@@ -1,0 +1,16 @@
+Student Report
+==============
+ID: 1007
+Name: Mostafa Mohamed
+Email: student7@university.edu
+GPA: 1.80
+Remaining Credit Hours: 6
+
+Courses:
+--------
+Course Title                            ID        Credits   Grade     Points    
+Programming Fundamentals                101       3         A         4.00      
+Discrete Math                           102       3         F         0.00      
+Databases                               107       3         B         3.00      
+Advanced Programming                    104       3         F         0.00      
+Web Development                         110       3         C         2.00      
