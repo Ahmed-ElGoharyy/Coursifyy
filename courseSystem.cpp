@@ -742,7 +742,14 @@ void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBo
             return;
         }
     }
-
+    // 3l4ane my7sl4 loop zy ma moo 3ayz
+    for (const course& sub : prereqCourse->getPrerequisites()) {
+        if (sub.getCourseID() == mainCourse->getCourseID()) {
+            QMessageBox::warning(parent, "Redundant Prerequisite",
+                "This course already depends on the same prerequisite through another path.");
+            return;
+        }
+    }
    
     if (prereqListWidget->count() == 1 &&
         prereqListWidget->item(0)->text() == "No prerequisites for this course") {
