@@ -30,4 +30,9 @@ private:
 private:
     courseSystem* m_system; // Your course system instance
 
+private:
+    void resetUIForLogin();
+    void refreshStudentUI();
+    void refreshAdminUI();
+
 };

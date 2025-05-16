@@ -196,24 +196,25 @@ Coursify::Coursify(QWidget* parent)
         char choice = Sys.authenticateUser(ui.login_username, ui.login_password, currentUser);
         if (choice == 'S') {
             ui.stackedWidget->setCurrentWidget(ui.Student_Panel);
-			ui.tabWidget_2->setCurrentIndex(0); 
+            ui.tabWidget_2->setCurrentIndex(0);
             student* currentStudent = dynamic_cast<student*>(currentUser);
             ui.label_15->setText(QString::fromStdString("Welcome,  " + currentStudent->getName()));
-            ui.listWidget_g->clear();
 
-           
-
+            // Reset and refresh UI
+            resetUIForLogin();
         }
         else if (choice == 'A') {
             ui.stackedWidget->setCurrentWidget(ui.Admin_Panel);
             admin* currentAdmin = dynamic_cast<admin*>(currentUser);
             ui.label_14->setText(QString::fromStdString("Welcome,  " + currentAdmin->getName()));
+
+            // Reset and refresh UI
+            resetUIForLogin();
         }
         else if (choice == 'F') {
-            QMessageBox::critical(this, " Wrong Credentials ", "\n Username or Password are incorrect! \n ");
+            QMessageBox::critical(this, "Wrong Credentials", "\nUsername or Password are incorrect!\n");
         }
         });
-  
 
 
 
@@ -389,6 +390,50 @@ void Coursify::onSearchResultSelected(QListWidgetItem* item) {
     ui.searchResultsList->hide();
 }
 
+
+void Coursify::resetUIForLogin() {
+    // Clear all UI elements
+    clearAllListsAndFields();
+
+    // Reset combo boxes
+    ui.combo_course->clear();
+    ui.combo_choose->clear();
+    ui.combo_pre->clear();
+
+    // Reload data based on current user type
+    if (dynamic_cast<student*>(currentUser)) {
+        refreshStudentUI();
+    }
+    else if (dynamic_cast<admin*>(currentUser)) {
+        refreshAdminUI();
+    }
+}
+
+void Coursify::refreshStudentUI() {
+    student* currentStudent = dynamic_cast<student*>(currentUser);
+    if (!currentStudent) return;
+
+    // Refresh student panel components
+    Sys.showCourseComboBox(ui.combo_choose);
+    Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
+
+    // Refresh grades list
+    QStringList grades = Sys.getStudentGrades(currentStudent);
+    ui.listWidget_g->clear();
+    ui.listWidget_g->addItems(grades);
+
+    // Refresh report tab
+    QStringList report = Sys.getStudentCourseReport(currentStudent);
+    ui.listWidget_r->clear();
+    ui.listWidget_r->addItems(report);
+}
+
+void Coursify::refreshAdminUI() {
+    // Refresh admin panel components
+    Sys.showCourseComboBox(ui.combo_course);
+    Sys.showCourseComboBox(ui.combo_pre);
+    Sys.loadCoursePrereqsToListWidget(ui.combo_course, ui.list_prereq);
+}
 QString Coursify::highlightMatchingChars(const QString& text, const QString& searchTerm) {
     return text;
 }
@@ -400,15 +445,7 @@ void Coursify::clearAllListsAndFields() {
     ui.listWidget_r->clear();
     ui.searchResultsList->clear();
 
-    // Clear combo boxes (optional - remove if you want to keep them populated)
-    ui.combo_course->clear();
-    ui.combo_choose->clear();
-    ui.combo_pre->clear();
-
-    // Clear search bar
-    ui.searchBar->clear();
-
-    // Clear any other input fields that might need resetting
+    // Clear input fields
     ui.login_username->clear();
     ui.login_password->clear();
     ui.Register_S1->clear();
@@ -421,6 +458,6 @@ void Coursify::clearAllListsAndFields() {
     ui.Register_A4->clear();
     ui.Register_A5->clear();
 
-    // Hide search results if visible
+    // Hide search results
     ui.searchResultsList->hide();
 }
