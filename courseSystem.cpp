@@ -32,8 +32,6 @@ courseSystem::~courseSystem() {
     }
 }
 
-
-
 bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd) {
     try {
         QString uname = usernamee->text().trimmed();
@@ -58,6 +56,16 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
             return false;
         }
 
+        // Enhanced username validation
+        QRegularExpression usernameRegex("^(?=.*[a-zA-Z])[a-zA-Z0-9]+$");
+        if (!usernameRegex.match(uname).hasMatch()) {
+            QMessageBox::warning(nullptr, "Invalid Username",
+                " \n Username must contain at least one letter \n"
+                " and can only contain letters and numbers.\n"
+                " It cannot be numbers only.\n");
+            return false;
+        }
+
         // Check password match
         if (password != confirmpassword) {
             QMessageBox::warning(nullptr, "Password don't match ", " \n Confirm your password again. \n");
@@ -70,8 +78,8 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
             return false;
         }
 
-        // Validate username and password formats
-        if (user::isValidUsername(username) && user::isValidPassword(password)) {
+        // Validate password format
+        if (user::isValidPassword(password)) {
             string hashedpass = user::hashPassword(password);
 
             // Default to current semester (you might want to make this configurable)
@@ -82,8 +90,12 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
             return true;
         }
         else {
-            QMessageBox::warning(nullptr, "Bad Username and Password format",
-                " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");
+            QMessageBox::warning(nullptr, "Bad Password format",
+                " \n Password should contain: \n"
+                " - At least one uppercase letter \n"
+                " - At least one lowercase letter \n"
+                " - At least one digit \n"
+                " - Minimum 6 characters \n");
             return false;
         }
     }
@@ -92,8 +104,6 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         return false;
     }
 }
-
-
 
 
 bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
@@ -123,6 +133,16 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
             return false;
         }
 
+        // Enhanced username validation
+        QRegularExpression usernameRegex("^(?=.*[a-zA-Z])[a-zA-Z0-9]+$");
+        if (!usernameRegex.match(uname).hasMatch()) {
+            QMessageBox::warning(nullptr, "Invalid Username",
+                " \n Username must contain at least one letter \n"
+                " and can only contain letters and numbers.\n"
+                " It cannot be numbers only.\n");
+            return false;
+        }
+
         // Check password match
         if (password != confirmpassword) {
             QMessageBox::warning(nullptr, "Passwords don't match", " \n Confirm your password again. \n");
@@ -143,28 +163,19 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
             return false;
         }
 
-        // Validate username and password formats
-        if (user::isValidUsername(username) && user::isValidPassword(password)) {
+        // Validate password format
+        if (user::isValidPassword(password)) {
             string hashedpass = user::hashPassword(password);
 
-            // Debug output before creating admin
-            cout << "About to create new admin. Current admin counter: " << admin::counter << endl;
-
             admin newadmin(username, hashedpass, name);
-
-            // Debug output after creating admin
-            cout << "New admin created with ID: " << newadmin.getAdminID() << endl;
-            cout << "Admin counter after creation: " << admin::counter << endl;
-
             admins[username] = newadmin;
             saveData();
 
             return true;
         }
         else {
-            QMessageBox::warning(nullptr, "Invalid Credentials Format",
-                " \n Username must be from 3 to 20 characters. \n"
-                " Password should contain: \n"
+            QMessageBox::warning(nullptr, "Invalid Password Format",
+                " \n Password should contain: \n"
                 " - At least one uppercase letter \n"
                 " - At least one lowercase letter \n"
                 " - At least one digit \n"
@@ -180,7 +191,6 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
         return false;
     }
 }
-
 
 
 
@@ -904,6 +914,10 @@ bool courseSystem::addCourseToStudent(student* student, const course& courseToAd
         if (student->max_credit_hours < courseHours) {
             return false; // Not enough remaining credit hours
         }
+		// Check if course has prerequisites
+		if (!courseToAdd.checkPrerequisites(*student)) {
+			return false; // Prerequisites not met
+		}
 
         // Add to student's course list with a default grade
         grade defaultGrade; // Creates a default grade (0.0 or ungraded)

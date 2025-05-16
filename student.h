@@ -35,7 +35,6 @@ public:
     student(string username, string password, string name, string email, string semester) noexcept(false);
 
     // Course and grade management
-    course searchCourse(string courseName) const noexcept(false);
     pair<course, grade> getonegrade(string courseName) const noexcept(false);
     string getCurrentSemester() const { return currentSemester; }
     void setCurrentSemester(const string& semester) { currentSemester = semester; }

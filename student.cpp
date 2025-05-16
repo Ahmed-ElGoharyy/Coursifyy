@@ -29,15 +29,6 @@ student::student(string username, string password, string name)
     std::cout << "Created new student with ID: " << StudentID << std::endl;
 }
 
-course student::searchCourse(string courseName) const noexcept(false) {
-    for (const auto& pair : courses) {
-        if (pair.first.getTitle() == courseName) {
-            return pair.first;
-        }
-    }
-    throw student_exception("Course not found: " + courseName);
-}
-
 pair<course, grade> student::getonegrade(string courseName) const noexcept(false) {
     for (const auto& pair : courses) {
         if (pair.first.getTitle() == courseName) {
@@ -109,7 +100,7 @@ bool student::hasCourse(long courseID) const {
 
 bool student::hasCompletedCourse(long courseID) const {
     for (const auto& pair : courses) {
-        if (pair.first.getCourseID() == courseID && pair.second.getGrade() != 'N') {
+        if (pair.first.getCourseID() == courseID && pair.second.getGrade() != 'N' && pair.second.getGrade() != 'F') {
             return true;
         }
     }

@@ -2,180 +2,133 @@
     {
         "course_id": 101,
         "credit_hours": 3,
-        "description": "Basic concepts of computer systems",
-        "enrolled": true,
+        "description": "Introduction to Programming",
+        "enrolled": false,
         "instructor": "Prof. Smith",
         "prerequisites": [],
         "semester": "Fall",
-        "syllabus": "Introduction to algorithms and data structures",
-        "title": "Introduction to Computer Science"
+        "syllabus": "Basic programming concepts and problem solving",
+        "title": "Programming Fundamentals"
     },
     {
         "course_id": 102,
-        "credit_hours": 4,
-        "description": "Fundamental data structures and algorithms",
-        "enrolled": true,
+        "credit_hours": 3,
+        "description": "Discrete Mathematics for Computer Science",
+        "enrolled": false,
         "instructor": "Prof. Johnson",
-        "prerequisites": [
-            101
-        ],
-        "semester": "Spring",
-        "syllabus": "Arrays, linked lists, trees, graphs, and algorithms",
-        "title": "Data Structures"
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Logic, sets, relations, and functions",
+        "title": "Discrete Math"
     },
     {
         "course_id": 103,
         "credit_hours": 3,
-        "description": "Database design and implementation",
-        "enrolled": true,
+        "description": "Computer Organization and Architecture",
+        "enrolled": false,
         "instructor": "Prof. Williams",
-        "prerequisites": [
-            101
-        ],
+        "prerequisites": [],
         "semester": "Fall",
-        "syllabus": "Relational databases, SQL, and NoSQL",
-        "title": "Database Systems"
+        "syllabus": "Digital logic, processor design, memory hierarchy",
+        "title": "Computer Architecture"
     },
     {
         "course_id": 104,
-        "credit_hours": 4,
-        "description": "Principles of operating system design",
+        "credit_hours": 3,
+        "description": "Advanced Programming Concepts",
         "enrolled": false,
-        "instructor": "Prof. Davis",
-        "prerequisites": [
-            101,
-            102
-        ],
+        "instructor": "Prof. Brown",
+        "prerequisites": [101],
         "semester": "Spring",
-        "syllabus": "Process management, memory management, file systems",
-        "title": "Operating Systems"
+        "syllabus": "Object-oriented programming, data structures",
+        "title": "Advanced Programming"
     },
     {
         "course_id": 105,
         "credit_hours": 3,
-        "description": "Software development process and methodologies",
+        "description": "Algorithms and Complexity",
         "enrolled": false,
-        "instructor": "Prof. Brown",
-        "prerequisites": [
-            102,
-            103
-        ],
-        "semester": "Fall",
-        "syllabus": "Requirements, design, testing, and project management",
-        "title": "Software Engineering"
+        "instructor": "Prof. Davis",
+        "prerequisites": [101, 102],
+        "semester": "Spring",
+        "syllabus": "Algorithm design and analysis",
+        "title": "Algorithms"
     },
     {
         "course_id": 106,
-        "credit_hours": 4,
-        "description": "Fundamentals of computer networking and protocols",
+        "credit_hours": 3,
+        "description": "Operating Systems Principles",
         "enrolled": false,
-        "instructor": "Prof. Martinez",
-        "prerequisites": [],
+        "instructor": "Prof. Wilson",
+        "prerequisites": [101, 103],
         "semester": "Spring",
-        "syllabus": "OSI model",
-        "title": "Computer Networks"
+        "syllabus": "Process management, memory management",
+        "title": "Operating Systems"
     },
     {
         "course_id": 107,
         "credit_hours": 3,
-        "description": "Client-side and server-side web programming",
-        "enrolled": false,
-        "instructor": "Prof. Johnson",
-        "prerequisites": [],
-        "semester": "Fall",
-        "syllabus": "HTML",
-        "title": "Web Development"
-    },
-    {
-        "course_id": 108,
-        "credit_hours": 4,
-        "description": "Introduction to machine learning algorithms",
-        "enrolled": false,
-        "instructor": "Prof. Lee",
-        "prerequisites": [
-            101,
-            102,
-            103
-        ],
-        "semester": "Spring",
-        "syllabus": "Supervised and unsupervised learning techniques",
-        "title": "Machine Learning"
-    },
-    {
-        "course_id": 109,
-        "credit_hours": 3,
-        "description": "Theory and practice of computer graphics",
-        "enrolled": false,
-        "instructor": "Prof. Wilson",
-        "prerequisites": [],
-        "semester": "Fall",
-        "syllabus": "2D and 3D rendering",
-        "title": "Computer Graphics"
-    },
-    {
-        "course_id": 110,
-        "credit_hours": 3,
-        "description": "Advanced database concepts and technologies",
-        "enrolled": false,
-        "instructor": "Prof. Roberts",
-        "prerequisites": [],
-        "semester": "Spring",
-        "syllabus": "Query optimization",
-        "title": "Advanced Databases"
-    },
-    {
-        "course_id": 111,
-        "credit_hours": 4,
-        "description": "Design and implementation of distributed systems",
+        "description": "Database Systems",
         "enrolled": false,
         "instructor": "Prof. Taylor",
         "prerequisites": [],
         "semester": "Fall",
-        "syllabus": "Synchronization",
-        "title": "Distributed Systems"
+        "syllabus": "Relational database design and SQL",
+        "title": "Databases"
+    },
+    {
+        "course_id": 108,
+        "credit_hours": 3,
+        "description": "Computer Networks",
+        "enrolled": false,
+        "instructor": "Prof. Anderson",
+        "prerequisites": [],
+        "semester": "Fall",
+        "syllabus": "Network protocols and architectures",
+        "title": "Networks"
+    },
+    {
+        "course_id": 109,
+        "credit_hours": 3,
+        "description": "Software Engineering",
+        "enrolled": false,
+        "instructor": "Prof. Harris",
+        "prerequisites": [101, 107],
+        "semester": "Spring",
+        "syllabus": "Software development lifecycle",
+        "title": "Software Engineering"
+    },
+    {
+        "course_id": 110,
+        "credit_hours": 3,
+        "description": "Web Application Development",
+        "enrolled": false,
+        "instructor": "Prof. Martinez",
+        "prerequisites": [101, 107],
+        "semester": "Spring",
+        "syllabus": "Client-server web applications",
+        "title": "Web Development"
+    },
+    {
+        "course_id": 111,
+        "credit_hours": 3,
+        "description": "Artificial Intelligence Fundamentals",
+        "enrolled": false,
+        "instructor": "Prof. Lee",
+        "prerequisites": [101, 102],
+        "semester": "Spring",
+        "syllabus": "Search algorithms, machine learning basics",
+        "title": "AI Fundamentals"
     },
     {
         "course_id": 112,
         "credit_hours": 3,
-        "description": "Principles of mobile app development",
-        "enrolled": false,
-        "instructor": "Prof. Garcia",
-        "prerequisites": [],
-        "semester": "Spring",
-        "syllabus": "UI design",
-        "title": "Mobile App Development"
-    },
-    {
-        "course_id": 113,
-        "credit_hours": 3,
-        "description": "Principles of information security",
+        "description": "Computer Security",
         "enrolled": false,
         "instructor": "Prof. White",
-        "prerequisites": [],
-        "semester": "Fall",
-        "syllabus": "Cryptography",
-        "title": "Computer Security"
-    },
-    {
-        "course_id": 114,
-        "credit_hours": 4,
-        "description": "Introduction to cloud computing technologies",
-        "enrolled": false,
-        "instructor": "Prof. Anderson",
-        "prerequisites": [],
+        "prerequisites": [101, 108],
         "semester": "Spring",
-        "syllabus": "Virtualization",
-        "title": "Cloud Computing"
-    },
-    {
-        "course_id": 115,
-        "credit_hours": 4,
-        "description": "Introduction to artificial intelligence concepts",
-        "enrolled": false,
-        "instructor": "Prof. Harris",
-        "prerequisites": [],
-        "semester": "Fall",
-        "syllabus": "Search algorithms",
-        "title": "Artificial Intelligence"
+        "syllabus": "Cryptography, network security",
+        "title": "Security"
     }
 ]

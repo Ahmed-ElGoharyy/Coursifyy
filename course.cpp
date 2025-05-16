@@ -80,6 +80,12 @@ bool course::checkPrerequisites(const student& s) const {
                     << " for course " << title << std::endl;
                 return false;
             }
+            else {
+                std::cout << "You Failed At : " << prereq.getTitle()
+                    << " (ID: " << prereq.getCourseID() << ")"
+                    << " for course " << title << std::endl;
+                return false;
+            }
         }
     }
     return true;
