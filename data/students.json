@@ -351,5 +351,17 @@
         "role": "S",
         "student_id": 1008,
         "username": "pavly55"
+    },
+    {
+        "courses": [],
+        "current_semester": "",
+        "email": "Fall 2023",
+        "gpa": 0.0,
+        "max_credit_hours": 21,
+        "name": "Ziad",
+        "password": "17410655266864773447",
+        "role": "S",
+        "student_id": 1009,
+        "username": "Ziadmoh"
     }
 ]

@@ -22,6 +22,8 @@ private slots:
     void onSearchResultSelected(QListWidgetItem* item);
     QString highlightMatchingChars(const QString& text, const QString& searchTerm);
 
+    void clearAllListsAndFields();
+
 private:
     Ui::CoursifyClass ui;
 

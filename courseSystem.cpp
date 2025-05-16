@@ -45,21 +45,32 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
         QString cpassword = confirmpasswordd->text();
         string confirmpassword = cpassword.toStdString();
 
+        // Check for empty fields
         if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
             QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
             return false;
         }
 
+        // Check if name contains numbers or invalid characters
+        QRegularExpression nameRegex("^[\\p{L} .'-]+$", QRegularExpression::UseUnicodePropertiesOption);
+        if (!nameRegex.match(nam).hasMatch()) {
+            QMessageBox::warning(nullptr, "Invalid Name", " \n Name should only contain letters, spaces, hyphens, apostrophes, or dots.\n");
+            return false;
+        }
+
+        // Check password match
         if (password != confirmpassword) {
             QMessageBox::warning(nullptr, "Password don't match ", " \n Confirm your password again. \n");
             return false;
         }
 
+        // Check if username exists
         if (students.find(username) != students.end()) {
             QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
             return false;
         }
 
+        // Validate username and password formats
         if (user::isValidUsername(username) && user::isValidPassword(password)) {
             string hashedpass = user::hashPassword(password);
 
@@ -85,7 +96,6 @@ bool courseSystem::registerStudent(QLineEdit* namee, QLineEdit* usernamee, QLine
 
 
 
-
 bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
     QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit) {
     try {
@@ -100,26 +110,40 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
         QString keyy = keyedit->text().trimmed();
         string key = keyy.toStdString();
 
-        if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty()) {
-            QMessageBox::warning(nullptr, " Error  ", " \n Please fill the required info \n");
+        // Check for empty fields
+        if (uname.isEmpty() || pword.isEmpty() || nam.isEmpty() || cpassword.isEmpty() || keyy.isEmpty()) {
+            QMessageBox::warning(nullptr, " Error  ", " \n Please fill all the required fields \n");
             return false;
         }
 
+        // Validate name format
+        QRegularExpression nameRegex("^[\\p{L} .'-]+$", QRegularExpression::UseUnicodePropertiesOption);
+        if (!nameRegex.match(nam).hasMatch()) {
+            QMessageBox::warning(nullptr, "Invalid Name", " \n Name should only contain letters, spaces, hyphens, apostrophes, or dots.\n");
+            return false;
+        }
+
+        // Check password match
         if (password != confirmpassword) {
-            QMessageBox::warning(nullptr, "Passwords don't match ", " \n Confirm your password again. \n");
+            QMessageBox::warning(nullptr, "Passwords don't match", " \n Confirm your password again. \n");
             return false;
         }
 
+        // Check if username exists
         if (admins.find(username) != admins.end()) {
-            QMessageBox::warning(nullptr, "Username already exists ", " \n Username Already taken. \n Choose another username. \n");
+            QMessageBox::warning(nullptr, "Username already exists", " \n Username already taken. \n Choose another username. \n");
             return false;
         }
 
+        // Validate admin key (consider moving this to a configuration file)
         if (key != "1234") {
-            QMessageBox::warning(nullptr, "Wrong Administrator Key.", " \n You can't register as admin without knowing the secret key \n \n PS : All Admins know that the key is '1234' :) \n");
+            QMessageBox::warning(nullptr, "Wrong Administrator Key",
+                " \n You can't register as admin without the correct key \n"
+                " \n PS: The key is '1234' for demonstration purposes \n");
             return false;
         }
 
+        // Validate username and password formats
         if (user::isValidUsername(username) && user::isValidPassword(password)) {
             string hashedpass = user::hashPassword(password);
 
@@ -138,13 +162,21 @@ bool courseSystem::registerAdmin(QLineEdit* namee, QLineEdit* usernamee,
             return true;
         }
         else {
-            QMessageBox::warning(nullptr, "Bad Username and Password format",
-                " \n Username must be from 3 to 20 characters. \n Password should contain Uppercase, Lowercase & digit \n and More than 6 chars \n");
+            QMessageBox::warning(nullptr, "Invalid Credentials Format",
+                " \n Username must be from 3 to 20 characters. \n"
+                " Password should contain: \n"
+                " - At least one uppercase letter \n"
+                " - At least one lowercase letter \n"
+                " - At least one digit \n"
+                " - Minimum 6 characters \n");
             return false;
         }
     }
     catch (exception& e) {
         cout << "Error registering admin: " << e.what() << endl;
+        QMessageBox::critical(nullptr, "Registration Error",
+            " \n An unexpected error occurred during registration. \n"
+            " Please try again or contact support. \n");
         return false;
     }
 }

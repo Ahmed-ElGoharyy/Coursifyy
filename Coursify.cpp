@@ -20,12 +20,17 @@ Coursify::Coursify(QWidget* parent)
         ui.stackedWidget->setCurrentWidget(ui.Register);
         });
     connect(ui.back_button, &QPushButton::clicked, this, [=]() {
+        clearAllListsAndFields();
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
+
     connect(ui.back_button_2, &QPushButton::clicked, this, [=]() {
+        clearAllListsAndFields();
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
+
     connect(ui.back_button_3, &QPushButton::clicked, this, [=]() {
+        clearAllListsAndFields();
         ui.stackedWidget->setCurrentWidget(ui.Login);
         });
 
@@ -386,4 +391,35 @@ void Coursify::onSearchResultSelected(QListWidgetItem* item) {
 QString Coursify::highlightMatchingChars(const QString& text, const QString& searchTerm) {
     return text;
 }
+void Coursify::clearAllListsAndFields() {
+    // Clear all list widgets
+    ui.list_prereq->clear();
+    ui.list_showpreq->clear();
+    ui.listWidget_g->clear();
+    ui.listWidget_r->clear();
+    ui.searchResultsList->clear();
 
+    // Clear combo boxes (optional - remove if you want to keep them populated)
+    ui.combo_course->clear();
+    ui.combo_choose->clear();
+    ui.combo_pre->clear();
+
+    // Clear search bar
+    ui.searchBar->clear();
+
+    // Clear any other input fields that might need resetting
+    ui.login_username->clear();
+    ui.login_password->clear();
+    ui.Register_S1->clear();
+    ui.Register_S2->clear();
+    ui.Register_S3->clear();
+    ui.Register_S4->clear();
+    ui.Register_A1->clear();
+    ui.Register_A2->clear();
+    ui.Register_A3->clear();
+    ui.Register_A4->clear();
+    ui.Register_A5->clear();
+
+    // Hide search results if visible
+    ui.searchResultsList->hide();
+}
