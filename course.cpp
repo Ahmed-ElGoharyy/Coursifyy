@@ -4,6 +4,9 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace std;
+
+
 // Initialize static counter
 long course::counter = 100;
 
@@ -17,13 +20,13 @@ course::course() :
     syllabus(""),
     enrolled(false)
 {
-    std::cout << "Created default course with ID: " << CourseID
-        << ", counter now: " << counter << std::endl;
+    cout << "Created default course with ID: " << CourseID
+        << ", counter now: " << counter << endl;
 }
 
-course::course(std::string title, std::string description, std::string instructor,
-    std::string semester, int credithours, std::vector<course> prerequisites,
-    std::string syllabus) :
+course::course(string title, string description, string instructor,
+    string semester, int credithours, vector<course> prerequisites,
+    string syllabus) :
     CourseID(counter++),  // Directly use and increment counter to avoid double incrementation
     title(title),
     description(description),
@@ -34,33 +37,33 @@ course::course(std::string title, std::string description, std::string instructo
     syllabus(syllabus),
     enrolled(false)
 {
-    std::cout << "Created course with ID: " << CourseID
+    cout << "Created course with ID: " << CourseID
         << ", title: " << title
-        << ", counter now: " << counter << std::endl;
+        << ", counter now: " << counter << endl;
 }
 
 void course::addPrerequisite(const course& prereq) {
     // Check if this prerequisite already exists
-    if (std::find(prerequisites.begin(), prerequisites.end(), prereq) == prerequisites.end()) {
+    if (find(prerequisites.begin(), prerequisites.end(), prereq) == prerequisites.end()) {
         prerequisites.push_back(prereq);
-        std::cout << "Added prerequisite " << prereq.getCourseID()
-            << " to course " << CourseID << std::endl;
+        cout << "Added prerequisite " << prereq.getCourseID()
+            << " to course " << CourseID << endl;
     }
 }
 
 void course::removePrerequisite(long courseId) {
-    auto it = std::remove_if(prerequisites.begin(), prerequisites.end(),
+    auto it = remove_if(prerequisites.begin(), prerequisites.end(),
         [courseId](const course& c) { return c.getCourseID() == courseId; });
     if (it != prerequisites.end()) {
         prerequisites.erase(it, prerequisites.end());
-        std::cout << "Removed prerequisite " << courseId
-            << " from course " << CourseID << std::endl;
+        cout << "Removed prerequisite " << courseId
+            << " from course " << CourseID << endl;
     }
 }
 
 void course::clearPrerequisites() {
     prerequisites.clear();
-    std::cout << "Cleared all prerequisites for course " << CourseID << std::endl;
+    cout << "Cleared all prerequisites for course " << CourseID << endl;
 }
 
 bool course::checkPrerequisites(const student& s) const {
@@ -75,15 +78,15 @@ bool course::checkPrerequisites(const student& s) const {
         if (!s.hasCompletedCourse(prereq.getCourseID())) {
             // If not completed, check if it's in their current courses
             if (!s.hasCourse(prereq.getCourseID())) {
-                std::cout << "Missing prerequisite: " << prereq.getTitle()
+                cout << "Missing prerequisite: " << prereq.getTitle()
                     << " (ID: " << prereq.getCourseID() << ")"
-                    << " for course " << title << std::endl;
+                    << " for course " << title << endl;
                 return false;
             }
             else {
-                std::cout << "You Failed At : " << prereq.getTitle()
+                cout << "You Failed At : " << prereq.getTitle()
                     << " (ID: " << prereq.getCourseID() << ")"
-                    << " for course " << title << std::endl;
+                    << " for course " << title << endl;
                 return false;
             }
         }

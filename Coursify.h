@@ -5,6 +5,9 @@
 #include "courseSystem.h"
 #include "Utilities.h"
 
+using namespace std;
+
+
 class Coursify : public QMainWindow
 {
     Q_OBJECT

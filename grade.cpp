@@ -2,6 +2,8 @@
 
 // grade.cpp
 #include "grade.h"
+using namespace std;
+
 
 grade::grade() : Semester(1), Grade('N'), year(2023), gpa(0.0f) {}
 

@@ -3,7 +3,7 @@
 #include <QtWidgets/QApplication>
 #include "courseSystem.h"
 
-
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
 
     // Load data from files
     if (system.loadData()) {
-        std::cout << "Data loaded successfully" << std::endl;
+        cout << "Data loaded successfully" << endl;
     }
     else {
-        std::cout << "Error loading data" << std::endl;
+        cout << "Error loading data" << endl;
     }
 
    

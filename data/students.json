@@ -63,7 +63,7 @@
                     "course_id": 115,
                     "credit_hours": 4,
                     "description": "Fundamentals of computer vision systems",
-                    "enrolled": true,
+                    "enrolled": false,
                     "instructor": "Prof. Evans",
                     "prerequisites": [],
                     "semester": "Fall",

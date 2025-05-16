@@ -10,6 +10,8 @@
 #include <QTranslator>
 #include <QStringList>
 #include <QString>
+using namespace std;
+
 
 
 
@@ -257,7 +259,7 @@ bool courseSystem::addCourse(const course& newCourse) {
     courses[courseID] = newCourse;
 
     // Debug output
-    std::cout << "Added course with ID: " << courseID << ", counter value: " << course::counter << std::endl;
+    cout << "Added course with ID: " << courseID << ", counter value: " << course::counter << endl;
 
     return true;
 }
@@ -291,23 +293,23 @@ course* courseSystem::getCourse(long courseID) {
     return nullptr;
 }
 
-std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) const {
-    std::vector<course> results;
+vector<course> courseSystem::searchCourses(const string& searchTerm) const {
+    vector<course> results;
     if (searchTerm.empty()) {
         return results;
     }
 
-    std::string lowerSearchTerm = searchTerm;
-    std::transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(),
-        [](unsigned char c) { return std::tolower(c); });
+    string lowerSearchTerm = searchTerm;
+    transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(),
+        [](unsigned char c) { return tolower(c); });
 
     for (const auto& pair : courses) {
         const course& c = pair.second;
-        std::string lowerTitle = c.getTitle();
-        std::transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(),
-            [](unsigned char c) { return std::tolower(c); });
+        string lowerTitle = c.getTitle();
+        transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(),
+            [](unsigned char c) { return tolower(c); });
 
-        if (lowerTitle.find(lowerSearchTerm) != std::string::npos) {
+        if (lowerTitle.find(lowerSearchTerm) != string::npos) {
             results.push_back(c);
         }
     }
@@ -315,7 +317,7 @@ std::vector<course> courseSystem::searchCourses(const std::string& searchTerm) c
     return results;
 }
 bool courseSystem::addStudent(const student& newStudent) {
-    std::string username = newStudent.getUsername();
+    string username = newStudent.getUsername();
     if (students.find(username) != students.end()) {
         return false;
     }
@@ -325,7 +327,7 @@ bool courseSystem::addStudent(const student& newStudent) {
     return true;
 }
 
-bool courseSystem::updateStudent(const std::string& username, const student& updatedStudent) {
+bool courseSystem::updateStudent(const string& username, const student& updatedStudent) {
     if (students.find(username) == students.end()) {
         return false;
     }
@@ -344,7 +346,7 @@ student* courseSystem::getStudent(long studentID) {
     return nullptr;
 }
 
-student* courseSystem::getStudentByUsername(const std::string& username) {
+student* courseSystem::getStudentByUsername(const string& username) {
     auto it = students.find(username);
     if (it != students.end()) {
         return &it->second;
@@ -353,7 +355,7 @@ student* courseSystem::getStudentByUsername(const std::string& username) {
 }
 
 bool courseSystem::addAdmin(const admin& newAdmin) {
-    std::string username = newAdmin.getUsername();
+    string username = newAdmin.getUsername();
     if (admins.find(username) != admins.end()) {
         return false;
     }
@@ -363,7 +365,7 @@ bool courseSystem::addAdmin(const admin& newAdmin) {
     return true;
 }
 
-admin* courseSystem::getAdminByUsername(const std::string& username) {
+admin* courseSystem::getAdminByUsername(const string& username) {
     auto it = admins.find(username);
     if (it != admins.end()) {
         return &it->second;
@@ -380,7 +382,7 @@ admin* courseSystem::getAdmin(long adminID) {
     return nullptr;
 }
 
-bool courseSystem::updateStudentGrade(const std::string& username, long courseID, const grade& newGrade) {
+bool courseSystem::updateStudentGrade(const string& username, long courseID, const grade& newGrade) {
     student* s = getStudentByUsername(username);
     if (!s) {
         return false;
@@ -398,7 +400,7 @@ bool courseSystem::updateStudentGrade(const std::string& username, long courseID
     return result;
 }
 
-bool courseSystem::enrollStudentInCourse(const std::string& username, long courseID) {
+bool courseSystem::enrollStudentInCourse(const string& username, long courseID) {
     student* s = getStudentByUsername(username);
     course* c = getCourse(courseID);
 
@@ -425,30 +427,30 @@ bool courseSystem::loadData() {
     bool result = FileUtils::loadAllData(*this);
 
     // Add debugging output to see what was loaded
-    std::cout << "=== DATA LOADING RESULTS ===" << std::endl;
-    std::cout << "Loading result: " << (result ? "SUCCESS" : "FAILURE") << std::endl;
-    std::cout << "Students loaded: " << students.size() << std::endl;
-    std::cout << "Courses loaded: " << courses.size() << std::endl;
-    std::cout << "Admins loaded: " << admins.size() << std::endl;
+    cout << "=== DATA LOADING RESULTS ===" << endl;
+    cout << "Loading result: " << (result ? "SUCCESS" : "FAILURE") << endl;
+    cout << "Students loaded: " << students.size() << endl;
+    cout << "Courses loaded: " << courses.size() << endl;
+    cout << "Admins loaded: " << admins.size() << endl;
 
     // Print course details if any were loaded
     if (!courses.empty()) {
-        std::cout << "LOADED COURSES:" << std::endl;
+        cout << "LOADED COURSES:" << endl;
         for (const auto& pair : courses) {
-            std::cout << "  Course ID: " << pair.first
+            cout << "  Course ID: " << pair.first
                 << ", Title: " << pair.second.getTitle()
-                << ", Instructor: " << pair.second.getInstructor() << std::endl;
+                << ", Instructor: " << pair.second.getInstructor() << endl;
         }
     }
     else {
-        std::cout << "No courses were loaded from file." << std::endl;
+        cout << "No courses were loaded from file." << endl;
         // Check if the courses file exists
-        if (std::filesystem::exists(FileUtils::coursesFilePath)) {
-            std::cout << "Courses file exists at: " << FileUtils::coursesFilePath << std::endl;
-            std::cout << "File size: " << std::filesystem::file_size(FileUtils::coursesFilePath) << " bytes" << std::endl;
+        if (filesystem::exists(FileUtils::coursesFilePath)) {
+            cout << "Courses file exists at: " << FileUtils::coursesFilePath << endl;
+            cout << "File size: " << filesystem::file_size(FileUtils::coursesFilePath) << " bytes" << endl;
         }
         else {
-            std::cout << "Courses file does not exist at: " << FileUtils::coursesFilePath << std::endl;
+            cout << "Courses file does not exist at: " << FileUtils::coursesFilePath << endl;
         }
     }
 
@@ -459,41 +461,41 @@ bool courseSystem::loadData() {
 
 bool courseSystem::saveData() {
     // Print current working directory
-    std::cout << "Current working directory: "
-        << std::filesystem::current_path().string() << std::endl;
+    cout << "Current working directory: "
+        << filesystem::current_path().string() << endl;
 
     // Print the expected data directory path
-    std::string dataDir = "./data/";
-    std::filesystem::path absDataPath = std::filesystem::absolute(dataDir);
-    std::cout << "Absolute data directory path: " << absDataPath.string() << std::endl;
+    string dataDir = "./data/";
+    filesystem::path absDataPath = filesystem::absolute(dataDir);
+    cout << "Absolute data directory path: " << absDataPath.string() << endl;
 
     // Print expected file paths
-    std::cout << "Expected courses file: " << absDataPath.string() + "/courses.json" << std::endl;
+    cout << "Expected courses file: " << absDataPath.string() + "/courses.json" << endl;
 
     // Make sure data directory exists
-    if (!std::filesystem::exists(dataDir)) {
-        std::cout << "Creating data directory: " << dataDir << std::endl;
-        std::filesystem::create_directory(dataDir);
+    if (!filesystem::exists(dataDir)) {
+        cout << "Creating data directory: " << dataDir << endl;
+        filesystem::create_directory(dataDir);
     }
 
     // Print course count before saving
-    std::cout << "Number of courses to save: " << courses.size() << std::endl;
+    cout << "Number of courses to save: " << courses.size() << endl;
     for (const auto& pair : courses) {
-        std::cout << "Course ID: " << pair.first
-            << ", Title: " << pair.second.getTitle() << std::endl;
+        cout << "Course ID: " << pair.first
+            << ", Title: " << pair.second.getTitle() << endl;
     }
 
     // Explicitly check if courses.json exists and try to remove it if it does
-    std::string coursesFilePath = (absDataPath / "courses.json").string();
-    if (std::filesystem::exists(coursesFilePath)) {
-        std::cout << "Found existing courses file. Size: "
-            << std::filesystem::file_size(coursesFilePath) << " bytes. Removing..." << std::endl;
+    string coursesFilePath = (absDataPath / "courses.json").string();
+    if (filesystem::exists(coursesFilePath)) {
+        cout << "Found existing courses file. Size: "
+            << filesystem::file_size(coursesFilePath) << " bytes. Removing..." << endl;
         try {
-            std::filesystem::remove(coursesFilePath);
-            std::cout << "Successfully removed old courses file." << std::endl;
+            filesystem::remove(coursesFilePath);
+            cout << "Successfully removed old courses file." << endl;
         }
-        catch (const std::exception& e) {
-            std::cerr << "Error removing old courses file: " << e.what() << std::endl;
+        catch (const exception& e) {
+            cerr << "Error removing old courses file: " << e.what() << endl;
         }
     }
 
@@ -501,32 +503,32 @@ bool courseSystem::saveData() {
     bool result = FileUtils::saveAllData(*this);
 
     // Verify file existence after save
-    if (std::filesystem::exists(coursesFilePath)) {
-        std::cout << "Courses file exists after save at: " << coursesFilePath << std::endl;
-        std::cout << "File size: " << std::filesystem::file_size(coursesFilePath) << " bytes" << std::endl;
+    if (filesystem::exists(coursesFilePath)) {
+        cout << "Courses file exists after save at: " << coursesFilePath << endl;
+        cout << "File size: " << filesystem::file_size(coursesFilePath) << " bytes" << endl;
 
         // Try to read file contents to verify it's a valid JSON
         try {
-            std::ifstream file(coursesFilePath);
+            ifstream file(coursesFilePath);
             if (file.is_open()) {
-                std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+                string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
                 file.close();
                 if (content.empty()) {
-                    std::cout << "WARNING: Courses file is empty!" << std::endl;
+                    cout << "WARNING: Courses file is empty!" << endl;
                 }
                 else {
-                    std::cout << "Courses file contains data (first 100 chars): "
-                        << content.substr(0, std::min(content.size(), static_cast<size_t>(100)))
-                        << (content.size() > 100 ? "..." : "") << std::endl;
+                    cout << "Courses file contains data (first 100 chars): "
+                        << content.substr(0, min(content.size(), static_cast<size_t>(100)))
+                        << (content.size() > 100 ? "..." : "") << endl;
                 }
             }
         }
-        catch (const std::exception& e) {
-            std::cerr << "Error reading back courses file: " << e.what() << std::endl;
+        catch (const exception& e) {
+            cerr << "Error reading back courses file: " << e.what() << endl;
         }
     }
     else {
-        std::cout << "WARNING: Courses file does not exist after save!" << std::endl;
+        cout << "WARNING: Courses file does not exist after save!" << endl;
     }
 
     return result;
@@ -545,7 +547,7 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
     // First, find the maximum existing course ID
     long maxExistingId = 0;
     for (const auto& pair : courses) {
-        maxExistingId = std::max(maxExistingId, pair.first);
+        maxExistingId = max(maxExistingId, pair.first);
     }
 
     // Reset counter to max ID + 1
@@ -555,9 +557,9 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
     // Structure to store course ID and its prerequisite IDs
     struct CoursePrereqData {
         long courseId;
-        std::vector<long> prerequisiteIds;
+        vector<long> prerequisiteIds;
     };
-    std::vector<CoursePrereqData> coursePrereqs;
+    vector<CoursePrereqData> coursePrereqs;
 
     // Make sure course counter starts from max ID + 1
     qDebug() << "Before import - Course counter:" << course::counter << ", Max existing ID:" << maxExistingId;
@@ -616,7 +618,7 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
             qDebug() << "Created new course with ID:" << newCourseId << "from CSV";
 
             // Parse prerequisite IDs
-            std::vector<long> prereqIds;
+            vector<long> prereqIds;
             if (tokens.size() > 6 && !tokens[6].isEmpty()) {
                 for (const QString& idStr : tokens[6].split(';', Qt::SkipEmptyParts)) {
                     bool ok;
@@ -636,7 +638,7 @@ bool courseSystem::importCoursesFromCSV(const QString& filePath) {
                 qDebug() << "Failed to add course:" << newCourse.getTitle().c_str() << "with ID:" << newCourseId;
             }
         }
-        catch (const std::exception& e) {
+        catch (const exception& e) {
             qDebug() << "Error processing line" << lineNumber << ":" << e.what();
         }
         catch (...) {
@@ -725,7 +727,7 @@ void courseSystem::showCourseComboBox(QComboBox* comboBox) {
 }
 
 vector<string> courseSystem::getCoursePrereqTitles(long courseId) {
-    vector<std::string> result;
+    vector<string> result;
     const course* c = getCourse(courseId);
     if (!c) return result;  // Return empty if course not found
 
@@ -745,7 +747,7 @@ void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QLis
     if (!selected.isValid()) return;
 
     long courseId = selected.toLongLong();
-    std::vector<std::string> prereqs = getCoursePrereqTitles(courseId);
+    vector<string> prereqs = getCoursePrereqTitles(courseId);
 
     if (prereqs.empty()) {
         prereqListWidget->addItem("No prerequisites for this course");
@@ -755,7 +757,7 @@ void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QLis
         
     }
     else {
-        for (const std::string& title : prereqs) {
+        for (const string& title : prereqs) {
             prereqListWidget->addItem(QString::fromStdString(title));
         }
     }
@@ -837,9 +839,9 @@ void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QLi
 
 
 void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* courseIdEdit, QComboBox* gradeComboBox, QWidget* parent) {
-    std::string username = usernameEdit->text().toStdString();
+    string username = usernameEdit->text().toStdString();
 
-    std::string courseString = courseIdEdit->text().toStdString();
+    string courseString = courseIdEdit->text().toStdString();
     long courseId = courseIdEdit->text().toLongLong();
     QString selectedGrade = gradeComboBox->currentText();
 
@@ -920,7 +922,7 @@ bool courseSystem::addCourseToStudent(student* student, const course& courseToAd
 
         // Add to student's course list with a default grade
         grade defaultGrade; // Creates a default grade (0.0 or ungraded)
-        student->courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+        student->courses.push_back(make_pair(courseToAdd, defaultGrade));
 
         // Update remaining credit hours
         student->max_credit_hours -= courseHours;
@@ -929,8 +931,8 @@ bool courseSystem::addCourseToStudent(student* student, const course& courseToAd
         saveData();
         return true;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error adding course to student: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error adding course to student: " << e.what() << endl;
         return false;
     }
 }

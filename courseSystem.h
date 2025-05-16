@@ -5,14 +5,16 @@
 #include "stdafx.h"
 #include <QStringList>
 #include <QString>
+using namespace std;
+
 
 #pragma once
 class courseSystem {
     friend class FileUtils;
 private:
-    std::unordered_map<std::string, student> students;
-    std::map<long, course> courses;
-    std::unordered_map<std::string, admin> admins;
+    unordered_map<string, student> students;
+    map<long, course> courses;
+    unordered_map<string, admin> admins;
     user* currentUser;
 
 public:
@@ -26,24 +28,24 @@ public:
     bool registerAdmin(QLineEdit* namee, QLineEdit* usernamee, QLineEdit* passwordd, QLineEdit* confirmpasswordd, QLineEdit* keyedit);
 
 
-    bool login(const std::string& username, const std::string& password, user*& loggedUser);
+    bool login(const string& username, const string& password, user*& loggedUser);
     bool addCourse(const course& newCourse);  // Remove the courses parameter
     bool updateCourse(long courseID, const course& updatedCourse);
     bool removeCourse(long courseID);
     course* getCourse(long courseID);
-    std::vector<course> searchCourses(const std::string& searchTerm) const;
+    vector<course> searchCourses(const string& searchTerm) const;
     bool addStudent(const student& newStudent);
-    bool updateStudent(const std::string& username, const student& updatedStudent);
+    bool updateStudent(const string& username, const student& updatedStudent);
     student* getStudent(long studentID);
-    student* getStudentByUsername(const std::string& username);
+    student* getStudentByUsername(const string& username);
     bool addAdmin(const admin& newAdmin);
-    admin* getAdminByUsername(const std::string& username);
+    admin* getAdminByUsername(const string& username);
     admin* getAdmin(long adminID);
-    bool updateStudentGrade(const std::string& username, long courseID, const grade& newGrade);
-    bool enrollStudentInCourse(const std::string& username, long courseID);
-    const std::unordered_map<std::string, student>& getAllStudents() const { return students; }
-    const std::map<long, course>& getAllCourses() const { return courses; }
-    const std::unordered_map<std::string, admin>& getAllAdmins() const { return admins; }
+    bool updateStudentGrade(const string& username, long courseID, const grade& newGrade);
+    bool enrollStudentInCourse(const string& username, long courseID);
+    const unordered_map<string, student>& getAllStudents() const { return students; }
+    const map<long, course>& getAllCourses() const { return courses; }
+    const unordered_map<string, admin>& getAllAdmins() const { return admins; }
     bool loadData();
     bool saveData();
     void importCoursesFromFile(QWidget* parent);

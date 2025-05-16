@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include <cctype>
 
+using namespace std;
+
+
 class grade {
 private:
     int Semester;

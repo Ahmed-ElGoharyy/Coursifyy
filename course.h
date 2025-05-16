@@ -4,18 +4,21 @@
 #include <vector>
 #include <list>
 
+using namespace std;
+
+
 class student;
 class FileUtils;
 
 class course {
 private:
-    std::string title;
-    std::string description;
-    std::string instructor;
-    std::string semester;
+    string title;
+    string description;
+    string instructor;
+    string semester;
     int credithours;
-    std::vector<course> prerequisites;
-    std::string syllabus;
+    vector<course> prerequisites;
+    string syllabus;
     bool enrolled;
 
 public:
@@ -29,9 +32,9 @@ public:
 
     // Constructors
     course();
-    course(std::string title, std::string description, std::string instructor,
-        std::string semester, int credithours, std::vector<course> prerequisites,
-        std::string syllabus);
+    course(string title, string description, string instructor,
+        string semester, int credithours, vector<course> prerequisites,
+        string syllabus);
 
     // Prerequisite management
     void addPrerequisite(const course& prereq);
@@ -41,22 +44,22 @@ public:
 
     // Getters
     long getCourseID() const { return CourseID; }
-    std::string getTitle() const { return title; }
-    std::string getDescription() const { return description; }
-    std::string getInstructor() const { return instructor; }
-    std::string getSemester() const { return semester; }
+    string getTitle() const { return title; }
+    string getDescription() const { return description; }
+    string getInstructor() const { return instructor; }
+    string getSemester() const { return semester; }
     int getCreditHours() const { return credithours; }
-    std::string getSyllabus() const { return syllabus; }
+    string getSyllabus() const { return syllabus; }
     bool isEnrolled() const { return enrolled; }
-    std::vector<course> getPrerequisites() const { return prerequisites; }
+    vector<course> getPrerequisites() const { return prerequisites; }
 
     // Setters
-    void setTitle(const std::string& t) { title = t; }
-    void setDescription(const std::string& desc) { description = desc; }
-    void setInstructor(const std::string& inst) { instructor = inst; }
-    void setSemester(const std::string& sem) { semester = sem; }
+    void setTitle(const string& t) { title = t; }
+    void setDescription(const string& desc) { description = desc; }
+    void setInstructor(const string& inst) { instructor = inst; }
+    void setSemester(const string& sem) { semester = sem; }
     void setCreditHours(int credits) { credithours = credits; }
-    void setSyllabus(const std::string& syll) { syllabus = syll; }
+    void setSyllabus(const string& syll) { syllabus = syll; }
     void setEnrolled(bool status) { enrolled = status; }
 
     // Operators

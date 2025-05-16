@@ -3,6 +3,9 @@
 #include "course.h"
 #include "user.h"   
 
+using namespace std;
+
+
 // Initialize static counter
 long student::counter = 0;
 student::student() : user(), StudentID(counter++), gpa(0.0), max_credit_hours(21), currentSemester("Fall 2023") {
@@ -20,13 +23,13 @@ student::student(string username, string password, string name, string email, st
 student::student(string username, string password, string name, string email)
     : user(username, password, name, email, 'S'), gpa(0.0), max_credit_hours(21) {
     StudentID = counter++;
-    std::cout << "Created new student with ID: " << StudentID << std::endl;
+    cout << "Created new student with ID: " << StudentID << endl;
 }
 
 student::student(string username, string password, string name)
     : user(username, password, name, "null", 'S'), gpa(0.0), max_credit_hours(21) {
     StudentID = counter++;
-    std::cout << "Created new student with ID: " << StudentID << std::endl;
+    cout << "Created new student with ID: " << StudentID << endl;
 }
 
 pair<course, grade> student::getonegrade(string courseName) const noexcept(false) {
@@ -175,14 +178,14 @@ bool student::addCourseToPlan(const course& courseToAdd) {
         grade defaultGrade;
 
         // Add the course to the student's list
-        courses.push_back(std::make_pair(courseToAdd, defaultGrade));
+        courses.push_back(make_pair(courseToAdd, defaultGrade));
 		// Update remaining credit hours
         this->modifycredithours(courseToAdd);
 
         return true;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error adding course to student: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error adding course to student: " << e.what() << endl;
         return false;
     }
 }

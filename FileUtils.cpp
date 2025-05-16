@@ -4,31 +4,33 @@
 #include <fstream>
 #include <stdexcept>
 #include <filesystem>
+using namespace std;
 
-std::string FileUtils::studentsFilePath = "students.json";
-std::string FileUtils::coursesFilePath = "courses.json";
-std::string FileUtils::adminsFilePath = "admins.json";
+
+string FileUtils::studentsFilePath = "students.json";
+string FileUtils::coursesFilePath = "courses.json";
+string FileUtils::adminsFilePath = "admins.json";
 
 void FileUtils::initializePaths() {
     // Get the executable's directory as base path
-    std::filesystem::path execPath = std::filesystem::current_path();
-    std::string dataDir = (execPath / "data").string() + "/";
+    filesystem::path execPath = filesystem::current_path();
+    string dataDir = (execPath / "data").string() + "/";
 
-    std::cout << "Setting data directory to: " << dataDir << std::endl;
+    cout << "Setting data directory to: " << dataDir << endl;
 
-    if (!std::filesystem::exists(dataDir)) {
-        std::cout << "Creating data directory: " << dataDir << std::endl;
-        std::filesystem::create_directory(dataDir);
+    if (!filesystem::exists(dataDir)) {
+        cout << "Creating data directory: " << dataDir << endl;
+        filesystem::create_directory(dataDir);
     }
 
     studentsFilePath = dataDir + "students.json";
     coursesFilePath = dataDir + "courses.json";
     adminsFilePath = dataDir + "admins.json";
 
-    std::cout << "Files will be saved to:" << std::endl;
-    std::cout << "- Students: " << studentsFilePath << std::endl;
-    std::cout << "- Courses: " << coursesFilePath << std::endl;
-    std::cout << "- Admins: " << adminsFilePath << std::endl;
+    cout << "Files will be saved to:" << endl;
+    cout << "- Students: " << studentsFilePath << endl;
+    cout << "- Courses: " << coursesFilePath << endl;
+    cout << "- Admins: " << adminsFilePath << endl;
 }
 
 nlohmann::json FileUtils::studentToJson(const student& s) {
@@ -37,7 +39,7 @@ nlohmann::json FileUtils::studentToJson(const student& s) {
     j["password"] = s.getPassword();
     j["name"] = s.getName();
     j["email"] = s.getEmail();
-    j["role"] = std::string(1, s.getRole());
+    j["role"] = string(1, s.getRole());
     j["student_id"] = s.getStudentID();
     j["gpa"] = s.getGPA();
     j["max_credit_hours"] = s.max_credit_hours;
@@ -79,7 +81,7 @@ nlohmann::json FileUtils::adminToJson(const admin& a) {
     j["password"] = a.getPassword(); // Changed from password_hash to password
     j["name"] = a.getName();
     j["email"] = a.getEmail();
-    j["role"] = std::string(1, a.getRole());
+    j["role"] = string(1, a.getRole());
     j["admin_id"] = a.getAdminID();
     return j;
 }
@@ -87,14 +89,14 @@ nlohmann::json FileUtils::adminToJson(const admin& a) {
 nlohmann::json FileUtils::gradeToJson(const grade& g) {
     nlohmann::json j;
     j["semester"] = g.getSemester();
-    j["grade"] = std::string(1, g.getGrade());
+    j["grade"] = string(1, g.getGrade());
     j["year"] = g.getYear();
     j["gpa"] = g.getGPA();
     return j;
 }
 
 
-nlohmann::json FileUtils::courseGradePairToJson(const std::pair<course, grade>& pair) {
+nlohmann::json FileUtils::courseGradePairToJson(const pair<course, grade>& pair) {
     nlohmann::json j;
     j["course"] = courseToJson(pair.first);
     j["grade"] = gradeToJson(pair.second);
@@ -103,11 +105,11 @@ nlohmann::json FileUtils::courseGradePairToJson(const std::pair<course, grade>& 
 
 student FileUtils::jsonToStudent(const nlohmann::json& j) {
     student s(
-        j["username"].get<std::string>(),
-        j["password"].get<std::string>(),
-        j["name"].get<std::string>(),
-        j["email"].get<std::string>(),
-        j["current_semester"].get<std::string>()  // Add semester
+        j["username"].get<string>(),
+        j["password"].get<string>(),
+        j["name"].get<string>(),
+        j["email"].get<string>(),
+        j["current_semester"].get<string>()  // Add semester
     );
 
     s.setID(j["student_id"].get<long>());
@@ -129,12 +131,12 @@ course FileUtils::jsonToCourse(const nlohmann::json& j) {
     course::counter = oldCounter;
 
     // Set other properties
-    c.setTitle(j["title"].get<std::string>());
-    c.setDescription(j["description"].get<std::string>());
-    c.setInstructor(j["instructor"].get<std::string>());
-    c.setSemester(j["semester"].get<std::string>());
+    c.setTitle(j["title"].get<string>());
+    c.setDescription(j["description"].get<string>());
+    c.setInstructor(j["instructor"].get<string>());
+    c.setSemester(j["semester"].get<string>());
     c.setCreditHours(j["credit_hours"].get<int>());
-    c.setSyllabus(j["syllabus"].get<std::string>());
+    c.setSyllabus(j["syllabus"].get<string>());
     c.setEnrolled(j["enrolled"].get<bool>());
 
     return c;
@@ -143,15 +145,15 @@ course FileUtils::jsonToCourse(const nlohmann::json& j) {
 admin FileUtils::jsonToAdmin(const nlohmann::json& j) {
     // Create admin with specific ID to avoid counter incrementing
     long adminId = j["admin_id"].get<long>();
-    std::cout << "Creating admin from JSON with fixed ID: " << adminId << std::endl;
+    cout << "Creating admin from JSON with fixed ID: " << adminId << endl;
 
     admin a(adminId);
 
     // Set properties manually
-    a.setUsername(j["username"].get<std::string>());
-    a.setPassword(j["password"].get<std::string>());
-    a.setName(j["name"].get<std::string>());
-    a.setEmail(j["email"].get<std::string>());
+    a.setUsername(j["username"].get<string>());
+    a.setPassword(j["password"].get<string>());
+    a.setName(j["name"].get<string>());
+    a.setEmail(j["email"].get<string>());
     a.setRole('A');
 
     return a;
@@ -162,7 +164,7 @@ grade FileUtils::jsonToGrade(const nlohmann::json& j) {
     g.setSemester(j["semester"].get<int>());
 
     // Get the grade character
-    char gradeChar = j["grade"].get<std::string>()[0];
+    char gradeChar = j["grade"].get<string>()[0];
     g.setGrade(gradeChar);
 
     g.setYear(j["year"].get<int>());
@@ -178,40 +180,40 @@ grade FileUtils::jsonToGrade(const nlohmann::json& j) {
 
     return g;
 }
-std::pair<course, grade> FileUtils::jsonToCourseGradePair(const nlohmann::json& j) {
+pair<course, grade> FileUtils::jsonToCourseGradePair(const nlohmann::json& j) {
     course c = jsonToCourse(j["course"]);
     grade g = jsonToGrade(j["grade"]);
-    return std::make_pair(c, g);
+    return make_pair(c, g);
 }
 
 
-nlohmann::json FileUtils::loadJsonFromFile(const std::string& filePath) {
+nlohmann::json FileUtils::loadJsonFromFile(const string& filePath) {
     try {
-        if (!std::filesystem::exists(filePath)) {
-            std::cout << "File does not exist: " << filePath << std::endl;
+        if (!filesystem::exists(filePath)) {
+            cout << "File does not exist: " << filePath << endl;
             return nlohmann::json::array();
         }
 
-        std::ifstream file(filePath);
+        ifstream file(filePath);
         if (!file.is_open()) {
-            std::cout << "Could not open file for reading: " << filePath << std::endl;
+            cout << "Could not open file for reading: " << filePath << endl;
             return nlohmann::json::array();
         }
 
-        file.seekg(0, std::ios::end);
+        file.seekg(0, ios::end);
         if (file.tellg() == 0) {
-            std::cout << "File is empty: " << filePath << std::endl;
+            cout << "File is empty: " << filePath << endl;
             file.close();
             return nlohmann::json::array();
         }
-        file.seekg(0, std::ios::beg);
+        file.seekg(0, ios::beg);
 
         nlohmann::json j;
         try {
             file >> j;
         }
         catch (const nlohmann::json::parse_error& e) {
-            std::cerr << "JSON parse error in file " << filePath << ": " << e.what() << std::endl;
+            cerr << "JSON parse error in file " << filePath << ": " << e.what() << endl;
             file.close();
             return nlohmann::json::array();
         }
@@ -219,13 +221,13 @@ nlohmann::json FileUtils::loadJsonFromFile(const std::string& filePath) {
         file.close();
         return j;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error loading JSON from file: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error loading JSON from file: " << e.what() << endl;
         return nlohmann::json::array();
     }
 }
 
-bool FileUtils::saveStudents(const std::unordered_map<std::string, student>& students) {
+bool FileUtils::saveStudents(const unordered_map<string, student>& students) {
     try {
         nlohmann::json studentsArray = nlohmann::json::array();
         for (const auto& pair : students) {
@@ -233,22 +235,22 @@ bool FileUtils::saveStudents(const std::unordered_map<std::string, student>& stu
         }
         return saveJsonToFile(studentsArray, studentsFilePath);
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error saving students: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error saving students: " << e.what() << endl;
         return false;
     }
 }
 
-bool FileUtils::saveCourses(const std::map<long, course>& courses) {
+bool FileUtils::saveCourses(const map<long, course>& courses) {
     try {
         // Explicitly clear the file first
-        std::ofstream clearFile(coursesFilePath, std::ios::trunc);
+        ofstream clearFile(coursesFilePath, ios::trunc);
         if (!clearFile.is_open()) {
-            std::cerr << "Error: Could not open courses file for clearing: " << coursesFilePath << std::endl;
+            cerr << "Error: Could not open courses file for clearing: " << coursesFilePath << endl;
             return false;
         }
         clearFile.close();
-        std::cout << "Courses file cleared successfully: " << coursesFilePath << std::endl;
+        cout << "Courses file cleared successfully: " << coursesFilePath << endl;
 
         // Now create the JSON array and save it
         nlohmann::json coursesArray = nlohmann::json::array();
@@ -256,17 +258,17 @@ bool FileUtils::saveCourses(const std::map<long, course>& courses) {
             coursesArray.push_back(courseToJson(pair.second));
         }
 
-        std::cout << "Saving " << courses.size() << " courses to JSON array" << std::endl;
+        cout << "Saving " << courses.size() << " courses to JSON array" << endl;
 
         return saveJsonToFile(coursesArray, coursesFilePath);
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error saving courses: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error saving courses: " << e.what() << endl;
         return false;
     }
 }
 
-bool FileUtils::saveAdmins(const std::unordered_map<std::string, admin>& admins) {
+bool FileUtils::saveAdmins(const unordered_map<string, admin>& admins) {
     try {
         nlohmann::json adminsArray = nlohmann::json::array();
         for (const auto& pair : admins) {
@@ -274,29 +276,29 @@ bool FileUtils::saveAdmins(const std::unordered_map<std::string, admin>& admins)
         }
         return saveJsonToFile(adminsArray, adminsFilePath);
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error saving admins: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error saving admins: " << e.what() << endl;
         return false;
     }
 }
 
 bool FileUtils::saveAllData(const courseSystem& system) {
     // Add debugging information
-    std::cout << "Saving all data to disk..." << std::endl;
-    std::cout << "Students: " << system.getAllStudents().size() << std::endl;
-    std::cout << "Courses: " << system.getAllCourses().size() << std::endl;
-    std::cout << "Admins: " << system.getAllAdmins().size() << std::endl;
+    cout << "Saving all data to disk..." << endl;
+    cout << "Students: " << system.getAllStudents().size() << endl;
+    cout << "Courses: " << system.getAllCourses().size() << endl;
+    cout << "Admins: " << system.getAllAdmins().size() << endl;
 
     // Print paths being used
-    std::cout << "Students file path: " << studentsFilePath << std::endl;
-    std::cout << "Courses file path: " << coursesFilePath << std::endl;
-    std::cout << "Admins file path: " << adminsFilePath << std::endl;
+    cout << "Students file path: " << studentsFilePath << endl;
+    cout << "Courses file path: " << coursesFilePath << endl;
+    cout << "Admins file path: " << adminsFilePath << endl;
 
     // Create data directory if it doesn't exist
-    std::string dataDir = "./data/";
-    if (!std::filesystem::exists(dataDir)) {
-        std::cout << "Creating data directory: " << dataDir << std::endl;
-        std::filesystem::create_directory(dataDir);
+    string dataDir = "./data/";
+    if (!filesystem::exists(dataDir)) {
+        cout << "Creating data directory: " << dataDir << endl;
+        filesystem::create_directory(dataDir);
     }
 
     // Save each data set
@@ -306,95 +308,95 @@ bool FileUtils::saveAllData(const courseSystem& system) {
 
     // Report results
     if (!studentsSuccess) {
-        std::cerr << "Failed to save students data." << std::endl;
+        cerr << "Failed to save students data." << endl;
     }
     else {
-        std::cout << "Students data saved successfully." << std::endl;
+        cout << "Students data saved successfully." << endl;
     }
 
     if (!coursesSuccess) {
-        std::cerr << "Failed to save courses data." << std::endl;
+        cerr << "Failed to save courses data." << endl;
     }
     else {
-        std::cout << "Courses data saved successfully." << std::endl;
+        cout << "Courses data saved successfully." << endl;
     }
 
     if (!adminsSuccess) {
-        std::cerr << "Failed to save admins data." << std::endl;
+        cerr << "Failed to save admins data." << endl;
     }
     else {
-        std::cout << "Admins data saved successfully." << std::endl;
+        cout << "Admins data saved successfully." << endl;
     }
 
     return studentsSuccess && coursesSuccess && adminsSuccess;
 }
 
-bool FileUtils::saveJsonToFile(const nlohmann::json& j, const std::string& filePath) {
+bool FileUtils::saveJsonToFile(const nlohmann::json& j, const string& filePath) {
     try {
-        std::filesystem::path path(filePath);
-        std::filesystem::path dir = path.parent_path();
+        filesystem::path path(filePath);
+        filesystem::path dir = path.parent_path();
 
-        std::cout << "Saving JSON data to: " << filePath << std::endl;
-        std::cout << "Parent directory: " << dir.string() << std::endl;
+        cout << "Saving JSON data to: " << filePath << endl;
+        cout << "Parent directory: " << dir.string() << endl;
 
-        if (!dir.empty() && !std::filesystem::exists(dir)) {
-            std::cout << "Creating directory: " << dir.string() << std::endl;
-            std::filesystem::create_directories(dir);
+        if (!dir.empty() && !filesystem::exists(dir)) {
+            cout << "Creating directory: " << dir.string() << endl;
+            filesystem::create_directories(dir);
         }
 
         // Get absolute path to verify where we're writing
-        std::filesystem::path absPath = std::filesystem::absolute(path);
-        std::cout << "Absolute file path: " << absPath.string() << std::endl;
+        filesystem::path absPath = filesystem::absolute(path);
+        cout << "Absolute file path: " << absPath.string() << endl;
 
         // Open file with truncation flag to explicitly clear contents before writing
-        std::ofstream file(filePath, std::ios::trunc);
+        ofstream file(filePath, ios::trunc);
         if (!file.is_open()) {
-            std::cerr << "Could not open file for writing: " << filePath << std::endl;
+            cerr << "Could not open file for writing: " << filePath << endl;
 
             // Try to diagnose the issue
-            if (!std::filesystem::exists(dir)) {
-                std::cerr << "Directory does not exist: " << dir.string() << std::endl;
+            if (!filesystem::exists(dir)) {
+                cerr << "Directory does not exist: " << dir.string() << endl;
             }
 
             // Check permissions 
-            std::error_code ec;
-            auto perms = std::filesystem::status(dir, ec).permissions();
+            error_code ec;
+            auto perms = filesystem::status(dir, ec).permissions();
             if (ec) {
-                std::cerr << "Error checking permissions: " << ec.message() << std::endl;
+                cerr << "Error checking permissions: " << ec.message() << endl;
             }
             else {
-                std::cout << "Directory permissions allow write: "
-                    << ((perms & std::filesystem::perms::owner_write) != std::filesystem::perms::none)
-                    << std::endl;
+                cout << "Directory permissions allow write: "
+                    << ((perms & filesystem::perms::owner_write) != filesystem::perms::none)
+                    << endl;
             }
 
             return false;
         }
 
-        file << std::setw(4) << j << std::endl;
+        file << setw(4) << j << endl;
         file.close();
 
         // Verify file was written
-        if (std::filesystem::exists(filePath)) {
-            std::cout << "File successfully written: " << filePath
-                << " (size: " << std::filesystem::file_size(filePath) << " bytes)" << std::endl;
+        if (filesystem::exists(filePath)) {
+            cout << "File successfully written: " << filePath
+                << " (size: " << filesystem::file_size(filePath) << " bytes)" << endl;
             return true;
         }
         else {
-            std::cerr << "File write operation completed but file doesn't exist: " << filePath << std::endl;
+            cerr << "File write operation completed but file doesn't exist: " << filePath << endl;
             return false;
         }
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error saving JSON to file: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error saving JSON to file: " << e.what() << endl;
         return false;
     }
 }
-bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students) {
+bool FileUtils::loadStudents(unordered_map<string, student>& students) {
     try {
         nlohmann::json studentsArray = loadJsonFromFile(studentsFilePath);
         if (studentsArray.empty()) {
-            std::cout << "No students data to load." << std::endl;
+            cout << "No students data to load." << endl;
             return true;
         }
 
@@ -408,24 +410,24 @@ bool FileUtils::loadStudents(std::unordered_map<std::string, student>& students)
         // Update the student counter to the highest ID + 1
         long maxId = 0;
         for (const auto& pair : students) {
-            maxId = std::max(maxId, pair.second.getStudentID());
+            maxId = max(maxId, pair.second.getStudentID());
         }
         student::counter = maxId + 1;
 
-        std::cout << "Student counter initialized to: " << student::counter << std::endl;
+        cout << "Student counter initialized to: " << student::counter << endl;
         return true;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error loading students: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error loading students: " << e.what() << endl;
         return false;
     }
 }
 
-bool FileUtils::loadCourses(std::map<long, course>& courses) {
+bool FileUtils::loadCourses(map<long, course>& courses) {
     try {
         nlohmann::json coursesArray = loadJsonFromFile(coursesFilePath);
         if (coursesArray.empty()) {
-            std::cout << "No courses data to load." << std::endl;
+            cout << "No courses data to load." << endl;
             return true;
         }
 
@@ -435,12 +437,12 @@ bool FileUtils::loadCourses(std::map<long, course>& courses) {
         long maxId = 0;
         for (const auto& courseJson : coursesArray) {
             long courseId = courseJson["course_id"].get<long>();
-            maxId = std::max(maxId, courseId);
+            maxId = max(maxId, courseId);
         }
 
         // Reset counter to max ID + 1
         course::resetCounter(maxId + 1);
-        std::cout << "Course counter reset to: " << course::counter << std::endl;
+        cout << "Course counter reset to: " << course::counter << endl;
 
         // Second pass: Load all courses
         for (const auto& courseJson : coursesArray) {
@@ -450,23 +452,23 @@ bool FileUtils::loadCourses(std::map<long, course>& courses) {
 
         return true;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error loading courses: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error loading courses: " << e.what() << endl;
         return false;
     }
 }
 
-bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
+bool FileUtils::loadAdmins(unordered_map<string, admin>& admins) {
     try {
         nlohmann::json adminsArray = loadJsonFromFile(adminsFilePath);
         if (adminsArray.empty()) {
-            std::cout << "No admins data to load." << std::endl;
+            cout << "No admins data to load." << endl;
             return true;
         }
 
         // Reset counter before loading anything
         admin::counter = 1;
-        std::cout << "Admin counter reset to 1 before loading" << std::endl;
+        cout << "Admin counter reset to 1 before loading" << endl;
 
         admins.clear();
 
@@ -474,12 +476,12 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
         long maxId = 0;
         for (const auto& adminJson : adminsArray) {
             long adminId = adminJson["admin_id"].get<long>();
-            maxId = std::max(maxId, adminId);
+            maxId = max(maxId, adminId);
         }
 
         // Make sure the static counter starts from the highest existing ID + 1
         admin::counter = maxId + 1;
-        std::cout << "Admin counter initialized to: " << admin::counter << " (max ID found: " << maxId << ")" << std::endl;
+        cout << "Admin counter initialized to: " << admin::counter << " (max ID found: " << maxId << ")" << endl;
 
         // Temporarily store a copy of the counter
         long counterBeforeCreation = admin::counter;
@@ -487,10 +489,10 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
         // Now create the admin objects using direct construction with ID
         for (const auto& adminJson : adminsArray) {
             long adminId = adminJson["admin_id"].get<long>();
-            std::string username = adminJson["username"].get<std::string>();
-            std::string password = adminJson["password"].get<std::string>();
-            std::string name = adminJson["name"].get<std::string>();
-            std::string email = adminJson["email"].get<std::string>();
+            string username = adminJson["username"].get<string>();
+            string password = adminJson["password"].get<string>();
+            string name = adminJson["name"].get<string>();
+            string email = adminJson["email"].get<string>();
 
             // Create admin directly with fixed ID without incrementing counter
             admin a(adminId);
@@ -505,42 +507,42 @@ bool FileUtils::loadAdmins(std::unordered_map<std::string, admin>& admins) {
 
         // Verify counter didn't change unexpectedly
         if (admin::counter != counterBeforeCreation) {
-            std::cout << "WARNING: Admin counter changed during creation from "
+            cout << "WARNING: Admin counter changed during creation from "
                 << counterBeforeCreation << " to " << admin::counter
-                << " - fixing it back!" << std::endl;
+                << " - fixing it back!" << endl;
             admin::counter = counterBeforeCreation;
         }
 
-        std::cout << "Admin loading complete. Final counter value: " << admin::counter << std::endl;
+        cout << "Admin loading complete. Final counter value: " << admin::counter << endl;
 
         return true;
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error loading admins: " << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << "Error loading admins: " << e.what() << endl;
         return false;
     }
 }
 
 bool FileUtils::loadAllData(courseSystem& system) {
-    std::map<long, course> courses;
-    std::unordered_map<std::string, student> students;
-    std::unordered_map<std::string, admin> admins;
+    map<long, course> courses;
+    unordered_map<string, student> students;
+    unordered_map<string, admin> admins;
 
     bool coursesSuccess = loadCourses(courses);
     if (!coursesSuccess) {
-        std::cerr << "Failed to load courses data." << std::endl;
+        cerr << "Failed to load courses data." << endl;
         return false;
     }
 
     bool studentsSuccess = loadStudents(students);
     if (!studentsSuccess) {
-        std::cerr << "Failed to load students data." << std::endl;
+        cerr << "Failed to load students data." << endl;
         return false;
     }
 
     bool adminsSuccess = loadAdmins(admins);
     if (!adminsSuccess) {
-        std::cerr << "Failed to load admins data." << std::endl;
+        cerr << "Failed to load admins data." << endl;
         return false;
     }
 
@@ -575,7 +577,7 @@ bool FileUtils::loadAllData(courseSystem& system) {
         nlohmann::json studentsArray = loadJsonFromFile(studentsFilePath);
         if (!studentsArray.empty()) {
             for (const auto& studentJson : studentsArray) {
-                std::string username = studentJson["username"].get<std::string>();
+                string username = studentJson["username"].get<string>();
                 auto studentIt = system.students.find(username);
                 if (studentIt != system.students.end()) {
                     auto& s = studentIt->second;

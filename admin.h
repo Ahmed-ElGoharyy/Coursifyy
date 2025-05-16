@@ -7,6 +7,9 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
+
 class admin : public user
 {
 private:
@@ -17,8 +20,8 @@ public:
 
     admin();
     admin(long id);
-    admin(std::string username, std::string password, std::string name, std::string email);
-    admin(std::string username, std::string password, std::string name);  //made by gohary
+    admin(string username, string password, string name, string email);
+    admin(string username, string password, string name);  //made by gohary
     ~admin();
 
     // Getters and Setters
@@ -26,8 +29,8 @@ public:
     long getAdminID() const;
 
     // Admin Functions
-    bool uploadCourseDescription(course& course, std::string courseID);
-    bool setPrerequisites(course& course, std::vector<class course*> prerequisites);
-    bool manageGrades(student& student, grade& newGrade, std::string courseID);
-    bool uploadGradesCSV(std::unordered_map <std::string, student> students, std::list <std::pair<course, grade>> courses);
+    bool uploadCourseDescription(course& course, string courseID);
+    bool setPrerequisites(course& course, vector<class course*> prerequisites);
+    bool manageGrades(student& student, grade& newGrade, string courseID);
+    bool uploadGradesCSV(unordered_map <string, student> students, list <pair<course, grade>> courses);
 };

@@ -3,6 +3,9 @@
 #include "Utilities.h"
 #include "courseSystem.h"
 
+using namespace std;
+
+
 // Global variables
 courseSystem Sys;             // Global course system instance
 user* currentUser = nullptr;  // Current logged in user
@@ -232,7 +235,7 @@ Coursify::Coursify(QWidget* parent)
             "Could not load existing data. Starting with empty data.");
     }
     else {
-        std::cout << "Data loaded successfully" << std::endl;
+        cout << "Data loaded successfully" << endl;
     }
 }
 
@@ -240,10 +243,10 @@ Coursify::~Coursify()
 {
     // FIX: Make sure to save data on application exit using the global Sys
     if (!Sys.saveData()) {
-        std::cerr << "Error: Failed to save data during application shutdown" << std::endl;
+        cerr << "Error: Failed to save data during application shutdown" << endl;
     }
     else {
-        std::cout << "Data saved successfully on shutdown" << std::endl;
+        cout << "Data saved successfully on shutdown" << endl;
     }
 
     // No need to delete m_system as we removed it
