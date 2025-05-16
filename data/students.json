@@ -6,7 +6,7 @@
                     "course_id": 101,
                     "credit_hours": 3,
                     "description": "Introduction to Programming",
-                    "enrolled": false,
+                    "enrolled": true,
                     "instructor": "Prof. Smith",
                     "prerequisites": [],
                     "semester": "Fall",
@@ -25,7 +25,7 @@
                     "course_id": 102,
                     "credit_hours": 3,
                     "description": "Discrete Mathematics for Computer Science",
-                    "enrolled": false,
+                    "enrolled": true,
                     "instructor": "Prof. Johnson",
                     "prerequisites": [],
                     "semester": "Fall",
@@ -67,7 +67,7 @@
         "password": "2992457363794458960",
         "role": "S",
         "student_id": 1001,
-        "username": "ahmeddahy5"
+        "username": "ahmeddahy"
     },
     {
         "courses": [
@@ -602,7 +602,7 @@
                     "course_id": 104,
                     "credit_hours": 3,
                     "description": "Advanced Programming Concepts",
-                    "enrolled": false,
+                    "enrolled": true,
                     "instructor": "Prof. Brown",
                     "prerequisites": [
                         101
@@ -623,7 +623,7 @@
                     "course_id": 110,
                     "credit_hours": 3,
                     "description": "Web Application Development",
-                    "enrolled": false,
+                    "enrolled": true,
                     "instructor": "Prof. Martinez",
                     "prerequisites": [
                         101,
