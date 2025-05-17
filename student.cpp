@@ -1,8 +1,13 @@
 #include "stdafx.h"
 #include "student.h"
 #include "course.h"
-#include "user.h"   
-
+#include "user.h" 
+#include <QPdfWriter>
+#include <QPainter>
+#include <QTextDocument>
+#include <QMessageBox>
+#include <QPageLayout>
+#include <QPageSize>
 using namespace std;
 
 
@@ -118,57 +123,156 @@ int student::modifycredithours(course c)
 
 
 
-// export lel report 
-
 bool student::generateReport() {
     try {
-        string filename = "student_" + to_string(StudentID) + "_report.txt";
-        ofstream report(filename); //bt3mel file bel student name and id 
+        // Create PDF filename
+        QString filename = QString("student_%1_report.pdf").arg(StudentID);
 
-        if (!report.is_open()) {
-            throw student_exception("Failed to create report file: " + filename);
-        }
+        // Set up PDF writer with A4 size
+        QPdfWriter pdfWriter(filename);
 
-        report << "Student Report" << endl;
-        report << "==============" << endl;
-        report << "ID: " << StudentID << endl;
-        report << "Name: " << getName() << endl;
-        report << "Email: " << getEmail() << endl;
+        // Set A4 portrait size (210mm x 297mm)
+        pdfWriter.setPageSize(QPageSize(QPageSize::A4));
+
+        // Use smaller margins to maximize content area (8mm)
+        const qreal margin = 8;
+        pdfWriter.setPageMargins(QMarginsF(margin, margin, margin, margin), QPageLayout::Millimeter);
+
+        // Set high resolution
+        pdfWriter.setResolution(300);
+
+        // Initialize painter
+        QPainter painter(&pdfWriter);
+
+        // Get the actual paint rectangle in device coordinates
+        QRectF pageRect = pdfWriter.pageLayout().paintRectPixels(pdfWriter.resolution());
+
+        // Create document and set its size to match the paint area exactly
+        QTextDocument doc;
+        doc.setPageSize(pageRect.size());
+
+        // Calculate available height to ensure we fill the page
+        qreal availableHeight = pageRect.height();
+
+        // Prepare HTML content
+        QString htmlContent;
+        htmlContent += "<html><body style='font-family: Arial; margin: 0; padding: 0;'>";
+
+        // Header section - calculate about 8% of available height
+        qreal headerHeight = availableHeight * 0.08;
+        htmlContent += QString("<div style='width: 100%%; height: %1px; margin-bottom: 12px;'>").arg(headerHeight);
+        htmlContent += "<h1 style='font-size: 22px; text-align: center; margin-bottom: 5px;'>STUDENT ACADEMIC REPORT</h1>";
+        htmlContent += "<hr style='border: 1px solid #333; margin-bottom: 5px;'>";
+        htmlContent += "</div>";
+
+        // Student info section - about 12% of available height
+        qreal infoHeight = availableHeight * 0.12;
+        htmlContent += QString("<div style='margin-bottom: 10px; min-height: %1px;'>").arg(infoHeight);
+        htmlContent += "<h2 style='font-size: 16px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin-bottom: 6px;'>STUDENT INFORMATION</h2>";
+        htmlContent += QString("<p style='font-size: 12px; margin: 3px 0;'><b>ID:</b> %1</p>").arg(StudentID);
+        htmlContent += QString("<p style='font-size: 12px; margin: 3px 0;'><b>Name:</b> %1</p>").arg(QString::fromStdString(getName()));
+        htmlContent += QString("<p style='font-size: 12px; margin: 3px 0;'><b>Email:</b> %1</p>").arg(QString::fromStdString(getEmail()));
+        htmlContent += "</div>";
+
+        // Academic summary section - about 12% of available height
+        qreal summaryHeight = availableHeight * 0.12;
+        htmlContent += QString("<div style='margin-bottom: 10px; min-height: %1px;'>").arg(summaryHeight);
         this->calculateGPA();
-        report << "GPA: " << fixed << setprecision(2) << this->getGPA() << endl;
-        report << "Remaining Credit Hours: " << this->max_credit_hours << endl;
-        report << endl;
-        report << "Courses:" << endl;
-        report << "--------" << endl;
-        report << left << setw(40) << "Course Title"
-            << setw(10) << "ID"
-            << setw(10) << "Credits"
-            << setw(10) << "Grade"
-            << setw(10) << "Points" << endl;
+        htmlContent += "<h2 style='font-size: 16px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin-bottom: 6px;'>ACADEMIC SUMMARY</h2>";
+        htmlContent += QString("<p style='font-size: 12px; margin: 3px 0;'><b>GPA:</b> %1</p>").arg(QString::number(this->getGPA(), 'f', 2));
+        htmlContent += QString("<p style='font-size: 12px; margin: 3px 0;'><b>Remaining Credit Hours:</b> %1</p>").arg(this->max_credit_hours);
+        htmlContent += "</div>";
 
+        // Calculate table height to fill remaining space (about 63% of available height)
+        qreal courseTableHeight = availableHeight * 0.63;
+
+        // Courses table - full width with height set to fill remaining space
+        htmlContent += QString("<div style='min-height: %1px;'>").arg(courseTableHeight);
+        htmlContent += "<h2 style='font-size: 16px; color: #333; margin: 5px 0;'>COURSE RECORDS</h2>";
+        htmlContent += "<table border='1' cellpadding='3' cellspacing='0' width='100%' style='"
+            "font-size: 11px; "
+            "border-collapse: collapse; "
+            "margin-bottom: 8px;'>";
+
+        // Table header
+        htmlContent += "<thead>";
+        htmlContent += "<tr style='background-color: #f2f2f2; font-weight: bold;'>";
+        htmlContent += "<th align='left' style='padding: 5px;'>Course Title</th>";
+        htmlContent += "<th align='center' style='padding: 5px; width: 50px;'>ID</th>";
+        htmlContent += "<th align='center' style='padding: 5px; width: 50px;'>Credits</th>";
+        htmlContent += "<th align='center' style='padding: 5px; width: 50px;'>Grade</th>";
+        htmlContent += "<th align='center' style='padding: 5px; width: 50px;'>Points</th>";
+        htmlContent += "</tr>";
+        htmlContent += "</thead>";
+
+        // Table body
+        htmlContent += "<tbody>";
+
+        // Get number of courses to calculate row height
+        int numCourses = courses.size();
+        // Make sure we show at least 10 rows even if there are fewer courses
+        int minRows = 10;
+        int totalRows = std::max(numCourses, minRows);
+
+        // Add actual course rows
         for (const auto& pair : courses) {
             const course& c = pair.first;
             const grade& g = pair.second;
 
-            report << left << setw(40) << c.getTitle()
-                << setw(10) << c.getCourseID()
-                << setw(10) << c.getCreditHours()
-                << setw(10) << g.getGrade()
-                << setw(10) << g.getGPA() << endl;
+            htmlContent += "<tr>";
+            htmlContent += QString("<td style='padding: 5px;'>%1</td>").arg(QString::fromStdString(c.getTitle()));
+            htmlContent += QString("<td style='padding: 5px; text-align: center;'>%1</td>").arg(c.getCourseID());
+            htmlContent += QString("<td style='padding: 5px; text-align: center;'>%1</td>").arg(c.getCreditHours());
+            htmlContent += QString("<td style='padding: 5px; text-align: center;'>%1</td>").arg(g.getGrade());
+            htmlContent += QString("<td style='padding: 5px; text-align: center;'>%1</td>").arg(g.getGPA());
+            htmlContent += "</tr>";
         }
 
-        report.close();
+        // Add empty rows if needed to fill the page
+        if (numCourses < minRows) {
+            for (int i = numCourses; i < minRows; i++) {
+                htmlContent += "<tr style='height: 25px;'>";
+                htmlContent += "<td style='padding: 5px;'>&nbsp;</td>";
+                htmlContent += "<td style='padding: 5px;'>&nbsp;</td>";
+                htmlContent += "<td style='padding: 5px;'>&nbsp;</td>";
+                htmlContent += "<td style='padding: 5px;'>&nbsp;</td>";
+                htmlContent += "<td style='padding: 5px;'>&nbsp;</td>";
+                htmlContent += "</tr>";
+            }
+        }
+
+        htmlContent += "</tbody></table>";
+        htmlContent += "</div>";
+
+        // Footer with generation info - about 5% of available height
+        qreal footerHeight = availableHeight * 0.05;
+        htmlContent += QString("<div style='text-align: center; font-size: 10px; color: #666; height: %1px;'>").arg(footerHeight);
+        htmlContent += "<hr style='border: 1px solid #ddd; margin: 8px 0;'>";
+        htmlContent += QString("<p>Generated on %1 by Coursify Academic System</p>")
+            .arg(QDateTime::currentDateTime().toString("MMMM d, yyyy h:mm AP"));
+        htmlContent += "</div>";
+
+        htmlContent += "</body></html>";
+
+        // Set HTML content
+        doc.setHtml(htmlContent);
+
+        // Draw the content
+        doc.drawContents(&painter);
+
+        // Show success message with file path
+        QMessageBox::information(nullptr, "Report Generated",
+            QString("Full A4 PDF report successfully created:\n\n%1")
+            .arg(QDir::toNativeSeparators(QFileInfo(filename).absoluteFilePath())));
+
         return true;
     }
-    catch (const exception& e) {
-        cerr << "Error generating report: " << e.what() << endl;
+    catch (const std::exception& e) {
+        QMessageBox::critical(nullptr, "Error",
+            QString("Failed to generate PDF report:\n%1").arg(e.what()));
         return false;
     }
 }
-
-
-
-
 bool student::addCourseToPlan(const course& courseToAdd) {
     try {
         // Check if course already exists in student's list
@@ -187,7 +291,7 @@ bool student::addCourseToPlan(const course& courseToAdd) {
 
         // Add the course to the student's list
         courses.push_back(make_pair(courseToAdd, defaultGrade));
-		// Update remaining credit hours
+        // Update remaining credit hours
         this->modifycredithours(courseToAdd);
 
         return true;
