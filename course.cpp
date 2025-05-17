@@ -6,12 +6,10 @@
 
 using namespace std;
 
-
-// Initialize static counter
 long course::counter = 100;
 
 course::course() :
-    CourseID(counter++),  // Directly use and increment counter to avoid double incrementation
+    CourseID(counter++), 
     title(""),
     description(""),
     instructor(""),
@@ -27,7 +25,7 @@ course::course() :
 course::course(string title, string description, string instructor,
     string semester, int credithours, vector<course> prerequisites,
     string syllabus) :
-    CourseID(counter++),  // Directly use and increment counter to avoid double incrementation
+    CourseID(counter++),
     title(title),
     description(description),
     instructor(instructor),
@@ -43,7 +41,6 @@ course::course(string title, string description, string instructor,
 }
 
 void course::addPrerequisite(const course& prereq) {
-    // Check if this prerequisite already exists
     if (find(prerequisites.begin(), prerequisites.end(), prereq) == prerequisites.end()) {
         prerequisites.push_back(prereq);
         cout << "Added prerequisite " << prereq.getCourseID()
@@ -67,16 +64,12 @@ void course::clearPrerequisites() {
 }
 
 bool course::checkPrerequisites(const student& s) const {
-    // If no prerequisites, automatically passes
     if (prerequisites.empty()) {
         return true;
     }
 
-    // Check each prerequisite course
     for (const auto& prereq : prerequisites) {
-        // First check if prerequisite is in student's completed courses
         if (!s.hasCompletedCourse(prereq.getCourseID())) {
-            // If not completed, check if it's in their current courses
             if (!s.hasCourse(prereq.getCourseID())) {
                 cout << "Missing prerequisite: " << prereq.getTitle()
                     << " (ID: " << prereq.getCourseID() << ")"

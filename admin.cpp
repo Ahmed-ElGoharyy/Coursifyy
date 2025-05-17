@@ -4,11 +4,11 @@
 #include <string>
 using namespace std;
 
-long admin::counter = 1; // Start at 1 instead of 0
+long admin::counter = 1; 
 
 admin::admin() {
     adminID = counter;
-    counter += 1; // Explicitly increment by 1
+    counter += 1; 
     setRole('A');
     cout << "Default Administrator created with ID: " << adminID << " (counter now: " << counter << ")" << endl;
 }
@@ -16,7 +16,7 @@ admin::admin() {
 admin::admin(long id) : adminID(id) {
     setRole('A');
     if (id >= counter) {
-        counter = id + 1; // Ensure counter is always higher than any existing ID
+        counter = id + 1;
     }
     cout << "Administrator created with ID: " << adminID << " (counter now: " << counter << ")" << endl;
 }
@@ -24,14 +24,14 @@ admin::admin(long id) : adminID(id) {
 admin::admin(string username, string password, string name, string email)
     : user(username, password, name, email, 'A') {
     adminID = counter;
-    counter += 1; // Explicitly increment by 1
+    counter += 1;
     cout << "Administrator created with ID: " << adminID << " (counter now: " << counter << ")" << endl;
 }
 
 admin::admin(string username, string password, string name)
     : user(username, password, name, " null", 'A') {
     adminID = counter;
-    counter += 1; // Explicitly increment by 1
+    counter += 1;
     cout << "Administrator created with ID: " << adminID << " (counter now: " << counter << ")" << endl;
 }
 
@@ -40,7 +40,6 @@ admin::~admin() {
 
 void admin::setAdminID(long id) {
     adminID = id;
-    // Update counter if needed to avoid ID collisions in future
     if (id >= counter) {
         counter = id + 1;
         cout << "Admin counter updated to: " << counter << " from ID: " << id << endl;
@@ -51,7 +50,6 @@ long admin::getAdminID() const {
     return adminID;
 }
 
-// Rest of the methods remain unchanged
 bool admin::uploadCourseDescription(course& course, string courseID) {
     try {
         if (courseID.empty()) {

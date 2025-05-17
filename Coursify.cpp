@@ -145,6 +145,8 @@ Coursify::Coursify(QWidget* parent)
         currentStudent->generateReport();
         
         ui.export_button->setVisible(true);
+
+        QMessageBox::information(this, "Export Complete", "Report successfully exported as Txt.");
         });
      
     ///////////////////////////////////////

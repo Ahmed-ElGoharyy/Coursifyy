@@ -12,7 +12,6 @@ string FileUtils::coursesFilePath = "courses.json";
 string FileUtils::adminsFilePath = "admins.json";
 
 void FileUtils::initializePaths() {
-    // Get the executable's directory as base path
     filesystem::path execPath = filesystem::current_path();
     string dataDir = (execPath / "data").string() + "/";
 
