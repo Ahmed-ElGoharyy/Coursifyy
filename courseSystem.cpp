@@ -765,7 +765,7 @@ void courseSystem::loadCoursePrereqsToListWidget(QComboBox* courseComboBox, QLis
 void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBox* prereqCourseComboBox, QListWidget* prereqListWidget, QWidget* parent) {
     QString selectedPrereqTitle = prereqCourseComboBox->currentText();
     if (selectedPrereqTitle.isEmpty()) return;
-
+   //bgeb atnan id mn comboBox
     long mainCourseId = mainCourseComboBox->currentData().toLongLong();
     long prereqCourseId = prereqCourseComboBox->currentData().toLongLong();
 
@@ -778,14 +778,14 @@ void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBo
     course* prereqCourse = getCourse(prereqCourseId);
 
     if (!mainCourse || !prereqCourse) return;
-
+  //foreach btlf 3la kol prereq bta3t main 
     for (const course& c : mainCourse->getPrerequisites()) {
         if (c.getCourseID() == prereqCourseId) {
             QMessageBox::warning(parent, "Duplicate", "This prerequisite is already assigned.");
             return;
         }
     }
-    // 3l4ane my7sl4 loop zy ma moo 3ayz
+    // 3l4ane my7sl4 loop btlf 3la prereq bta3t elsecound zy ma moo 3ayz 
     for (const course& sub : prereqCourse->getPrerequisites()) {
         if (sub.getCourseID() == mainCourse->getCourseID()) {
             QMessageBox::warning(parent, "Redundant Prerequisite",
@@ -799,7 +799,7 @@ void courseSystem::addPrerequisiteToList(QComboBox* mainCourseComboBox, QComboBo
         delete prereqListWidget->takeItem(0);
     }
 
-    // Add to the course and UI
+    // b7ot prereq fy vector 
     mainCourse->addPrerequisite(*prereqCourse);
     prereqListWidget->addItem(selectedPrereqTitle);
 
@@ -819,8 +819,9 @@ void courseSystem::removeSelectedPrerequisite(QComboBox* mainCourseComboBox, QLi
 
     if (!mainCourse) return;
 
-    // Find the course ID of the prerequisite by matching the title
+   
     long prereqIdToRemove = -1;
+    //foreach 3l4ane ageb elid bta3 elprereq ely a5trto
     for (const course& c : mainCourse->getPrerequisites()) {
         if (c.getTitle() == removedTitle.toStdString()) {
             prereqIdToRemove = c.getCourseID();
@@ -850,7 +851,7 @@ void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* cour
         return;
     }
 
-    // Check student exists
+    // b4of elstudent mwgod fy hashmap wla l2
     auto it = students.find(username);
     if (it == students.end()) {
         QMessageBox::warning(parent, "Error", "Student not found.");
@@ -859,8 +860,9 @@ void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* cour
 
     student& stu = it->second;
 
-    // Check course exists in student's courses
+    
     course* foundCourse = nullptr;
+    //blf 3la list course ely student msglha 3l4ane 
     for (auto& pair : stu.courses) {
         if (pair.first.getCourseID() == courseId) {
             foundCourse = &pair.first;
@@ -873,7 +875,7 @@ void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* cour
         return;
     }
 
-    // Convert QString to grade enum manually
+    
     grade g;
     if (selectedGrade == "A") g.setGrade('A');
     else if (selectedGrade == "B") g.setGrade('B');
@@ -885,7 +887,7 @@ void courseSystem::assignGradeToStudent(QLineEdit* usernameEdit, QLineEdit* cour
         return;
     }
 
-    // Update the grade
+    
     bool updated = stu.updateGrade(courseId, g);
     if (updated) {
         QMessageBox::information(parent, "Success", "Grade updated successfully.");
