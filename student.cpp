@@ -116,10 +116,14 @@ int student::modifycredithours(course c)
     return this->max_credit_hours;
 }
 
+
+
+// export lel report 
+
 bool student::generateReport() {
     try {
         string filename = "student_" + to_string(StudentID) + "_report.txt";
-        ofstream report(filename);
+        ofstream report(filename); //bt3mel file bel student name and id 
 
         if (!report.is_open()) {
             throw student_exception("Failed to create report file: " + filename);
@@ -161,6 +165,10 @@ bool student::generateReport() {
         return false;
     }
 }
+
+
+
+
 bool student::addCourseToPlan(const course& courseToAdd) {
     try {
         // Check if course already exists in student's list

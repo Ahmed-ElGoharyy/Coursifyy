@@ -1,38 +1,41 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
+
 class user {
 private:
-    std::string username;
-    std::string password; // Hashed password
-    std::string name;
-    std::string email;
+    string username;
+    string password; // Hashed password
+    string name;
+    string email;
     char role; // 'S' for student, 'A' for admin, etc.
 
 public:
     user();
-    user(std::string username, std::string password, std::string name, std::string email = "", char role = 'U');
+    user(string username, string password, string name, string email = "", char role = 'U');
     virtual ~user();
 
     // Getters
-    std::string getUsername() const;
-    std::string getPassword() const;
-    std::string getName() const;
-    std::string getEmail() const;
+    string getUsername() const;
+    string getPassword() const;
+    string getName() const;
+    string getEmail() const;
     char getRole() const;
 
     // Setters - Changed to const reference parameters
-    void setUsername(const std::string& username);
-    void setPassword(const std::string& password);
-    void setName(const std::string& name);
-    void setEmail(const std::string& email);
+    void setUsername(const string& username);
+    void setPassword(const string& password);
+    void setName(const string& name);
+    void setEmail(const string& email);
     void setRole(char role);
 
     // Authentication
-    bool authenticate(const std::string& password) const;
+    bool authenticate(const string& password) const;
 
     // Password utilities
-    static std::string hashPassword(const std::string& password);
-    static bool isValidUsername(const std::string& username);
-    static bool isValidPassword(const std::string& password);
+    static string hashPassword(const string& password);
+    static bool isValidUsername(const string& username);
+    static bool isValidPassword(const string& password);
 };

@@ -2,12 +2,15 @@
 #include "user.h"
 #include <iostream>
 #include <regex>
-#include <functional> // for std::hash
+#include <functional> // for hash
+
+using namespace std;
+
 
 user::user() : username(""), password(""), name(""), email(""), role('U') {
 }
 
-user::user(std::string username, std::string password, std::string name, std::string email, char role)
+user::user(string username, string password, string name, string email, char role)
     : username(username), password(password), name(name), email(email), role(role) {
 }
 
@@ -15,19 +18,19 @@ user::~user() {
 }
 
 // Getters
-std::string user::getUsername() const {
+string user::getUsername() const {
     return username;
 }
 
-std::string user::getPassword() const {
+string user::getPassword() const {
     return password;
 }
 
-std::string user::getName() const {
+string user::getName() const {
     return name;
 }
 
-std::string user::getEmail() const {
+string user::getEmail() const {
     return email;
 }
 
@@ -36,19 +39,19 @@ char user::getRole() const {
 }
 
 // Setters - Updated to use const reference parameters
-void user::setUsername(const std::string& username) {
+void user::setUsername(const string& username) {
     this->username = username;
 }
 
-void user::setPassword(const std::string& password) {
+void user::setPassword(const string& password) {
     this->password = password;
 }
 
-void user::setName(const std::string& name) {
+void user::setName(const string& name) {
     this->name = name;
 }
 
-void user::setEmail(const std::string& email) {
+void user::setEmail(const string& email) {
     this->email = email;
 }
 
@@ -56,32 +59,32 @@ void user::setRole(char role) {
     this->role = role;
 }
 
-bool user::authenticate(const std::string& inputPassword) const {
+bool user::authenticate(const string& inputPassword) const {
     // Compare hashed input password with stored password hash
-    std::string hashedInput = hashPassword(inputPassword);
+    string hashedInput = hashPassword(inputPassword);
     return hashedInput == password;
 }
 
-std::string user::hashPassword(const std::string& password) {
+string user::hashPassword(const string& password) {
     // Simple hash function for demonstration
     // In a real system, use a proper cryptographic hash function
-    std::hash<std::string> hasher;
+    hash<string> hasher;
     size_t hashValue = hasher(password);
-    return std::to_string(hashValue);
+    return to_string(hashValue);
 }
 
-bool user::isValidUsername(const std::string& username) {
+bool user::isValidUsername(const string& username) {
     // Username must be 3-20 characters
     if (username.length() < 3 || username.length() > 20) {
         return false;
     }
 
     // Only allow alphanumeric and underscores
-    std::regex usernamePattern("^[a-zA-Z0-9_]+$");
-    return std::regex_match(username, usernamePattern);
+    regex usernamePattern("^[a-zA-Z0-9_]+$");
+    return regex_match(username, usernamePattern);
 }
 
-bool user::isValidPassword(const std::string& password) {
+bool user::isValidPassword(const string& password) {
     // Password must be at least 6 characters
     if (password.length() < 6) {
         return false;

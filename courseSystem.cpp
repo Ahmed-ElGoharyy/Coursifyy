@@ -1142,7 +1142,7 @@ void courseSystem::showStudentCourseGrade(QComboBox* courseComboBox, QListWidget
 
 
 
-// coursesystem.cpp
+// report 
 
 QStringList  courseSystem:: getStudentCourseReport(student* currentStudent) {
     QStringList report;
@@ -1176,7 +1176,7 @@ QStringList  courseSystem:: getStudentCourseReport(student* currentStudent) {
     return report;
 }
 
-
+//view grades 
 QStringList  courseSystem::getStudentGrades(student* currentStudent) {
     QStringList report;
 
@@ -1187,9 +1187,7 @@ QStringList  courseSystem::getStudentGrades(student* currentStudent) {
     report << QString("%1 | %2 | %3 ")
         .arg("Course Title", -25)
         .arg("Course ID", -12)
-        // .arg("Credit Hours", -12)
         .arg("Grade", -8);
-       // .arg("Points", -8);
     report << QString(70, '-');
 
     for (const auto& pair : courses) {
@@ -1199,9 +1197,7 @@ QStringList  courseSystem::getStudentGrades(student* currentStudent) {
         QString line = QString("%1   | %2 | %3 ")
             .arg(QString::fromStdString(c.getTitle()), -40)
             .arg(QString::number(c.getCourseID()), -6)
-            //.arg(QString::number(c.getCreditHours()), -7)
             .arg(QString(g.getGrade()), -5);
-            //.arg(QString::number(g.getGPA()), -6);
         report << line;
         report << QString(70, ' ');
     }

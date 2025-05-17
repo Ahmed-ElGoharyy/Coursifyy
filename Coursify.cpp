@@ -80,24 +80,25 @@ Coursify::Coursify(QWidget* parent)
      });
 
 
-    ////////////////
-
-
-
-
+    ////////////////////////////////
 
     //student panel 
+
+
+    // Search 
+        connect(ui.searchBar, &QLineEdit::textChanged, this, &Coursify::onSearchTextChanged);
+        connect(ui.searchResultsList, &QListWidget::itemClicked, this, &Coursify::onSearchResultSelected);
+
+        ui.searchBar->installEventFilter(this);
+        ui.searchResultsList->installEventFilter(this);
+
+
+
+		// pre requisites 
     Sys.showCourseComboBox(ui.combo_choose);
     connect(ui.combo_choose, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=]() {
         Sys.loadCoursePrereqsToListWidget(ui.combo_choose, ui.list_showpreq);
         });
-    // Search functionality
-    connect(ui.searchBar, &QLineEdit::textChanged, this, &Coursify::onSearchTextChanged);
-    connect(ui.searchResultsList, &QListWidget::itemClicked, this, &Coursify::onSearchResultSelected);
-
-    // Handle Enter key press in search bar
-    ui.searchBar->installEventFilter(this);
-    ui.searchResultsList->installEventFilter(this);
 
    
 
@@ -109,14 +110,10 @@ Coursify::Coursify(QWidget* parent)
             return;
         }
 
-        //  Populate report list
         QStringList report = Sys.getStudentGrades(currentStudent);
         ui.listWidget_g->clear();
         ui.listWidget_g->addItems(report);
-        });
-
-
-
+     });
 
 
     //report grades 
@@ -127,26 +124,16 @@ Coursify::Coursify(QWidget* parent)
             return;
         }
 
-     
-
-        // Populate fields
         ui.textEdit_n->setText(QString::fromStdString(currentStudent->getName()));  // Name
         ui.textEdit_i->setText(QString::number(currentStudent->getStudentID()));           // ID
         ui.textEdit_g->setText(QString::number(currentStudent->calculateGPA(), 'f', 2)); // GPA
 
-        //  Populate report list
         QStringList report = Sys.getStudentCourseReport(currentStudent);
         ui.listWidget_r->clear();
         ui.listWidget_r->addItems(report);
-        });
+     });
    
   
-
-    
-
-
-
-
 
 
     //report  export
@@ -161,11 +148,8 @@ Coursify::Coursify(QWidget* parent)
 
         QMessageBox::information(this, "Export Complete", "Report successfully exported as Txt.");
         });
-
-
-
-
-
+     
+    ///////////////////////////////////////
 
     // Registration functionality
     connect(ui.Register_signup, &QPushButton::clicked, this, [=]() {
